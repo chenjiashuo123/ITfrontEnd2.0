@@ -1,6 +1,6 @@
 <template>
   <el-container class="headBar">
-    <el-header class="head">
+    <div class="head">
       <el-menu
         :default-active="activeIndex2"
         class="el-menu-demo"
@@ -13,7 +13,7 @@
         <el-menu-item index="1" @click="toHome" class="homeButton">首页</el-menu-item>
         <el-menu-item index="2" @click="toPerson">消息中心</el-menu-item>
       </el-menu>
-    </el-header>
+    </div>
   </el-container>
 </template>
 
