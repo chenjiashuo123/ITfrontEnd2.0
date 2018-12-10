@@ -1,16 +1,18 @@
 <template>
-  <el-container>
-    <HeadBar/>
-  </el-container>
+  <div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import HeadBar from "@/components/HeadBar.vue";
 export default {
-  name: "Home",
-  components: {
-    HeadBar
-  }
+  name: "Home"
 };
 </script>
-  
+
+<style scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
+</style>

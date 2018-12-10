@@ -9,18 +9,9 @@
 <script>
 import HeadBar from "@/components/HeadBar.vue";
 export default {
-  name:"Person",
-  components:{
+  name: "Person",
+  components: {
     HeadBar
   }
-}
+};
 </script>
-
-
-
-
-
-
-
-
-

@@ -1,48 +1,123 @@
 <template>
-  <el-container class="headBar">
-    <el-header class="head">
-      <el-menu
-        :default-active="activeIndex2"
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="handleSelect"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b"
-      >
-        <el-menu-item index="1" @click="toHome" class="homeButton">首页</el-menu-item>
-        <el-menu-item index="2" @click="toPerson">消息中心</el-menu-item>
-      </el-menu>
-    </el-header>
-  </el-container>
+  <div class="head-bar">
+    <div class="head-img-container" style="background-color:red;">
+      <div style="float:left;">
+        <img src="../../public/mutex.png" alt height="40px" style="margin: 6px 0 0 180px;">
+      </div>
+      <div style="float:right;margin: 10px;">
+        <span style="color:#eeeeee;font-size: 20px;">瓜子二手书直卖网</span>
+      </div>
+    </div>
+    <div class="head-menu">
+      <el-col :span="7">
+        <div :class="curPos==0 ? 'each-item-active':'each-item'" @click="handleSelect(0)">首页</div>
+      </el-col>
+      <el-col :span="1">
+        <div class="partition-line"></div>
+      </el-col>
+      <el-col :span="8">
+        <div
+          :class="curPos==1 ? 'each-item-active':'each-item'"
+          @click="handleSelect(1)"
+        >{{isLogin?'个人中心':'登录'}}</div>
+      </el-col>
+      <el-col :span="1">
+        <div class="partition-line"></div>
+      </el-col>
+      <el-col :span="7">
+        <div
+          :class="curPos==3 ? 'each-item-active':'each-item'"
+          @click="handleSelect(3)"
+        >{{isLogin? '登出' : '注册'}}</div>
+      </el-col>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "HeadBar",
+  data() {
+    return {
+      curPos: 0,
+      isLogin: this.GLOBAL.isLogin,
+      switchText1: "个人中心",
+      switchText2: "登出"
+    };
+  },
   methods: {
     toHome() {
       this.$router.push("/home");
     },
     toPerson() {
       this.$router.push("/person");
+    },
+    handleSelect(idx) {
+      this.curPos = idx;
+      this.handleRouter(idx);
+    },
+    handleRouter(idx) {
+      idx = this.isLogin ? idx + 1 : idx;
+      if (idx == this.GLOBAL.headBarState) return;
+      console.log(idx);
+      this.GLOBAL.headBarState = idx;
+      switch (idx) {
+        case 0: //首页
+          this.$router.push("/home");
+          break;
+        case 1: //登录
+          this.$router.push("/login");
+          break;
+        case 2: //个人中心
+          this.$router.push("/person");
+          break;
+        case 3: //注册
+          break;
+        case 4: //登出
+          break;
+        default:
+          break;
+      }
     }
   }
 };
 </script>
 
-<style lang="stylus" scoped>
-.head {
-  width: 100%;
-
+<style scoped>
+.head-bar {
+  height: 50px;
+  background-color: #909399;
 }
 
-.headBar {
-  width: 100%;
+.head-img-container {
+  height: 50px;
+  float: left;
 }
 
-.el-menu-demo {
-  width: 100%;
+.head-menu {
+  height: 50px;
+  width: 14%;
+  float: right;
+  margin-right: 5%;
+}
+
+.each-item {
+  margin: 12px 5px auto;
+  padding-bottom: 10px;
+  color: white;
+}
+
+.each-item-active {
+  margin: 12px 5px auto;
+  padding-bottom: 10px;
+  color: #e6a23c;
+  border-bottom: 4px solid #e6a23c;
+}
+.partition-line {
+  height: 40px;
+  width: 1px;
+  margin: 5px auto;
+  background-color: #c0c4cc;
 }
 </style>
 
