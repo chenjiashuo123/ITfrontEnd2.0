@@ -37,6 +37,15 @@
         <br>
         <el-row>
           <el-col>
+            <div id="name" class="information">
+              <div class="content">作者：</div>
+              <div class="content">{{showItem.author}}</div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
             <div id="time" class="information">
               <div class="content">ISBN：</div>
               <div class="content">{{showItem.ISBN}}</div>
@@ -49,6 +58,15 @@
             <div id="price" class="information">
               <div class="content">单价：</div>
               <div class="content">{{showItem.price}}</div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
+            <div id="price" class="information">
+              <div class="content">状态：</div>
+              <div class="content">{{showItem.state}}</div>
             </div>
           </el-col>
         </el-row>
@@ -92,59 +110,73 @@ export default {
       detailDialogVisible: false,
       showItem: {
         bookName: "",
+        author: "",
         ISBN: "",
         time: "",
         price: "",
+        state: " ",
         picture: "",
         detail: ""
       },
-      //书籍状态：待售，已下架
+
       orderList: [
         {
           bookName: "数学分析",
+          author: "123",
           ISBN: "12345678",
           time: "2018/10/21",
           price: 30,
+          state: "待售",
           picture: "../assets/book.png",
           detail: "..."
         },
         {
           bookName: "线性代数",
+          author: "123",
           ISBN: "12345678",
           time: "2018/10/20",
           price: 30,
+          state: "未完成",
           picture: "../assets/book.png",
           detail: "..."
         },
         {
           bookName: "大学英语",
+          author: "123",
           ISBN: "12345678",
           time: "2018/10/22",
           price: 40,
+          state: "完成",
           picture: "../assets/book.png",
           detail: "..."
         },
         {
           bookName: "大学英语",
+          author: "123",
           ISBN: "12345678",
           time: "2018/10/22",
           price: 40,
+          state: "完成",
           picture: "../assets/book.png",
           detail: "..."
         },
         {
           bookName: "大学英语",
+          author: "123",
           ISBN: "12345678",
           time: "2018/10/22",
           price: 40,
+          state: "完成",
           picture: "../assets/book.png",
           detail: "..."
         },
         {
           bookName: "大学英语",
+          author: "123",
           ISBN: "12345678",
           time: "2018/10/22",
           price: 40,
+          state: "完成",
           picture: "../assets/book.png",
           detail: "..."
         }
@@ -154,10 +186,12 @@ export default {
   methods: {
     showDetail(item) {
       this.showItem.bookName = item.bookName;
+      this.showItem.author = item.author;
       this.showItem.ISBN = item.ISBN;
       this.showItem.time = item.time;
       this.showItem.price = item.price;
       this.showItem.time = item.time;
+      this.showItem.state=item.state;
       this.showItem.detail = item.detail;
       this.detailDialogVisible = true;
     },
@@ -168,9 +202,8 @@ export default {
     deleteItems() {
       //取消订单
       this.detailDialogVisible = false;
-      alert("删除成功")
+      alert("删除成功");
     }
-   
   }
 };
 </script>
@@ -226,7 +259,7 @@ export default {
 }
 
 .main-container {
-  margin-left : 150px
+  margin-left: 150px;
 }
 </style>
 

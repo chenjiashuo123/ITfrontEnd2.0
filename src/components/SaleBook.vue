@@ -20,9 +20,27 @@
       <div class="showInfo">
         <el-row>
           <el-col>
-            <div id="name" class="information">
+            <div id="orderID" class="information">
               <div class="content">订单号：</div>
               <div class="content">{{showItem.orderID}}</div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
+            <div id="bookName" class="information">
+              <div class="content">书名：</div>
+              <div class="content">{{showItem.bookName}}</div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
+            <div id="author" class="information">
+              <div class="content">作者：</div>
+              <div class="content">{{showItem.author}}</div>
             </div>
           </el-col>
         </el-row>
@@ -84,6 +102,7 @@ export default {
         orderID: null,
         picture: "",
         bookName: "",
+        author:"",
         price: null,
         state: "",
         time: "",
@@ -94,6 +113,7 @@ export default {
           orderID: 1,
           picture: "",
           bookName: "数学分析",
+          author:"123",
           price: 30,
           state: "完成",
           time: "2018/10/20",
@@ -103,6 +123,7 @@ export default {
           orderID: 2,
           picture: "",
           bookName: "线性代数",
+           author:"123",
           price: 30,
           state: "未完成",
           time: "2018/10/21",
@@ -112,6 +133,7 @@ export default {
           orderID: 3,
           picture: "",
           bookName: "大学英语",
+           author:"123",
           price: 40,
           state: "完成",
           time: "2018/10/22",
@@ -124,6 +146,7 @@ export default {
     showDetail(item) {
       this.showItem.orderID = item.orderID;
       this.showItem.bookName = item.bookName;
+      this.showItem.author = item.author;
       this.showItem.price = item.price;
       this.showItem.state = item.state;
       this.showItem.time = item.time;

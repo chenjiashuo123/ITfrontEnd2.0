@@ -1,6 +1,6 @@
 <template>
   <div class="head-bar">
-    <div class="head-img-container" style="background-color:red;">
+    <div class="head-img-container" >
       <div style="float:left;">
         <img src="../../public/mutex.png" alt height="40px" style="margin: 6px 0 0 180px;">
       </div>
@@ -28,7 +28,7 @@
         <div
           :class="curPos==3 ? 'each-item-active':'each-item'"
           @click="handleSelect(3)"
-        >{{isLogin? '登出' : '注册'}}</div>
+        >{{isLogin? '注销' : '注册'}}</div>
       </el-col>
     </div>
   </div>
@@ -72,6 +72,7 @@ export default {
           this.$router.push("/person");
           break;
         case 3: //注册
+          this.$router.push("/register");
           break;
         case 4: //登出
           break;

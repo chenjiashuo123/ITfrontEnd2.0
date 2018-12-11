@@ -3,11 +3,12 @@ import Router from "vue-router";
 import Home from "@/views/Home.vue";
 import Login from "@/views/Login.vue";
 import Person from "@/views/Person.vue";
+import Register from "@/views/register.vue";
 import PersonInfo from "@/components/PersonInfo.vue";
 import BookStore from "@/components/BookStore.vue";
 import BuyBook from "@/components/BuyBook.vue";
 import SaleBook from "@/components/SaleBook.vue";
-
+import HomeBody from "@/components/HomeBody.vue";
 import OldBook from "@/components/OldBook.vue";
 import NewBook from "@/components/NewBook.vue";
 
@@ -66,11 +67,23 @@ const router = new Router({
       component: Home,
       meta: {
         title: '首页',
-      }
+      },
+      children: [
+        {
+          path: '/homebody',
+          name: 'homebody',
+          component: HomeBody
+        }
+      ]
     }, {
       path: "/login",
       name: "login",
       component: Login
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: Register
     }
   ]
 });

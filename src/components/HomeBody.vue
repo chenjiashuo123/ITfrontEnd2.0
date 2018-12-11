@@ -16,21 +16,20 @@
         </div>
       </el-col>
     </el-row>
-    <el-dialog title="订单详情" :visible.sync="detailDialogVisible" width="30%" center>
+    <el-dialog title="书籍详情" :visible.sync="detailDialogVisible" width="30%" center>
       <div class="showInfo">
         <el-row>
           <el-col>
-            <div id="orderID" class="information">
-              <div class="content">订单号：</div>
-              <div class="content">{{showItem.orderID}}</div>
+            <div id="picture" class="information">
+              <img src="../assets/book.png" class="detailImage">
             </div>
           </el-col>
         </el-row>
         <br>
         <el-row>
           <el-col>
-            <div id="bookName" class="information">
-              <div class="content">订单号：</div>
+            <div id="name" class="information">
+              <div class="content">书名：</div>
               <div class="content">{{showItem.bookName}}</div>
             </div>
           </el-col>
@@ -38,7 +37,7 @@
         <br>
         <el-row>
           <el-col>
-            <div id="author" class="information">
+            <div id="name" class="information">
               <div class="content">作者：</div>
               <div class="content">{{showItem.author}}</div>
             </div>
@@ -48,8 +47,8 @@
         <el-row>
           <el-col>
             <div id="time" class="information">
-              <div class="content">创建时间：</div>
-              <div class="content">{{showItem.time}}</div>
+              <div class="content">ISBN：</div>
+              <div class="content">{{showItem.ISBN}}</div>
             </div>
           </el-col>
         </el-row>
@@ -57,7 +56,7 @@
         <el-row>
           <el-col>
             <div id="price" class="information">
-              <div class="content">订单总价：</div>
+              <div class="content">单价：</div>
               <div class="content">{{showItem.price}}</div>
             </div>
           </el-col>
@@ -65,8 +64,8 @@
         <br>
         <el-row>
           <el-col>
-            <div id="state" class="information">
-              <div class="content">订单状态：</div>
+            <div id="price" class="information">
+              <div class="content">状态：</div>
               <div class="content">{{showItem.state}}</div>
             </div>
           </el-col>
@@ -74,17 +73,26 @@
         <br>
         <el-row>
           <el-col>
-            <div id="salerPhone" class="information">
-              <div class="content">卖家联系方式：</div>
-              <div class="content">{{showItem.sellerPhone}}</div>
+            <div id="state" class="information">
+              <div class="content">发布时间：</div>
+              <div class="content">{{showItem.time}}</div>
             </div>
           </el-col>
         </el-row>
         <br>
         <el-row>
           <el-col>
-            <el-button type="primary" class="sure" @click="ensure" style="width:32%">完成订单</el-button>
-            <el-button type="primary" class="cancel" @click="cancel" style="width:32%">取消订单</el-button>
+            <div id="state" class="information">
+              <div class="content">详情：</div>
+              <div class="content">{{showItem.detail}}</div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
+            <el-button type="primary" class="sure" @click="buy" style="width:32%">购 买</el-button>
+            <el-button type="primary" class="cancel" @click="deleteItems" style="width:32%">加入收藏夹</el-button>
           </el-col>
         </el-row>
       </div>
@@ -94,96 +102,117 @@
 
 <script>
 export default {
-  name: "BuyBook",
+  name: "HomeBody",
   data() {
     return {
+      currentdate: "",
+      modifyDialogVisible: false,
       detailDialogVisible: false,
       showItem: {
-        orderID: null,
-        picture: "",
         bookName: "",
-         author: "123",
-        price: null,
-        state: "",
+        author: "",
+        ISBN: "",
         time: "",
-        sellerPhone: ""
+        price: "",
+        state: " ",
+        picture: "",
+        detail: ""
       },
+
       orderList: [
         {
-          orderID: 1,
-          picture: "",
           bookName: "数学分析",
-           author: "123",
+          author: "123",
+          ISBN: "12345678",
+          time: "2018/10/21",
           price: 30,
-          state: "完成",
-          time: "2018/10/20",
-          sellerPhone: "15521134440"
+          state: "待售",
+          picture: "../assets/book.png",
+          detail: "..."
         },
         {
-          orderID: 2,
-          picture: "",
           bookName: "线性代数",
-           author: "123",
+          author: "123",
+          ISBN: "12345678",
+          time: "2018/10/20",
           price: 30,
           state: "未完成",
-          time: "2018/10/21",
-          sellerPhone: "15521134443"
+          picture: "../assets/book.png",
+          detail: "..."
         },
         {
-          orderID: 3,
-          picture: "",
           bookName: "大学英语",
-           author: "123",
+          author: "123",
+          ISBN: "12345678",
+          time: "2018/10/22",
           price: 40,
           state: "完成",
-          time: "2018/10/22",
-          sellerPhone: "15521134444"
-        },{
-          orderID: 3,
-          picture: "",
+          picture: "../assets/book.png",
+          detail: "..."
+        },
+        {
           bookName: "大学英语",
-           author: "123",
+          author: "123",
+          ISBN: "12345678",
+          time: "2018/10/22",
           price: 40,
           state: "完成",
-          time: "2018/10/22",
-          sellerPhone: "15521134444"
-        },{
-          orderID: 3,
-          picture: "",
+          picture: "../assets/book.png",
+          detail: "..."
+        },
+        {
           bookName: "大学英语",
-           author: "123",
+          author: "123",
+          ISBN: "12345678",
+          time: "2018/10/22",
           price: 40,
           state: "完成",
+          picture: "../assets/book.png",
+          detail: "..."
+        },
+        {
+          bookName: "大学英语",
+          author: "123",
+          ISBN: "12345678",
           time: "2018/10/22",
-          sellerPhone: "15521134444"
+          price: 40,
+          state: "完成",
+          picture: "../assets/book.png",
+          detail: "..."
         }
       ]
     };
   },
   methods: {
     showDetail(item) {
-      this.showItem.orderID = item.orderID;
       this.showItem.bookName = item.bookName;
       this.showItem.author = item.author;
-      this.showItem.price = item.price;
-      this.showItem.state = item.state;
+      this.showItem.ISBN = item.ISBN;
       this.showItem.time = item.time;
-      this.showItem.sellerPhone = item.sellerPhone;
+      this.showItem.price = item.price;
+      this.showItem.time = item.time;
+      this.showItem.state = item.state;
+      this.showItem.detail = item.detail;
       this.detailDialogVisible = true;
     },
-    ensure() {
+    buy() {
       //完成订单
       this.detailDialogVisible = false;
     },
-    cancel() {
+    deleteItems() {
       //取消订单
       this.detailDialogVisible = false;
+      alert("收藏成功");
     }
   }
 };
 </script>
 
 <style lang="stylus" scoped>
+#picture {
+  margin-left: 20%;
+}
+
 .time {
   display: block;
   font-size: 13px;
@@ -218,6 +247,7 @@ export default {
   float: left;
   width: 50%;
   font-size: 16px;
+  margin: 0 auto;
 }
 
 .sure {

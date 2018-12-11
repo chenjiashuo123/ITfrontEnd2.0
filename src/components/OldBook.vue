@@ -37,9 +37,18 @@
         <br>
         <el-row>
           <el-col>
-            <div id="time" class="information">
+            <div id="ISBN" class="information">
               <div class="content">ISBN：</div>
               <div class="content">{{showItem.ISBN}}</div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
+            <div id="author" class="information">
+              <div class="content">作者：</div>
+              <div class="content">{{showItem.author}}</div>
             </div>
           </el-col>
         </el-row>
@@ -53,18 +62,28 @@
           </el-col>
         </el-row>
         <br>
-        <el-row>
+       <el-row>
           <el-col>
             <div id="state" class="information">
-              <div class="content">发布时间：</div>
-              <div class="content">{{showItem.time}}</div>
+              <div class="content">状态：</div>
+              <div class="content">{{showItem.state}}</div>
             </div>
           </el-col>
         </el-row>
         <br>
         <el-row>
           <el-col>
-            <div id="state" class="information">
+            <div id="time" class="information">
+              <div class="content">发布时间：</div>
+              <div class="content">{{showItem.time}}</div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        
+        <el-row>
+          <el-col>
+            <div id="detail" class="information">
               <div class="content">详情：</div>
               <div class="content">{{showItem.detail}}</div>
             </div>
@@ -102,10 +121,21 @@
         <br>
         <el-row>
           <el-col>
-            <div id="time" class="information-modify">
+            <div id="ISBN" class="information-modify">
               <div class="content-modify">ISBN：</div>
               <div class="content-modify">
                 <el-input v-model="showItem.ISBN"></el-input>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
+            <div id="author" class="information-modify">
+              <div class="content-modify">作者：</div>
+              <div class="content-modify">
+                <el-input v-model="showItem.author"></el-input>
               </div>
             </div>
           </el-col>
@@ -124,10 +154,21 @@
         <br>
         <el-row>
           <el-col>
+            <div id="state" class="information-modify">
+              <div class="content-modify">状态：</div>
+              <div class="content-modify">
+                <el-input v-model="showItem.state" disabled="true"></el-input>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
             <div id="time" class="information-modify">
               <div class="content-modify">发布时间：</div>
               <div class="content-modify">
-                <el-input v-model="showItem.time"></el-input>
+                <el-input v-model="showItem.time" disabled="true"></el-input>
               </div>
             </div>
           </el-col>
@@ -164,59 +205,72 @@ export default {
       detailDialogVisible: false,
       showItem: {
         bookName: "",
+        author: "",
         ISBN: "",
         time: "",
         price: "",
+        state: "",
         picture: "",
         detail: ""
       },
-      //书籍状态：待售，已下架
       orderList: [
         {
           bookName: "数学分析",
           ISBN: "12345678",
+          author: "123",
           time: "2018/10/21",
           price: 30,
+          state: "待售",
           picture: "../assets/book.png",
           detail: "..."
         },
         {
           bookName: "线性代数",
           ISBN: "12345678",
+          author: "123",
           time: "2018/10/20",
           price: 30,
+          state: "已完成",
           picture: "../assets/book.png",
           detail: "..."
         },
         {
           bookName: "大学英语",
           ISBN: "12345678",
+          author: "123",
           time: "2018/10/22",
           price: 40,
+          state: "未完成",
           picture: "../assets/book.png",
           detail: "..."
         },
         {
           bookName: "大学英语",
           ISBN: "12345678",
+          author: "123",
           time: "2018/10/22",
           price: 40,
+          state: "未完成",
           picture: "../assets/book.png",
           detail: "..."
         },
         {
           bookName: "大学英语",
           ISBN: "12345678",
+          author: "123",
           time: "2018/10/22",
           price: 40,
+          state: "未完成",
           picture: "../assets/book.png",
           detail: "..."
         },
         {
           bookName: "大学英语",
           ISBN: "12345678",
+          author: "123",
           time: "2018/10/22",
           price: 40,
+          state: "未完成",
           picture: "../assets/book.png",
           detail: "..."
         }
@@ -227,8 +281,10 @@ export default {
     showDetail(item) {
       this.showItem.bookName = item.bookName;
       this.showItem.ISBN = item.ISBN;
+      this.showItem.author = item.author;
       this.showItem.time = item.time;
       this.showItem.price = item.price;
+      this.showItem.state = item.state;
       this.showItem.time = item.time;
       this.showItem.detail = item.detail;
       this.detailDialogVisible = true;
@@ -239,11 +295,11 @@ export default {
     },
     modify() {
       this.detailDialogVisible = false;
-      this.modifyDialogVisible= true;
+      this.modifyDialogVisible = true;
     },
-    modifySure(){
-        this.modifyDialogVisible= false;
-        alert("修改成功")
+    modifySure() {
+      this.modifyDialogVisible = false;
+      alert("修改成功");
     }
 
     // getNowFormatDate() {
@@ -306,8 +362,8 @@ export default {
   margin: 0 auto;
 }
 
-.modifySure{
-   margin-left: 35%;
+.modifySure {
+  margin-left: 35%;
 }
 
 .sure {
@@ -319,15 +375,15 @@ export default {
 }
 
 .main-container {
-  margin-left : 150px
+  margin-left: 150px;
 }
 
-.information{
-  margin 0 auto 
+.information {
+  margin: 0 auto;
 }
 
-.information-modify{
-  margin 0 auto
+.information-modify {
+  margin: 0 auto;
 }
 
 .content-modify {
@@ -336,6 +392,5 @@ export default {
   font-size: 16px;
   margin: 0 auto;
 }
-
 </style>
 
