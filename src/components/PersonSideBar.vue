@@ -5,7 +5,7 @@
       class="el-menu-demo"
       mode="vertical"
       @select="handleSelect"
-      background-color="#545c64"
+      background-color="#909399"
       text-color="#fff"
       active-text-color="#ffd04b"
     >
@@ -33,7 +33,7 @@ export default {
       this.$router.push("/personinfo");
     },
     toBookStore() {
-      this.$router.push("/salebook");
+      this.$router.push("/bookstore");
     },
     toOldBook() {
       this.$router.push("/oldbook");
@@ -58,7 +58,7 @@ export default {
 }
 
 .personSideBar {
-  height: 550px;
+  height: 750px;
 }
 
 .el-menu-demo {

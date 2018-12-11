@@ -1,10 +1,16 @@
 <template>
-  <div class="home-container">s</div>
+  <div class="home-container">
+    <home-side-bar/>
+  </div>
 </template>
 
 <script>
+import HomeSideBar from "@/components/HomeSideBar";
 export default {
-  name: "Home"
+  name: "Home",
+  components:{
+    HomeSideBar
+  }
 };
 </script>
 

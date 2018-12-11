@@ -1,17 +1,19 @@
 <template>
-  <div class="order">
+  <div class="main-container">
     <el-row>
       <el-col :span="8" v-for="(item, index) in orderList" :key="index">
-        <el-card :body-style="{ padding: '0px' }">
-          <img src="../assets/book.png" class="image">
-          <div style="padding: 14px;">
-            <span>{{item.bookName}}</span>
-            <div class="bottom clearfix">
-              <time class="time">{{ item.time }}</time>
-              <el-button type="text" class="button" @click="showDetail(item)">查看详情</el-button>
+        <div class="showBlock">
+          <el-card :body-style="{ padding: '0px' }">
+            <img src="../assets/book.png" class="image">
+            <div style="padding: 14px;">
+              <span>{{item.bookName}}</span>
+              <div class="bottom clearfix">
+                <time class="time">{{ item.time }}</time>
+                <el-button type="text" class="button" @click="showDetail(item)">查看详情</el-button>
+              </div>
             </div>
-          </div>
-        </el-card>
+          </el-card>
+        </div>
       </el-col>
     </el-row>
     <el-dialog title="订单详情" :visible.sync="detailDialogVisible" width="30%" center>
@@ -55,7 +57,7 @@
         <el-row>
           <el-col>
             <div id="salerPhone" class="information">
-              <div class="content">买家联系方式：</div>
+              <div class="content">卖家联系方式：</div>
               <div class="content">{{showItem.sellerPhone}}</div>
             </div>
           </el-col>
@@ -114,6 +116,22 @@ export default {
           state: "完成",
           time: "2018/10/22",
           sellerPhone: "15521134444"
+        },{
+          orderID: 3,
+          picture: "",
+          bookName: "大学英语",
+          price: 40,
+          state: "完成",
+          time: "2018/10/22",
+          sellerPhone: "15521134444"
+        },{
+          orderID: 3,
+          picture: "",
+          bookName: "大学英语",
+          price: 40,
+          state: "完成",
+          time: "2018/10/22",
+          sellerPhone: "15521134444"
         }
       ]
     };
@@ -128,13 +146,13 @@ export default {
       this.showItem.sellerPhone = item.sellerPhone;
       this.detailDialogVisible = true;
     },
-    ensure(){
-        //完成订单
-        this.detailDialogVisible = false;
+    ensure() {
+      //完成订单
+      this.detailDialogVisible = false;
     },
-    cancel(){
-        //取消订单
-        this.detailDialogVisible = false;
+    cancel() {
+      //取消订单
+      this.detailDialogVisible = false;
     }
   }
 };
@@ -159,7 +177,7 @@ export default {
 
 .image {
   width: 100%;
-  display: block;
+  margin: 0 auto;
 }
 
 .clearfix:before, .clearfix:after {
@@ -179,6 +197,14 @@ export default {
 
 .sure {
   margin-left: 15%;
+}
+
+.showBlock {
+  margin: 10px;
+}
+
+.main-container {
+  margin-left: 150px;
 }
 </style>
 

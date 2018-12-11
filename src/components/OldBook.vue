@@ -1,17 +1,19 @@
 <template>
-  <div class="order">
+  <div class="main-container">
     <el-row>
       <el-col :span="8" v-for="(item, index) in orderList" :key="index">
-        <el-card :body-style="{ padding: '0px' }">
-          <img src="../assets/book.png" class="image">
-          <div style="padding: 14px;">
-            <span>{{item.bookName}}</span>
-            <div class="bottom clearfix">
-              <time class="time">{{ item.time }}</time>
-              <el-button type="text" class="button" @click="showDetail(item)">查看详情</el-button>
+        <div class="showBlock">
+          <el-card :body-style="{ padding: '0px' }">
+            <img src="../assets/book.png" class="image">
+            <div style="padding: 14px;">
+              <span>{{item.bookName}}</span>
+              <div class="bottom clearfix">
+                <time class="time">{{ item.time }}</time>
+                <el-button type="text" class="button" @click="showDetail(item)">查看详情</el-button>
+              </div>
             </div>
-          </div>
-        </el-card>
+          </el-card>
+        </div>
       </el-col>
     </el-row>
     <el-dialog title="书籍详情" :visible.sync="detailDialogVisible" width="30%" center>
@@ -71,8 +73,80 @@
         <br>
         <el-row>
           <el-col>
-            <el-button type="primary" class="sure" @click="ensure" style="width:32%">修 改</el-button>
+            <el-button type="primary" class="sure" @click="modify" style="width:32%">修 改</el-button>
             <el-button type="primary" class="cancel" @click="cancel" style="width:32%">下 架</el-button>
+          </el-col>
+        </el-row>
+      </div>
+    </el-dialog>
+    <el-dialog title="书籍详情" :visible.sync="modifyDialogVisible" width="30%" center>
+      <div class="showInfo">
+        <el-row>
+          <el-col>
+            <div id="picture" class="information">
+              <img src="../assets/book.png" class="modifyImage">
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
+            <div id="name" class="information-modify">
+              <div class="content-modify">书名：</div>
+              <div class="content-modify">
+                <el-input v-model="showItem.bookName"></el-input>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
+            <div id="time" class="information-modify">
+              <div class="content-modify">ISBN：</div>
+              <div class="content-modify">
+                <el-input v-model="showItem.ISBN"></el-input>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
+            <div id="price" class="information-modify">
+              <div class="content-modify">单价：</div>
+              <div class="content-modify">
+                <el-input v-model="showItem.price"></el-input>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
+            <div id="time" class="information-modify">
+              <div class="content-modify">发布时间：</div>
+              <div class="content-modify">
+                <el-input v-model="showItem.time"></el-input>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
+            <div id="detail" class="information-modify">
+              <div class="content-modify">详情：</div>
+              <div class="content-modify">
+                <el-input v-model="showItem.detail"></el-input>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row>
+          <el-col>
+            <el-button type="primary" class="modifySure" @click="modifySure" style="width:32%">确 定</el-button>
           </el-col>
         </el-row>
       </div>
@@ -86,6 +160,7 @@ export default {
   data() {
     return {
       currentdate: "",
+      modifyDialogVisible: false,
       detailDialogVisible: false,
       showItem: {
         bookName: "",
@@ -120,6 +195,30 @@ export default {
           price: 40,
           picture: "../assets/book.png",
           detail: "..."
+        },
+        {
+          bookName: "大学英语",
+          ISBN: "12345678",
+          time: "2018/10/22",
+          price: 40,
+          picture: "../assets/book.png",
+          detail: "..."
+        },
+        {
+          bookName: "大学英语",
+          ISBN: "12345678",
+          time: "2018/10/22",
+          price: 40,
+          picture: "../assets/book.png",
+          detail: "..."
+        },
+        {
+          bookName: "大学英语",
+          ISBN: "12345678",
+          time: "2018/10/22",
+          price: 40,
+          picture: "../assets/book.png",
+          detail: "..."
         }
       ]
     };
@@ -134,14 +233,19 @@ export default {
       this.showItem.detail = item.detail;
       this.detailDialogVisible = true;
     },
-    ensure() {
-      //完成订单
-      this.detailDialogVisible = false;
-    },
     cancel() {
       //取消订单
       this.detailDialogVisible = false;
+    },
+    modify() {
+      this.detailDialogVisible = false;
+      this.modifyDialogVisible= true;
+    },
+    modifySure(){
+        this.modifyDialogVisible= false;
+        alert("修改成功")
     }
+
     // getNowFormatDate() {
     //   date = new Date();
     //   seperator1 = "-";
@@ -161,6 +265,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+#picture {
+  margin-left: 20%;
+}
+
 .time {
   display: block;
   font-size: 13px;
@@ -179,7 +287,7 @@ export default {
 
 .image {
   width: 100%;
-  display: block;
+  margin: 0 auto;
 }
 
 .clearfix:before, .clearfix:after {
@@ -195,15 +303,39 @@ export default {
   float: left;
   width: 50%;
   font-size: 16px;
+  margin: 0 auto;
+}
+
+.modifySure{
+   margin-left: 35%;
 }
 
 .sure {
   margin-left: 15%;
 }
-.detailImage{
-    width 50%
-    height 50%
-    margin-left  20%
+
+.showBlock {
+  margin: 10px;
 }
+
+.main-container {
+  margin-left : 150px
+}
+
+.information{
+  margin 0 auto 
+}
+
+.information-modify{
+  margin 0 auto
+}
+
+.content-modify {
+  float: left;
+  width: 50%;
+  font-size: 16px;
+  margin: 0 auto;
+}
+
 </style>
 

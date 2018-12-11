@@ -49,7 +49,7 @@
         </div>
       </el-form-item>
       <el-form-item style="width:100%;">
-        <el-button  type="primary" @click.native.prevent="finishModify" style="width:30%;">确 定</el-button>
+        <el-button type="primary" @click.native.prevent="finishModify" style="width:30%;">确 定</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -71,54 +71,50 @@ export default {
   methods: {
     //点击修改
     modifyInfo() {
-     
-          this.modifyVisible = true;
+      this.modifyVisible = true;
     },
     //完成修改
     finishModify() {
-      
-          this.modifyVisible = false;
-        
+      this.modifyVisible = false;
     }
   }
 };
 </script>
 <style lang="stylus" scoped>
-* {
-  margin: 0 auto;
-  padding: 0;
-}
-
 .personInfo {
   position: relative;
   left: 10%;
-  width: 100%;
+  margin: 100px;
+  margin-left: 100px;
+  border: 1px solid #909399;
+}
+
+.information-container {
+  margin: 0 auto;
 }
 
 .content {
+  margin: 10px auto;
   width: 100%;
 }
 
 .lables {
-  position: relative;
-  left: 20%;
-  width: 20%;
+  margin-left: 120px;
+  width: 25%;
   float: left;
   font-size: 25px;
 }
 
 .values {
-  position: relative;
-  left: 20%;
+  margin: 0 auto;
   width: 40%;
   float: left;
   font-size: 25px;
 }
 
 .inputBox {
-  position: relative;
-  left: 20%;
-  width: 50%;
+  margin: 0 auto;
+  width: 40%;
   float: left;
   font-size: 25px;
 }

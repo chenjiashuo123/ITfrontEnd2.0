@@ -1,7 +1,8 @@
 <template>
-  <div class="order">
+  <div class="main-container">
     <el-row>
       <el-col :span="8" v-for="(item, index) in orderList" :key="index">
+        <div class="showBlock">
         <el-card :body-style="{ padding: '0px' }">
           <img src="../assets/book.png" class="image">
           <div style="padding: 14px;">
@@ -12,6 +13,7 @@
             </div>
           </div>
         </el-card>
+        </div>
       </el-col>
     </el-row>
     <el-dialog title="订单详情" :visible.sync="detailDialogVisible" width="30%" center>
@@ -179,6 +181,14 @@ export default {
 
 .sure {
   margin-left: 15%;
+}
+
+.showBlock {
+  margin: 10px;
+}
+
+.main-container {
+  margin-left : 150px
 }
 </style>
 
