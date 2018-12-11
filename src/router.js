@@ -3,6 +3,14 @@ import Router from "vue-router";
 import Home from "@/views/Home.vue";
 import Login from "@/views/Login.vue";
 import Person from "@/views/Person.vue";
+import PersonInfo from "@/components/PersonInfo.vue";
+import BookStore from "@/components/BookStore.vue";
+import BuyBook from "@/components/BuyBook.vue";
+import SaleBook from "@/components/SaleBook.vue";
+
+import OldBook from "@/components/OldBook.vue";
+import NewBook from "@/components/NewBook.vue";
+
 
 
 
@@ -20,7 +28,37 @@ const router = new Router({
       meta: {
         title: '个人中心',
       },
-      component: Person
+      component: Person,
+      children: [
+        {
+          path: '/bookstore',
+          name: 'bookstore',
+          component: BookStore
+        },
+        {
+          path: '/buybook',
+          name: 'buybook',
+          component: BuyBook
+        },
+        {
+          path: '/personinfo',
+          name: 'personinfo',
+          component: PersonInfo
+        }, {
+          path: '/oldbook',
+          name: 'oldbook',
+          component: OldBook
+        }, {
+          path: '/newbook',
+          name: 'newbook',
+          component: NewBook
+        },
+        {
+          path: '/salebook',
+          name: 'salebook',
+          component: SaleBook
+        },
+      ]
     },
     {
       path: "/home",

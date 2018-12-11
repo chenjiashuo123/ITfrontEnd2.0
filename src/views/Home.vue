@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <router-view></router-view>
-  </div>
+  <div class="home-container">s</div>
 </template>
 
 <script>
@@ -10,9 +8,17 @@ export default {
 };
 </script>
 
+
 <style scoped>
 * {
   margin: 0;
   padding: 0;
+}
+
+.home-container {
+  width: 1180px;
+  min-height: 100px;
+  background-color: red;
+  margin: 10px auto;
 }
 </style>
