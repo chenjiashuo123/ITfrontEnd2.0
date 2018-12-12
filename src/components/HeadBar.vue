@@ -5,7 +5,7 @@
         <img src="../../public/mutex.png" alt height="40px" style="margin: 6px 0 0 180px;">
       </div>
       <div style="float:right;margin: 10px;">
-        <span style="color:#eeeeee;font-size: 20px;">瓜子二手书直卖网</span>
+        <span style="color:#eeeeee;font-size: 20px;">二手书交易系统</span>
       </div>
     </div>
     <div class="head-menu">
