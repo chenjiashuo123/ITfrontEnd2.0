@@ -4,7 +4,7 @@
       <el-col :span="8" v-for="(item, index) in orderList" :key="index">
         <div class="showBlock">
           <el-card :body-style="{ padding: '0px' }">
-            <img src="../assets/book.png" class="image">
+            <img src="../../assets/book.png" class="image">
             <div style="padding: 14px;">
               <span>{{item.bookName}}</span>
               <div class="bottom clearfix">
@@ -21,7 +21,7 @@
         <el-row>
           <el-col>
             <div id="picture" class="information">
-              <img src="../assets/book.png" class="detailImage">
+              <img src="../../assets/book.png" class="detailImage">
             </div>
           </el-col>
         </el-row>
@@ -92,7 +92,7 @@
         <el-row>
           <el-col>
             <el-button type="primary" class="sure" @click="buy" style="width:32%">购 买</el-button>
-            <el-button type="primary" class="cancel" @click="deleteItems" style="width:32%">删 除</el-button>
+            <el-button type="primary" class="cancel" @click="deleteItems" style="width:32%">加入收藏夹</el-button>
           </el-col>
         </el-row>
       </div>
@@ -102,7 +102,7 @@
 
 <script>
 export default {
-  name: "OldBook",
+  name: "HomeBody",
   data() {
     return {
       currentdate: "",
@@ -127,7 +127,7 @@ export default {
           time: "2018/10/21",
           price: 30,
           state: "待售",
-          picture: "../assets/book.png",
+          picture: "../../assets/book.png",
           detail: "..."
         },
         {
@@ -137,7 +137,7 @@ export default {
           time: "2018/10/20",
           price: 30,
           state: "未完成",
-          picture: "../assets/book.png",
+          picture: "../../assets/book.png",
           detail: "..."
         },
         {
@@ -147,7 +147,7 @@ export default {
           time: "2018/10/22",
           price: 40,
           state: "完成",
-          picture: "../assets/book.png",
+          picture: "../../assets/book.png",
           detail: "..."
         },
         {
@@ -157,7 +157,7 @@ export default {
           time: "2018/10/22",
           price: 40,
           state: "完成",
-          picture: "../assets/book.png",
+          picture: "../../assets/book.png",
           detail: "..."
         },
         {
@@ -167,7 +167,7 @@ export default {
           time: "2018/10/22",
           price: 40,
           state: "完成",
-          picture: "../assets/book.png",
+          picture: "../../assets/book.png",
           detail: "..."
         },
         {
@@ -177,7 +177,7 @@ export default {
           time: "2018/10/22",
           price: 40,
           state: "完成",
-          picture: "../assets/book.png",
+          picture: "../../assets/book.png",
           detail: "..."
         }
       ]
@@ -191,7 +191,7 @@ export default {
       this.showItem.time = item.time;
       this.showItem.price = item.price;
       this.showItem.time = item.time;
-      this.showItem.state=item.state;
+      this.showItem.state = item.state;
       this.showItem.detail = item.detail;
       this.detailDialogVisible = true;
     },
@@ -202,7 +202,7 @@ export default {
     deleteItems() {
       //取消订单
       this.detailDialogVisible = false;
-      alert("删除成功");
+      alert("收藏成功");
     }
   }
 };

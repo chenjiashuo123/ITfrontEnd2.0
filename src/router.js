@@ -3,35 +3,53 @@ import Router from "vue-router";
 import Home from "@/views/Home.vue";
 import Login from "@/views/Login.vue";
 import Person from "@/views/Person.vue";
-import Register from "@/views/register.vue";
-import PersonInfo from "@/components/PersonInfo.vue";
-import BookStore from "@/components/BookStore.vue";
-import BuyBook from "@/components/BuyBook.vue";
-import SaleBook from "@/components/SaleBook.vue";
-import HomeBody from "@/components/HomeBody.vue";
-import OldBook from "@/components/OldBook.vue";
-import NewBook from "@/components/NewBook.vue";
-
-
-
+import Register from "@/views/Register.vue";
+import HomeBody from "@/components/home/HomeBody.vue";
+import PersonInfo from "@/components/person/PersonInfo.vue";
+import BookStore from "@/components/person/BookStore.vue";
+import BuyBook from "@/components/person/BuyBook.vue";
+import SaleBook from "@/components/person/SaleBook.vue";
+import OldBook from "@/components/person/OldBook.vue";
+import NewBook from "@/components/person/NewBook.vue";
 
 Vue.use(Router);
 
 const router = new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       redirect: '/home'
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: Login
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: Register
+    },
+    {
+      path: "/home",
+      name: "home",
+      component: Home,
+      meta: {
+        title: "首页"
+      },
+      children: [{
+        path: "/homebody",
+        name: "homebody",
+        component: HomeBody
+      }]
     },
     {
       path: "/person",
       name: "person",
       meta: {
-        title: '个人中心',
+        title: "个人中心",
       },
       component: Person,
-      children: [
-        {
+      children: [{
           path: '/bookstore',
           name: 'bookstore',
           component: BookStore
@@ -60,30 +78,6 @@ const router = new Router({
           component: SaleBook
         },
       ]
-    },
-    {
-      path: "/home",
-      name: "home",
-      component: Home,
-      meta: {
-        title: '首页',
-      },
-      children: [
-        {
-          path: '/homebody',
-          name: 'homebody',
-          component: HomeBody
-        }
-      ]
-    }, {
-      path: "/login",
-      name: "login",
-      component: Login
-    },
-    {
-      path: "/register",
-      name: "register",
-      component: Register
     }
   ]
 });

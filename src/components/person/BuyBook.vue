@@ -3,16 +3,16 @@
     <el-row>
       <el-col :span="8" v-for="(item, index) in orderList" :key="index">
         <div class="showBlock">
-        <el-card :body-style="{ padding: '0px' }">
-          <img src="../assets/book.png" class="image">
-          <div style="padding: 14px;">
-            <span>{{item.bookName}}</span>
-            <div class="bottom clearfix">
-              <time class="time">{{ item.time }}</time>
-              <el-button type="text" class="button" @click="showDetail(item)">查看详情</el-button>
+          <el-card :body-style="{ padding: '0px' }">
+            <img src="../../assets/book.png" class="image">
+            <div style="padding: 14px;">
+              <span>{{item.bookName}}</span>
+              <div class="bottom clearfix">
+                <time class="time">{{ item.time }}</time>
+                <el-button type="text" class="button" @click="showDetail(item)">查看详情</el-button>
+              </div>
             </div>
-          </div>
-        </el-card>
+          </el-card>
         </div>
       </el-col>
     </el-row>
@@ -30,7 +30,7 @@
         <el-row>
           <el-col>
             <div id="bookName" class="information">
-              <div class="content">书名：</div>
+              <div class="content">订单号：</div>
               <div class="content">{{showItem.bookName}}</div>
             </div>
           </el-col>
@@ -75,7 +75,7 @@
         <el-row>
           <el-col>
             <div id="salerPhone" class="information">
-              <div class="content">买家联系方式：</div>
+              <div class="content">卖家联系方式：</div>
               <div class="content">{{showItem.sellerPhone}}</div>
             </div>
           </el-col>
@@ -94,7 +94,7 @@
 
 <script>
 export default {
-  name: "SaleBook",
+  name: "BuyBook",
   data() {
     return {
       detailDialogVisible: false,
@@ -102,7 +102,7 @@ export default {
         orderID: null,
         picture: "",
         bookName: "",
-        author:"",
+         author: "123",
         price: null,
         state: "",
         time: "",
@@ -113,7 +113,7 @@ export default {
           orderID: 1,
           picture: "",
           bookName: "数学分析",
-          author:"123",
+           author: "123",
           price: 30,
           state: "完成",
           time: "2018/10/20",
@@ -123,7 +123,7 @@ export default {
           orderID: 2,
           picture: "",
           bookName: "线性代数",
-           author:"123",
+           author: "123",
           price: 30,
           state: "未完成",
           time: "2018/10/21",
@@ -133,7 +133,25 @@ export default {
           orderID: 3,
           picture: "",
           bookName: "大学英语",
-           author:"123",
+           author: "123",
+          price: 40,
+          state: "完成",
+          time: "2018/10/22",
+          sellerPhone: "15521134444"
+        },{
+          orderID: 3,
+          picture: "",
+          bookName: "大学英语",
+           author: "123",
+          price: 40,
+          state: "完成",
+          time: "2018/10/22",
+          sellerPhone: "15521134444"
+        },{
+          orderID: 3,
+          picture: "",
+          bookName: "大学英语",
+           author: "123",
           price: 40,
           state: "完成",
           time: "2018/10/22",
@@ -153,13 +171,13 @@ export default {
       this.showItem.sellerPhone = item.sellerPhone;
       this.detailDialogVisible = true;
     },
-    ensure(){
-        //完成订单
-        this.detailDialogVisible = false;
+    ensure() {
+      //完成订单
+      this.detailDialogVisible = false;
     },
-    cancel(){
-        //取消订单
-        this.detailDialogVisible = false;
+    cancel() {
+      //取消订单
+      this.detailDialogVisible = false;
     }
   }
 };
@@ -184,7 +202,7 @@ export default {
 
 .image {
   width: 100%;
-  display: block;
+  margin: 0 auto;
 }
 
 .clearfix:before, .clearfix:after {
@@ -211,7 +229,7 @@ export default {
 }
 
 .main-container {
-  margin-left : 150px
+  margin-left: 150px;
 }
 </style>
 

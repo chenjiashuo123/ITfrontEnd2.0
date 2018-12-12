@@ -1,5 +1,6 @@
 <template>
   <div class="home-container">
+    <search-bar></search-bar>
     <div class="body">
       <div class="sideBar">
         <home-side-bar/>
@@ -12,11 +13,13 @@
 </template>
 
 <script>
-import HomeSideBar from "@/components/HomeSideBar";
+import HomeSideBar from "@/components/home/HomeSideBar";
+import SearchBar from "../components/home/SearchBar"
 export default {
   name: "Home",
   components: {
-    HomeSideBar
+    'home-side-bar': HomeSideBar,
+    'search-bar': SearchBar
   }
 };
 </script>

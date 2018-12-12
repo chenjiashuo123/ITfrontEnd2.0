@@ -12,13 +12,11 @@
 </template>
 
 <script>
-import HeadBar from "@/components/HeadBar.vue";
-import PersonSideBar from "@/components/PersonSideBar.vue";
+import PersonSideBar from "@/components/person/PersonSideBar.vue";
 
 export default {
   name: "Person",
   components: {
-    HeadBar,
     PersonSideBar
   }
 };

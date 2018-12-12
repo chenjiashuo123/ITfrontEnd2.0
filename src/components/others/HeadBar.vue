@@ -1,28 +1,17 @@
 <template>
   <div class="head-bar">
-    <div class="head-img-container" >
-      <div style="float:left;">
-        <img src="../../public/mutex.png" alt height="40px" style="margin: 6px 0 0 180px;">
-      </div>
-      <div style="float:right;margin: 10px;">
-        <span style="color:#eeeeee;font-size: 20px;">二手书交易系统</span>
-      </div>
+    <div class="icon-container">
+      <em>MuteX</em>
     </div>
     <div class="head-menu">
       <el-col :span="7">
         <div :class="curPos==0 ? 'each-item-active':'each-item'" @click="handleSelect(0)">首页</div>
       </el-col>
-      <el-col :span="1">
-        <div class="partition-line"></div>
-      </el-col>
-      <el-col :span="8">
+      <el-col :span="9">
         <div
           :class="curPos==1 ? 'each-item-active':'each-item'"
           @click="handleSelect(1)"
         >{{isLogin?'个人中心':'登录'}}</div>
-      </el-col>
-      <el-col :span="1">
-        <div class="partition-line"></div>
       </el-col>
       <el-col :span="7">
         <div
@@ -40,9 +29,7 @@ export default {
   data() {
     return {
       curPos: 0,
-      isLogin: this.GLOBAL.isLogin,
-      switchText1: "个人中心",
-      switchText2: "登出"
+      isLogin: this.GLOBAL.isLogin
     };
   },
   methods: {
@@ -86,39 +73,40 @@ export default {
 
 <style scoped>
 .head-bar {
-  height: 50px;
+  height: 36px;
   background-color: #909399;
 }
 
-.head-img-container {
-  height: 50px;
+.icon-container {
+  height: 36px;
+  padding: 5px;
+  margin-left: 21%;
   float: left;
+  font-size: 22px;
+  font-weight: bold;
+  color: #eeeeee;
 }
 
 .head-menu {
-  height: 50px;
-  width: 14%;
+  height: 36px;
+  width: 200px;
   float: right;
   margin-right: 5%;
 }
 
 .each-item {
-  margin: 12px 5px auto;
+  margin: 7px 5px auto;
   padding-bottom: 10px;
   color: white;
+  font-size: 13px;
 }
 
 .each-item-active {
-  margin: 12px 5px auto;
-  padding-bottom: 10px;
+  margin: 6px 5px auto;
+  padding-bottom: 5px;
+  font-size: 14px;
   color: #e6a23c;
-  border-bottom: 4px solid #e6a23c;
-}
-.partition-line {
-  height: 40px;
-  width: 1px;
-  margin: 5px auto;
-  background-color: #c0c4cc;
+  border-bottom: 2px solid #e6a23c;
 }
 </style>
 

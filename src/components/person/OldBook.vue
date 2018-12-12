@@ -4,7 +4,7 @@
       <el-col :span="8" v-for="(item, index) in orderList" :key="index">
         <div class="showBlock">
           <el-card :body-style="{ padding: '0px' }">
-            <img src="../assets/book.png" class="image">
+            <img src="../../assets/book.png" class="image">
             <div style="padding: 14px;">
               <span>{{item.bookName}}</span>
               <div class="bottom clearfix">
@@ -21,7 +21,7 @@
         <el-row>
           <el-col>
             <div id="picture" class="information">
-              <img src="../assets/book.png" class="detailImage">
+              <img src="../../assets/book.png" class="detailImage">
             </div>
           </el-col>
         </el-row>
@@ -103,7 +103,7 @@
         <el-row>
           <el-col>
             <div id="picture" class="information">
-              <img src="../assets/book.png" class="modifyImage">
+              <img src="../../assets/book.png" class="modifyImage">
             </div>
           </el-col>
         </el-row>
@@ -221,7 +221,7 @@ export default {
           time: "2018/10/21",
           price: 30,
           state: "待售",
-          picture: "../assets/book.png",
+          picture: "../../assets/book.png",
           detail: "..."
         },
         {
@@ -231,7 +231,7 @@ export default {
           time: "2018/10/20",
           price: 30,
           state: "已完成",
-          picture: "../assets/book.png",
+          picture: "../../assets/book.png",
           detail: "..."
         },
         {
@@ -241,7 +241,7 @@ export default {
           time: "2018/10/22",
           price: 40,
           state: "未完成",
-          picture: "../assets/book.png",
+          picture: "../../assets/book.png",
           detail: "..."
         },
         {
@@ -251,7 +251,7 @@ export default {
           time: "2018/10/22",
           price: 40,
           state: "未完成",
-          picture: "../assets/book.png",
+          picture: "../../assets/book.png",
           detail: "..."
         },
         {
@@ -261,7 +261,7 @@ export default {
           time: "2018/10/22",
           price: 40,
           state: "未完成",
-          picture: "../assets/book.png",
+          picture: "../../assets/book.png",
           detail: "..."
         },
         {
@@ -271,7 +271,7 @@ export default {
           time: "2018/10/22",
           price: 40,
           state: "未完成",
-          picture: "../assets/book.png",
+          picture: "../../assets/book.png",
           detail: "..."
         }
       ]

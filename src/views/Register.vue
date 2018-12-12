@@ -1,63 +1,60 @@
 <template>
-  <el-container class="loginImg">
+  <div class="loginImg">
+    <h3 class="title">二手书交易系统</h3>
     <el-form
       :model="registerForm"
       :rules="rules"
       ref="registerForm"
-      label-position="left"
-      label-width="0px"
-      class="demo-registerForm register-container"
+      label-position="right"
+      label-width="80px"
+      class="register-container"
       v-if="!loginVisible"
     >
-      <h3 class="title">二手书交易系统</h3>
-      <el-form-item prop="account">
+      <el-form-item prop="account" label="手机号">
         <el-input
           type="text"
           v-model="registerForm.account"
           @keyup.enter.native="registerSubmit"
-          placeholder="手机号"
-          label="手机号"
-        >
-          <template slot="prepend">手机号</template>
-        </el-input>
+          placeholder="请输入你的手机号"
+        ></el-input>
       </el-form-item>
-      <el-form-item prop="checkPass">
+      <el-form-item prop="checkPass" label="密码">
         <el-input
           type="text"
           v-model="registerForm.checkPass"
           @keyup.enter.native="registerSubmit"
-          placeholder="密码"
-        >
-          <template slot="prepend">密码</template>
-        </el-input>
+          placeholder="请输入初始密码"
+        ></el-input>
       </el-form-item>
-      <el-form-item prop="name">
+      <el-form-item prop="name" label="姓名">
         <el-input
           type="text"
           v-model="registerForm.name"
           @keyup.enter.native="registerSubmit"
-          placeholder="姓名"
-          label="姓名"
-        >
-          <template slot="prepend">姓名</template>
-        </el-input>
+          placeholder="请输入你的姓名"
+        ></el-input>
       </el-form-item>
-      <el-form-item prop="idCard">
+      <el-form-item prop="idCard" label="学生证号">
         <el-input
           type="text"
           v-model="registerForm.idCard"
           @keyup.enter.native="registerSubmit"
-          placeholder="学生证号"
-          label="学生证号"
-        >
-          <template slot="prepend">学生证号</template>
-        </el-input>
+          placeholder="请输入你的学生证号"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="address" label="地址">
+        <el-input
+          type="text"
+          v-model="registerForm.address"
+          @keyup.enter.native="registerSubmit"
+          placeholder="请输入你的地址"
+        ></el-input>
       </el-form-item>
       <el-form-item style="width:100%;">
         <el-button type="primary" style="width:100%;" @click.native.prevent="registerSubmit">注 册</el-button>
       </el-form-item>
     </el-form>
-  </el-container>
+  </div>
 </template>
 
 <script>
@@ -69,13 +66,15 @@ export default {
         account: "",
         checkPass: "",
         name: "",
-        idCard: ""
+        idCard: "",
+        address: ""
       },
       rules: {
         account: [{ required: true, message: "请输入手机号", trigger: "blur" }],
         checkPass: [{ required: true, message: "请输入密码", trigger: "blur" }],
         name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
-        idCard: [{ required: true, message: "请输入证件号", trigger: "blur" }]
+        idCard: [{ required: true, message: "请输入证件号", trigger: "blur" }],
+        address: [{ required: true, message: "请输入地址", trigger: "blur" }]
       }
     };
   },
@@ -94,13 +93,15 @@ export default {
 
 <style lang="stylus" scoped>
 .loginImg {
-  width: 50%;
-  margin: 10% auto;
+  width: 400px;
+  margin: 5% auto;
+  padding: 40px 50px 30px 30px;
+  border: 1px solid #909199;
+  border-radius: 12px;
 }
-
-.login-container {
-  width: 50%;
-  margin: 0 auto;
+.title{
+  margin-left: 10px;
+  margin-bottom: 30px;
 }
 
 .registerButton {
@@ -109,7 +110,7 @@ export default {
 }
 
 .register-container {
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
 }
 </style>

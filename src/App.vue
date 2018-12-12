@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import HeadBar from "@/components/HeadBar.vue";
+import HeadBar from "@/components/others/HeadBar.vue";
 export default {
   name: "App",
   components: {
