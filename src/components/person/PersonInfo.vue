@@ -1,121 +1,170 @@
 <template>
-  <div class="personInfo">
-    <el-form class="information-container" v-if="!modifyVisible">
+  <div class="person-info">
+    <div class="title-container">
       <h1 class="title">个人信息</h1>
-      <el-form-item class="content name">
-        <div class="lables">姓名：</div>
-        <div class="values">{{personMessage.name}}</div>
-      </el-form-item>
-      <el-form-item class="content name">
-        <div class="lables">地址：</div>
-        <div class="values">{{personMessage.address}}</div>
-      </el-form-item>
-      <el-form-item class="content name">
-        <div class="lables">手机号：</div>
-        <div class="values">{{personMessage.phone}}</div>
-      </el-form-item>
-      <el-form-item class="content name">
-        <div class="lables">学生证号：</div>
-        <div class="values">{{personMessage.idCard}}</div>
-      </el-form-item>
-      <el-form-item style="width:100%;">
-        <el-button type="primary" @click.native.prevent="modifyInfo" style="width:30%;">修 改</el-button>
-      </el-form-item>
-    </el-form>
-    <el-form class="demo-loginForm login-container" v-if="modifyVisible">
-      <h1 class="title">个人信息</h1>
-      <el-form-item class="content name">
-        <div class="lables">姓名：</div>
-        <div class="inputBox">
-          <el-input v-model="personMessage.name" type="text" placeholder="姓名"></el-input>
+    </div>
+    <div class="info-container">
+      <div
+        style="text-align:right;color:#409EFF;font-size:14px;margin-bottom:20px;"
+        @click="isRevisePwd=!isRevisePwd"
+      >
+        <u>{{isRevisePwd?'取 消':'修改密码'}}</u>
+      </div>
+      <el-collapse-transition>
+        <div style="border-bottom: 1px solid #eeeeee; margin: 15px 0 25px 0;" v-show="isRevisePwd">
+          <el-form
+            :model="ruleForm2"
+            status-icon
+            :rules="rules2"
+            ref="ruleForm2"
+            label-width="80px"
+            style="width:86%;"
+          >
+            <el-form-item label="密码" prop="pass">
+              <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="确认密码" prop="checkPass">
+              <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="submitRevisePwd('ruleForm2')">提交</el-button>
+              <el-button @click="resetRevisePwd('ruleForm2')">重置</el-button>
+            </el-form-item>
+          </el-form>
         </div>
-      </el-form-item>
-      <el-form-item class="content name">
-        <div class="lables">地址：</div>
-        <div class="inputBox">
-          <el-input v-model="personMessage.address" type="text" placeholder="地址"></el-input>
-        </div>
-      </el-form-item>
-      <el-form-item class="content name">
-        <div class="lables">手机号：</div>
-        <div class="inputBox">
-          <el-input v-model="personMessage.phone" type="number" placeholder="手机号"></el-input>
-        </div>
-      </el-form-item>
-      <el-form-item class="content name">
-        <div class="lables">学生证号：</div>
-        <div class="inputBox">
-          <el-input v-model="personMessage.idCard" type="number" placeholder="学生证号"></el-input>
-        </div>
-      </el-form-item>
-      <el-form-item style="width:100%;">
-        <el-button type="primary" @click.native.prevent="finishModify" style="width:30%;">确 定</el-button>
-      </el-form-item>
-    </el-form>
+      </el-collapse-transition>
+
+      <el-form
+        label-position="right"
+        label-width="80px"
+        style="width:86%;"
+        :disabled="!modifyVisible"
+      >
+        <el-form-item label="姓名">
+          <div class="inputBox">
+            <el-input v-model="personMessage.name" type="text" placeholder="姓名"></el-input>
+          </div>
+        </el-form-item>
+        <el-form-item label="地址">
+          <div class="inputBox">
+            <el-input v-model="personMessage.address" type="text" placeholder="地址"></el-input>
+          </div>
+        </el-form-item>
+        <el-form-item label="手机号">
+          <div class="inputBox">
+            <el-input v-model="personMessage.phone" type="text" placeholder="手机号"></el-input>
+          </div>
+        </el-form-item>
+        <el-form-item label="学生证号">
+          <div class="inputBox">
+            <el-input v-model="personMessage.idCard" type="text" placeholder="学生证号"></el-input>
+          </div>
+        </el-form-item>
+      </el-form>
+
+      <el-button
+        type="primary"
+        @click="clickModify"
+        style="width:120px;margin-top:40px;"
+      >{{modifyVisible?'确定':'修改'}}</el-button>
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: "PersonInfo",
   data() {
+    var validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"));
+      } else {
+        if (this.ruleForm2.checkPass !== "") {
+          this.$refs.ruleForm2.validateField("checkPass");
+        }
+        callback();
+      }
+    };
+    var validatePass2 = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.ruleForm2.pass) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
     return {
       modifyVisible: false,
+      isRevisePwd: false,
       personMessage: {
         name: "陈佳烁",
         address: "华南理工大学校区",
         phone: "123456789",
         idCard: "201930664033"
+      },
+      ruleForm2: {
+        pass: "",
+        checkPass: ""
+      },
+      rules2: {
+        pass: [{ validator: validatePass, trigger: "blur" }],
+        checkPass: [{ validator: validatePass2, trigger: "blur" }]
       }
     };
   },
   methods: {
-    //点击修改
-    modifyInfo() {
-      this.modifyVisible = true;
-    },
     //完成修改
-    finishModify() {
-      this.modifyVisible = false;
+    clickModify() {
+      if (this.modifyVisible) {
+        console.log("上传数据");
+      }
+      this.modifyVisible = !this.modifyVisible;
+    },
+    submitRevisePwd(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.axios
+            .post("/api/revise", {
+              option: 0,
+              pwd: this.ruleForm2.pass
+            })
+            .then(result => {
+              if (result.data["state"] != 0) {
+                this.$message.error(
+                  "修改失败! 错误码: " + result.data["state"]
+                );
+                return;
+              } else {
+                this.$message.success("修改成功!");
+                this.isRevisePwd = false;
+              }
+            })
+            .catch(err => {
+              this.$message.error("请求失败! 请检查网路连接!");
+            });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    resetRevisePwd(formName) {
+      this.$refs[formName].resetFields();
     }
   }
 };
 </script>
-<style lang="stylus" scoped>
-.personInfo {
-  position: relative;
-  left: 10%;
-  margin: 100px;
-  margin-left: 100px;
-  border: 1px solid #909399;
-}
-
-.information-container {
-  margin: 0 auto;
-}
-
-.content {
-  margin: 10px auto;
+<style  scoped>
+.person-info {
   width: 100%;
 }
 
-.lables {
-  margin-left: 120px;
-  width: 25%;
-  float: left;
-  font-size: 25px;
+.title-container {
+  margin: 30px auto;
 }
 
-.values {
-  margin: 0 auto;
-  width: 40%;
-  float: left;
-  font-size: 25px;
-}
-
-.inputBox {
-  margin: 0 auto;
-  width: 40%;
-  float: left;
-  font-size: 25px;
+.info-container {
+  width: 400px;
+  margin: 20px auto;
 }
 </style>

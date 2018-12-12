@@ -1,6 +1,13 @@
 <template>
   <div class="main-container">
-    <el-row>
+    <div>
+      <div>
+        <div>2018-12-12   订单号：XXXXX</div>
+        <div>图片</div>
+      </div>
+    </div>
+
+    <div>
       <el-col :span="8" v-for="(item, index) in orderList" :key="index">
         <div class="showBlock">
           <el-card :body-style="{ padding: '0px' }">
@@ -15,7 +22,8 @@
           </el-card>
         </div>
       </el-col>
-    </el-row>
+    </div>
+
     <el-dialog title="订单详情" :visible.sync="detailDialogVisible" width="30%" center>
       <div class="showInfo">
         <el-row>
@@ -30,7 +38,7 @@
         <el-row>
           <el-col>
             <div id="bookName" class="information">
-              <div class="content">订单号：</div>
+              <div class="content">书名：</div>
               <div class="content">{{showItem.bookName}}</div>
             </div>
           </el-col>
@@ -102,7 +110,7 @@ export default {
         orderID: null,
         picture: "",
         bookName: "",
-         author: "123",
+        author: "123",
         price: null,
         state: "",
         time: "",
@@ -113,7 +121,7 @@ export default {
           orderID: 1,
           picture: "",
           bookName: "数学分析",
-           author: "123",
+          author: "123",
           price: 30,
           state: "完成",
           time: "2018/10/20",
@@ -123,7 +131,7 @@ export default {
           orderID: 2,
           picture: "",
           bookName: "线性代数",
-           author: "123",
+          author: "123",
           price: 30,
           state: "未完成",
           time: "2018/10/21",
@@ -133,25 +141,27 @@ export default {
           orderID: 3,
           picture: "",
           bookName: "大学英语",
-           author: "123",
+          author: "123",
           price: 40,
           state: "完成",
           time: "2018/10/22",
           sellerPhone: "15521134444"
-        },{
+        },
+        {
           orderID: 3,
           picture: "",
           bookName: "大学英语",
-           author: "123",
+          author: "123",
           price: 40,
           state: "完成",
           time: "2018/10/22",
           sellerPhone: "15521134444"
-        },{
+        },
+        {
           orderID: 3,
           picture: "",
           bookName: "大学英语",
-           author: "123",
+          author: "123",
           price: 40,
           state: "完成",
           time: "2018/10/22",
@@ -184,6 +194,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.main-container {
+}
+
 .time {
   display: block;
   font-size: 13px;
@@ -226,10 +239,6 @@ export default {
 
 .showBlock {
   margin: 10px;
-}
-
-.main-container {
-  margin-left: 150px;
 }
 </style>
 

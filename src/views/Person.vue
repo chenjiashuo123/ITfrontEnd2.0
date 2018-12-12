@@ -1,14 +1,12 @@
 <template>
-  <div class="person">
-    <div class="body">
-      <div class="sideBar">
-        <person-side-bar/>
-      </div>
-      <div class="information">
-        <router-view/>
-      </div>
+  <el-container class="person-container">
+    <div class="sideBar">
+      <person-side-bar/>
     </div>
-  </div>
+    <div class="person-main">
+      <router-view/>
+    </div>
+  </el-container>
 </template>
 
 <script>
@@ -17,30 +15,21 @@ import PersonSideBar from "@/components/person/PersonSideBar.vue";
 export default {
   name: "Person",
   components: {
-    PersonSideBar
+    "person-side-bar": PersonSideBar
   }
 };
 </script>
 
-<style lang="stylus" scoped>
-.sideBar {
-  float left
-  width: 25%;
+<style scoped>
+.person-container {
+  width: 1100px;
   height: 100%;
+  margin: 30px auto;
 }
 
-.person {
-  height: 100%;
-}
-
-.body {
+.person-main {
   width: 100%;
-}
-
-.information {
-  float left 
-  width: 50%;
-  height: 100%;
+  margin-left: 10px; 
 }
 </style>
 
