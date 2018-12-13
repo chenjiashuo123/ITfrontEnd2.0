@@ -236,11 +236,11 @@ export default {
   align-items: center;
 }
 
-.order-pic-desc{
+.order-pic-desc {
   background-color: red;
   float: left;
 }
-.order-btn-box{
+.order-btn-box {
   float: right;
 }
 .time {
