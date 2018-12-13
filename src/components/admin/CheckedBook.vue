@@ -1,9 +1,197 @@
 <template>
-    <h1>已审核书籍界面</h1>
+  <div class="main-container">
+    <div class="each-box" v-for="(item, index) in bookList" :key="index">
+      <div class="book-title-box">
+        <span>{{item.time}}</span>
+      </div>
+      <div class="book-pic-box">
+        <div class="book-pic" >
+          <img src="../../assets/book.png" alt width="200px"  @click="showDetail(item)">
+        </div>
+        <div class="book-pic-desc">
+          <div class="book-name">
+            {{item.bookName}}
+          </div>
+          <div class="book-author">
+            {{item.author}}
+          </div>
+          <div class="book-price">
+            <strong>￥{{item.price}}</strong>
+          </div>
+        </div>
+        <div class="book-btn-box">
+          <div>
+            <el-button>
+              <strong>下架</strong>
+            </el-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
+
 
 <script>
 export default {
-    name:"CheckedBook"
-}
+  name: "CheckedBook",
+   data: () => ({
+    bookList: [
+      {
+        bookName: "数学分析",
+        author: "德里克罗斯",
+        ISBN: "12345678",
+        time: "2018/10/21",
+        price: 30,
+        state: "未审核",
+        picture: "../../assets/book.png",
+        publish:"陈佳烁",
+        detail: "..."
+      },
+      {
+        bookName: "线性代数",
+        author: "德里克罗斯",
+        ISBN: "12345678",
+        time: "2018/10/20",
+        price: 30,
+        state: "已审核",
+        picture: "../../assets/book.png",
+        publish:"张耀",
+        detail: "..."
+      },
+      {
+        bookName: "大学英语",
+        author: "德里克罗斯",
+        ISBN: "12345678",
+        time: "2018/10/22",
+        price: 40,
+        state: "已审核",
+        picture: "../../assets/book.png",
+        publish:"张昶",
+        detail: "..."
+      }
+    ]
+  }),
+  methods:{
+     showDetail(item) {
+      this.$router.push({
+        name: "checkbookdetail",
+        params: {
+          id: item.ISBN
+        }
+      });
+    }
+  }
+};
 </script>
+
+
+<style  scoped>
+.each-box {
+  min-width: 750px;
+  width: 90%;
+  margin: 20px auto 40px auto;
+  border: 1px solid #909199;
+}
+
+.book-title-box {
+  text-align: left;
+  font-size: 18px;
+  border-bottom: 1px solid #909199;
+  background-color: #909199;
+}
+
+.book-pic-box {
+  margin-left: 20px;
+  height: 240px;
+}
+.book-pic {
+  margin-top: 20px;
+  width: 200px;
+  height: 200px;
+  float: left;
+  border: 1px solid #999;
+  display: flex;
+  align-items: center;
+}
+
+.book-name {
+  margin: 20px 0 0 0 ;
+  text-align: left;
+  font-size: 30px;
+  height:80px;
+  width: 400px;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+.book-author{
+  text-align: left;
+  font-size: 25px;
+  height:70px;
+  width: 400px;
+ 
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.book-price {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 25px;
+  height: 40px;
+}
+
+.book-pic-desc {
+  float: left;
+}
+.book-btn-box {
+  height: 150px;
+  padding-top: 100px;
+  padding-right: 50px;
+  float: right;
+}
+.time {
+  display: block;
+  font-size: 13px;
+  color: #999;
+}
+
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+}
+
+.button {
+  padding: 0;
+  float: right;
+}
+
+.image {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.content {
+  float: left;
+  width: 50%;
+  font-size: 16px;
+}
+
+.sure {
+  margin-left: 15%;
+}
+
+.showBlock {
+  margin: 10px;
+}
+</style>

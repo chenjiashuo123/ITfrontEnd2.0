@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>这是书籍详情</div>
 </template>
 
 <script>

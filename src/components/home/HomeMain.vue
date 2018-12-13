@@ -128,7 +128,7 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 .home-main {
   width: 100%;
   margin-top: 40px;
