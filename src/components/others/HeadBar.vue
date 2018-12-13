@@ -75,6 +75,7 @@ export default {
 .head-bar {
   height: 36px;
   background-color: #909399;
+  text-align: center;
 }
 
 .icon-container {
