@@ -1,48 +1,35 @@
 <template>
-  <div class="admin">
-    <div class="body">
-      <div class="sideBar">
-        <admin-side-bar/>
-      </div>
-      <div class="information">
-        <router-view/>
-      </div>
+  <el-container class="adminContainer">
+    <div class="sideBar">
+      <admin-side-bar/>
     </div>
-  </div>
+    <div class="admin-main">
+      <router-view/>
+    </div>
+  </el-container>
 </template>
 
 <script>
-import HeadBar from "@/components/HeadBar.vue";
-import AdminSideBar from "@/components/adminComponents/AdminSideBar.vue";
+import AdminSideBar from "@/components/admin/AdminSideBar.vue";
 
 export default {
   name: "Admin",
   components: {
-    HeadBar,
     AdminSideBar
   }
 };
 </script>
 
-<style lang="stylus" scoped>
-.sideBar {
-  float: left;
-  width: 300px;
-  height: 750px;
-}
-
-.admin {
-  height: 750px;
-}
-
-.body {
-  height: 750px;
-}
-
-.information {
-  float: left;
-  width: 50%;
+<style scoped>
+.adminContainer {
+  width: 1100px;
   height: 100%;
+  margin: 30px auto;
+}
+
+.admin-main {
+  width: 100%;
+  margin-left: 10px;
 }
 </style>
 

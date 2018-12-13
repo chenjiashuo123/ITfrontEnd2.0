@@ -15,17 +15,17 @@ import BookDetail from "./components/home/BookDetail.vue";
 
 
 import Admin from "@/views/Admin.vue";
-import CheckedBook from "@/components/adminComponents/CheckedBook.vue";
-import CheckOrder from "@/components/adminComponents/CheckOrder.vue";
-import CheckUser from "@/components/adminComponents/CheckUser.vue";
-import WaitCheckBook from "@/components/adminComponents/WaitCheckBook.vue";
+import CheckedBook from "@/components/admin/CheckedBook.vue";
+import CheckOrder from "@/components/admin/CheckOrder.vue";
+import CheckUser from "@/components/admin/CheckUser.vue";
+import WaitCheckBook from "@/components/admin/WaitCheckBook.vue";
 
 Vue.use(Router);
 
 const router = new Router({
   routes: [{
-      path: '/',
-      redirect: '/home'
+      path: "/",
+      redirect: "/home"
     },
     {
       path: "/login",
@@ -45,14 +45,16 @@ const router = new Router({
         title: "首页"
       },
       children: [{
-        path: "/homemain",
-        name: "homemain",
-        component: HomeMain
-      }, {
-        path: "/bookdetail",
-        name: "bookdetail",
-        component: BookDetail
-      }]
+          path: "/homemain",
+          name: "homemain",
+          component: HomeMain
+        },
+        {
+          path: "/bookdetail",
+          name: "bookdetail",
+          component: BookDetail
+        }
+      ]
     },
     {
       path: "/person",
@@ -62,33 +64,35 @@ const router = new Router({
       },
       component: Person,
       children: [{
-          path: '/bookstore',
-          name: 'bookstore',
+          path: "/bookstore",
+          name: "bookstore",
           component: BookStore
         },
         {
-          path: '/buybook',
-          name: 'buybook',
+          path: "/buybook",
+          name: "buybook",
           component: BuyBook
         },
         {
-          path: '/personinfo',
-          name: 'personinfo',
+          path: "/personinfo",
+          name: "personinfo",
           component: PersonInfo
-        }, {
-          path: '/oldbook',
-          name: 'oldbook',
+        },
+        {
+          path: "/oldbook",
+          name: "oldbook",
           component: OldBook
-        }, {
-          path: '/newbook',
-          name: 'newbook',
+        },
+        {
+          path: "/newbook",
+          name: "newbook",
           component: NewBook
         },
         {
-          path: '/salebook',
-          name: 'salebook',
+          path: "/salebook",
+          name: "salebook",
           component: SaleBook
-        },
+        }
       ]
     },
     {
@@ -96,23 +100,23 @@ const router = new Router({
       name: "admin",
       component: Admin,
       children: [{
-          path: '/checkedbook',
-          name: 'checkedbook',
+          path: "/checkedbook",
+          name: "checkedbook",
           component: CheckedBook
         },
         {
-          path: '/checkuser',
-          name: 'checkuser',
+          path: "/checkuser",
+          name: "checkuser",
           component: CheckUser
         },
         {
-          path: '/checkorder',
-          name: 'checkorder',
+          path: "/checkorder",
+          name: "checkorder",
           component: CheckOrder
         },
         {
-          path: '/waitcheckbook',
-          name: 'waitcheckbook',
+          path: "/waitcheckbook",
+          name: "waitcheckbook",
           component: WaitCheckBook
         },
 
