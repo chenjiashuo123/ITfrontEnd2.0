@@ -1,8 +1,10 @@
 <template>
-  <h1></h1>
+    <h1>查看订单</h1>
 </template>
+
 <script>
 export default {
-  name: "NewBook"
-};
+    name:"CheckOrder"
+}
 </script>
+
