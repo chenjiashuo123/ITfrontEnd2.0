@@ -1,9 +1,24 @@
 <template>
   <div class="main-container">
     <div>
-      <div>
-        <div>2018-12-12   订单号：XXXXX</div>
-        <div>图片</div>
+      <div class="each-box">
+        <div class="order-title-box">
+          <span>2018-12-12</span>
+          &emsp;&emsp;
+          <span>
+            <strong>订单号：</strong>XXXXX
+          </span>
+        </div>
+        <div class="order-pic-box">
+          <div class="order-pic">
+            <img src="../../assets/book.png" alt width="200px">
+          </div>
+          <div class="order-pic-desc">书籍名称</div>
+          <div class="order-btn-box">
+            <el-button>完成订单</el-button>
+            <el-button>取消订单</el-button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -193,10 +208,41 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped>
+<style  scoped>
 .main-container {
 }
 
+.each-box {
+  min-width: 750px;
+  width: 90%;
+  margin: 20px auto;
+  border: 1px solid #909199;
+}
+
+.order-title-box {
+  text-align: left;
+  font-size: 18px;
+}
+
+.order-pic-box {
+  height: 250px;
+}
+.order-pic {
+  width: 200px;
+  height: 200px;
+  float: left;
+  border: 1px solid #999;
+  display: flex;
+  align-items: center;
+}
+
+.order-pic-desc{
+  background-color: red;
+  float: left;
+}
+.order-btn-box{
+  float: right;
+}
 .time {
   display: block;
   font-size: 13px;
@@ -218,9 +264,10 @@ export default {
   margin: 0 auto;
 }
 
-.clearfix:before, .clearfix:after {
+.clearfix:before,
+.clearfix:after {
   display: table;
-  content: '';
+  content: "";
 }
 
 .clearfix:after {
