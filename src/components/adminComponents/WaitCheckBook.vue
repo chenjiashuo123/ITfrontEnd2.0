@@ -4,11 +4,11 @@
       <el-col :span="8" v-for="(item, index) in orderList" :key="index">
         <div class="showBlock">
           <el-card :body-style="{ padding: '0px' }">
-            <img src="../assets/book.png" class="image">
+            <img src="@/assets/book.png" class="image">
             <div style="padding: 14px;">
               <span>{{item.bookName}}</span>
               <div class="bottom clearfix">
-                <time class="time">{{ item.time }}</time>
+                
                 <el-button type="text" class="button" @click="showDetail(item)">查看详情</el-button>
               </div>
             </div>
@@ -21,7 +21,7 @@
         <el-row>
           <el-col>
             <div id="picture" class="information">
-              <img src="../assets/book.png" class="detailImage">
+              <img src="@/assets/book.png" class="detailImage">
             </div>
           </el-col>
         </el-row>
@@ -102,7 +102,7 @@
 
 <script>
 export default {
-  name: "OldBook",
+  name: "WaitCheckBook",
   data() {
     return {
       currentdate: "",
@@ -116,7 +116,8 @@ export default {
         price: "",
         state: " ",
         picture: "",
-        detail: ""
+        detail: "",
+        publisher:"",
       },
 
       orderList: [
@@ -128,7 +129,8 @@ export default {
           price: 30,
           state: "待售",
           picture: "../assets/book.png",
-          detail: "..."
+          detail: "...",
+          publisher:"",
         },
         {
           bookName: "线性代数",
@@ -138,7 +140,8 @@ export default {
           price: 30,
           state: "未完成",
           picture: "../assets/book.png",
-          detail: "..."
+          detail: "...",
+          publisher:"",
         },
         {
           bookName: "大学英语",

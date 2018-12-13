@@ -12,6 +12,12 @@ import HomeBody from "@/components/HomeBody.vue";
 import OldBook from "@/components/OldBook.vue";
 import NewBook from "@/components/NewBook.vue";
 
+import Admin from "@/views/Admin.vue";
+import CheckedBook from "@/components/adminComponents/CheckedBook.vue";
+import CheckOrder from "@/components/adminComponents/CheckOrder.vue";
+import CheckUser from "@/components/adminComponents/CheckUser.vue";
+import WaitCheckBook from "@/components/adminComponents/WaitCheckBook.vue";
+
 
 
 
@@ -84,6 +90,33 @@ const router = new Router({
       path: "/register",
       name: "register",
       component: Register
+    }, {
+      path: "/admin",
+      name: "admin",
+      component: Admin,
+      children: [
+        {
+          path: '/checkedbook',
+          name: 'checkedbook',
+          component: CheckedBook
+        },
+        {
+          path: '/checkuser',
+          name: 'checkuser',
+          component: CheckUser
+        },
+        {
+          path: '/checkorder',
+          name: 'checkorder',
+          component: CheckOrder
+        },
+        {
+          path: '/waitcheckbook',
+          name: 'waitcheckbook',
+          component: WaitCheckBook
+        },
+
+      ]
     }
   ]
 });

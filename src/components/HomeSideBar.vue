@@ -49,10 +49,11 @@ export default {
         case 6: //文学艺术
           this.$router.push("/homebody");
           break;
-        case 7://政治法律
+        case 7: //政治法律
           this.$router.push("/homebody");
           break;
-        case 8: 其他
+        case 8:
+          其他;
           this.$router.push("/homebody");
           break;
         default:
@@ -69,10 +70,8 @@ export default {
   padding: 0;
 }
 
-.el-menu-demo{
-  height : 700px
+.el-menu-demo {
+  height: 700px;
 }
-
-
 </style>
 
