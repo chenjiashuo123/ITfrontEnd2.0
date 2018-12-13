@@ -12,13 +12,11 @@
 </template>
 
 <script>
-import HeadBar from "@/components/HeadBar.vue";
 import AdminSideBar from "@/components/adminComponents/AdminSideBar.vue";
 
 export default {
   name: "Admin",
   components: {
-    HeadBar,
     AdminSideBar
   }
 };

@@ -29,7 +29,6 @@ export default {
 
 .person-main {
   width: 100%;
-  margin-left: 10px; 
 }
 </style>
 
