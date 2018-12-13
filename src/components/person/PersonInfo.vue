@@ -154,9 +154,10 @@ export default {
   }
 };
 </script>
-<style  scoped>
+<style scoped>
 .person-info {
   width: 100%;
+  text-align: center;
 }
 
 .title-container {
