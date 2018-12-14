@@ -1,0 +1,314 @@
+//前后端接口文档
+
+//登录 -- 耀
+{
+    url: '/api/login'
+    param: {
+        phone: string
+        pwd: string
+    }
+    return: {
+        state: int
+    }
+}
+
+
+//注册 -- 耀
+{
+    url: '/api/register'
+    param: {
+        phone: string
+        pwd: string
+        idnumber: string
+        name: string
+        address: string
+    }
+    return: {
+        state: int
+    }
+}
+
+//修改个人信息 -- 耀
+{
+    url: '/api/reviseinfo'
+    param: {
+        phone: string -
+        pwd: string -
+        idnumber: string -
+        name: string -
+        address: string -
+    }
+    return: {
+        state: int
+    }
+}
+
+
+//获取用户个人信息  -- 耀
+{
+    url: '/api/getuserinfo'
+    method: 'GET',
+    return: {
+        name
+        phone
+        idnumber
+        address
+    }
+}
+
+
+//管理员登录 -- 耀
+{
+    url: '/admin/api/login'
+    param: {
+        adminid: string
+        pwd: string
+    }
+    return: {
+        state: int
+    }
+}
+
+
+//添加订单 -- 武
+{
+    url: '/api/addorder'
+    param: {
+        buyerid: string
+        bookid: string
+        number: int
+    }
+    return: {
+        state: int
+        orderid: string
+    }
+}
+
+
+//查看订单 -- 武
+{
+    url: '/api/orders'
+    param: {
+        userid: string
+        buyerornot: string
+    }
+    return: {
+        state: int
+        orderlist: [{
+            orderid: string
+            time: string
+            bookstate: string
+            name: string
+        }]
+    }
+    //修改
+    return: {
+        state: int
+        orderlist:[{
+            bookid: string
+            orderid: string
+            time: string
+            total: 总价格
+            state: 订单状态
+            name: 书名
+            picture: 书的图片地址
+            author: 作者
+            class: 书的分类
+            phone: 卖家或买家的电话
+        }]
+    }
+}
+
+
+//订单详情 -- 武
+{
+    url: '/api/orderdetail'
+    param: {
+        orderid: string
+        buyerornot: string
+    }
+    return: {
+        state: int
+        bookname: string
+        orderid: string
+        time: string
+        number: int
+        total: double
+        bookstate: string
+        username: string
+        userphone: string
+        useraddress: string
+    }
+}
+
+
+//改变订单状态 -- 武
+{
+    url: '/api/changestate'
+    param: {
+        orderid: string
+        bookstate: string
+    }
+    return: {
+        state: int
+    }
+}
+
+//查找书籍 -- 云
+{
+    url:'/api/search'
+    param: {
+        keyword: string  //查找关键字
+    }
+    return: {
+        state: int 
+        booklist: [{
+            bookid: string
+            name:   string
+            price:  int
+            detail: string
+            ISBN:   string
+            number: string
+            picture:string
+            state:  string
+            author: string
+            class:  string
+        }]  // 列表中的字典数目不确定，需要做一个数量判断
+    }
+}
+
+
+//查看书籍 -- 云
+{
+    url: '/api/viewbook'
+    param: {
+        bookid: string
+    }
+
+    return: {
+        state: int
+        bookinfo:{
+            bookid: string
+            name:   string
+            price:  int
+            detail: string
+            ISBN:   string
+            number: string
+            picture:string
+            state:  string
+            author: string
+            class:  string
+        }
+    }
+}
+
+//收藏书籍 -- 云
+{
+    url: '/api/collect'
+    param: {
+        userid: string
+        bookid: string
+    }
+
+    return: {
+        state:  int
+        sucess: bool
+    }
+}
+
+//通过书籍id获得sellerid -- 云
+{
+    url: '/api/getsellerid'
+    param: {
+        bookid: string
+    }
+
+    return: {
+        state:  int
+        userid: string
+    }
+}
+
+//改变书籍状态 -- 云
+{
+    url: '/api/changestate'
+    param: {
+        userid: string
+        bookid: string
+        newstate: string
+    }
+
+    return: {
+        state: int
+        sucess: bool
+    }
+}
+
+//用户获取收藏列表 -- gydi
+{
+    url: '/api/getcollect'
+    method: GET
+    return: {
+        state: int
+        booklist: [{
+            bookid: 
+            name: 
+            price: 
+            picture:
+            state: 
+            author: 
+            class: 
+            time: 收藏时间
+        }]
+    }
+}
+
+
+//用户收集书本 -- gydi
+{
+    url: '/api/collect'
+    method: POST
+    param: {
+        bookid: string
+    }
+    return: {
+        state: int
+    }
+}
+
+
+//用户取消收藏 -- gydi
+{
+    url: '/api/cancelcoll'
+    method: POST
+    param: {
+        bookid: string
+    }
+    return: {
+        state: int
+    }
+}
+
+
+//上传图片文件 -- gydi
+{
+    url: '/api/upload'
+    param: {
+        file
+    }
+    return: {
+        state: int
+        picture: string
+    }
+}
+
+
+//展示图片的方法 -- gydi
+{
+    url: '/show/<string:picture>'
+    methods: GET
+    return: {
+        image
+    }
+}
+
