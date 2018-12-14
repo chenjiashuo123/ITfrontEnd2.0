@@ -82,6 +82,26 @@ export default {
     registerSubmit() {
       this.$refs.registerForm.validate(valid => {
         if (valid) {
+          this.axios
+            .post("/api/register", {
+              phone: this.registerForm.account,
+              pwd: this.registerForm.checkPass,
+              idnumber: this.registerForm.idCard,
+              name: this.registerForm.name,
+              address: this.registerForm.address
+            })
+            .then(res => {
+              if (res.data["state"] == 0) {
+                //注册成功
+                this.$message.success("注册成功");
+                this.$router.push("/login");
+              } else {
+                this.$message.error("注册失败，错误码：" + res.data["state"]);
+              }
+            })
+            .catch(err => {
+              this.$message.error("请先连接网路");
+            });
           this.$router.push("/login");
         }
       });
@@ -99,7 +119,8 @@ export default {
   border: 1px solid #909199;
   border-radius: 12px;
 }
-.title{
+
+.title {
   margin-left: 10px;
   margin-bottom: 30px;
 }

@@ -97,10 +97,10 @@ export default {
       modifyVisible: false,
       isRevisePwd: false,
       personMessage: {
-        name: "陈佳烁",
-        address: "华南理工大学校区",
-        phone: "123456789",
-        idCard: "201930664033"
+        name: "未登录",
+        address: "未登录",
+        phone: "无",
+        idCard: "无"
       },
       ruleForm2: {
         pass: "",
@@ -111,6 +111,19 @@ export default {
         checkPass: [{ validator: validatePass2, trigger: "blur" }]
       }
     };
+  },
+  beforeCreate() {
+    //获得个人信息
+    this.axios.get("/api/getuserinfo").then(res => {
+      if (res.data["state"] == 0) {
+        this.personMessage.name = res.data["name"];
+        this.personMessage.address = res.data["address"];
+        this.personMessage.phone = res.data["phone"];
+        this.personMessage.idCard = res.data["idnumber"];
+      } else {
+        console.log("get user info error: " + res.data["state"]);
+      }
+    });
   },
   methods: {
     //完成修改
@@ -125,7 +138,6 @@ export default {
         if (valid) {
           this.axios
             .post("/api/revise", {
-              option: 0,
               pwd: this.ruleForm2.pass
             })
             .then(result => {

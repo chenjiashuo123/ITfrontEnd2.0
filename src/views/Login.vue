@@ -47,22 +47,34 @@ export default {
       loginForm: {
         account: "",
         checkPass: ""
-      },
-      checked: true
+      }
     };
   },
   methods: {
     handleSubmit() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          if (
-            this.loginForm.account == "admin" &&
-            this.loginForm.checkPass == "admin"
-          ) {
-            this.$router.push("/home");
-          } else {
-            this.$message.error("账号或密码错误！");
-          }
+          this.axios
+            .post("/api/login", {
+              phone: this.loginForm.account,
+              pwd: this.loginForm.checkPass
+            })
+            .then(res => {
+              if (res.data["state"] == 0) {
+                this.$message.success("登录成功");
+                this.$router.push("/home");
+              } else if (res.data["state"] == 101) {
+                this.$message.success("密码错误");
+              } else if (res.data["state"] == 102) {
+                this.$message.success("账户不存在");
+              } else {
+                console.log("login", res.data["state"]);
+                this.$message.error("未知错误");
+              }
+            })
+            .catch(err => {
+              this.$message.error("请先连接网络");
+            });
         }
       });
     }
@@ -85,11 +97,6 @@ export default {
 .login-container {
   width: 80%;
   margin: 0 auto;
-}
-
-.registerButton {
-  margin-left: 80%;
-  color: red;
 }
 
 .register-container {
