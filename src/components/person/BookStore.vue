@@ -89,7 +89,7 @@ export default {
 
 <style scoped>
 .home-main {
-  width: 80%;
+  width: 100%;
   margin-top: 40px;
   text-align: center;
 }

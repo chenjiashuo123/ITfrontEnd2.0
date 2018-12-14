@@ -21,14 +21,14 @@ export default {
           userAddress: "华南理工大学C10"
         },
         {
-          userID: "2",
+          
           userName: "张耀",
           userPhone: "15521134442",
           userCard: "201630664032",
           userAddress: "华南理工大学C10"
         },
         {
-          userID: "3",
+        
           userName: "张昶",
           userPhone: "1552113443",
           userCard: "201630664033",

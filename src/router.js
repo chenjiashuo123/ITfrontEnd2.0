@@ -20,7 +20,6 @@ import CheckedBook from "@/components/admin/CheckedBook.vue";
 import CheckOrder from "@/components/admin/CheckOrder.vue";
 import CheckUser from "@/components/admin/CheckUser.vue";
 import WaitCheckBook from "@/components/admin/WaitCheckBook.vue";
-import CheckBookDetail from "@/components/admin/CheckBookDetail.vue";
 
 Vue.use(Router);
 
@@ -135,11 +134,6 @@ const router = new Router({
           path: "/waitcheckbook",
           name: "waitcheckbook",
           component: WaitCheckBook
-        },
-        {
-          path: "/checkbookdetail",
-          name: "checkbookdetail",
-          component: CheckBookDetail
         }
       ]
     }

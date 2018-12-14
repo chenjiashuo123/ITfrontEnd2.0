@@ -21,14 +21,14 @@
         </div>
         <div class="book-btn-box">
           <div>
-            <el-button>
+            <el-button @click="pass(item)">
               <strong>通过</strong>
             </el-button>
           </div>
           <br>
           <br>
           <div>
-            <el-button>
+            <el-button @click="unpass(item)">
               <strong>不通过</strong>
             </el-button>
           </div>
@@ -80,13 +80,11 @@ export default {
     ]
   }),
   methods:{
-     showDetail(item) {
-      this.$router.push({
-        name: "checkbookdetail",
-        params: {
-          id: item.ISBN
-        }
-      });
+    pass(item){
+      alert("审核通过接口");
+    },
+    unpass(item){
+      alert("审核未通过接口");
     }
   }
 };
