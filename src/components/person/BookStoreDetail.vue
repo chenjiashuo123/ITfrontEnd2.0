@@ -36,8 +36,8 @@
       <br>
       <div class="box-btn">
         <div>
-          <el-button @click="store">
-            <strong>收藏</strong>
+          <el-button @click="cancel">
+            <strong>取消收藏</strong>
           </el-button>
           <el-button>
             <strong @click="buy">购买</strong>
@@ -58,7 +58,7 @@
 import defaul_book from "../../../public/default_book.jpeg";
 
 export default {
-  name: "BookDetail",
+  name: "BookStoreDetail",
   data: () => ({
     bookid: "12345",
     name: "This is Book Name",
@@ -71,8 +71,8 @@ export default {
     detail: "无"
   }),
   methods: {
-    store(){
-      alert("收藏书接口");
+    cancel(){
+      alert("取消收藏书接口");
     },
     buy(){
       alert("买书接口");

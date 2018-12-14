@@ -2,7 +2,7 @@
   <el-container class="container">
     <el-header class="sub-header">
       <div>
-        <h2>出售书籍</h2>
+        <h2>修改信息</h2>
       </div>
     </el-header>
 
@@ -74,7 +74,7 @@
         </el-form-item>
         <el-form-item>
           <el-row>
-            <el-button type="warning" @click="submitForm('form')" round id="submit-button">发 布</el-button>
+            <el-button type="warning" @click="submitForm('form')" round id="submit-button">确 定</el-button>
           </el-row>
         </el-form-item>
       </el-form>
@@ -86,18 +86,18 @@
 
 <script>
 export default {
-  name: "NewBook",
+  name: "ModifyBook",
   data() {
     return {
       form: {
-        class: "",
-        name: "",
-        price: "",
-        isbn: "",
-        number: "",
-        author: "",
-        detail: "",
-        picture: ""
+        class: "123",
+        name: "123",
+        price: "123",
+        isbn: "123",
+        number: "123",
+        author: "123",
+        detail: "123",
+        picture: "123"
       },
       rules: {
         bookclass: [

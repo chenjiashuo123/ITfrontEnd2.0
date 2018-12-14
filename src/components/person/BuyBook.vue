@@ -1,117 +1,45 @@
 <template>
   <div class="main-container">
-    <div>
-      <div class="each-box">
-        <div class="order-title-box">
-          <span>2018-12-12</span>
-          &emsp;&emsp;
-          <span>
-            <strong>订单号：</strong>XXXXX
-          </span>
+    <div class="each-box" v-for="(item, index) in orderList" :key="index">
+      <div class="order-title-box">
+        <span>{{item.time}}</span>
+        &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;
+        <span>{{item.orderID}}</span>
+      </div>
+      <div class="order-pic-box">
+        <div class="book-pic">
+          <img src="../../assets/book.png" alt width="200px" @click="showDetail(item)">
         </div>
-        <div class="order-pic-box">
-          <div class="order-pic">
-            <img src="../../assets/book.png" alt width="200px">
+        <div class="order-pic-desc">
+          <div class="book-name">{{item.bookName}}</div>
+          <div class="book-author">{{item.author}}</div>
+          <div class="order-price">
+            <strong>￥{{item.price}}</strong>
           </div>
-          <div class="order-pic-desc">书籍名称</div>
-          <div class="order-btn-box">
-            <el-button>完成订单</el-button>
-            <el-button>取消订单</el-button>
+        </div>
+        <div class="order-btn-box" v-if="!isFinish(item)">
+          <div>
+            <el-button>
+              <strong>完成订单</strong>
+            </el-button>
+          </div>
+          <br>
+          <br>
+          <div>
+            <el-button>
+              <strong>取消订单</strong>
+            </el-button>
+          </div>
+        </div>
+        <div class="order-btn-box-unfinish" v-if="isFinish(item)">
+          <div>
+            <el-button disabled>
+              <strong>已完成</strong>
+            </el-button>
           </div>
         </div>
       </div>
     </div>
-
-    <div>
-      <el-col :span="8" v-for="(item, index) in orderList" :key="index">
-        <div class="showBlock">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="../../assets/book.png" class="image">
-            <div style="padding: 14px;">
-              <span>{{item.bookName}}</span>
-              <div class="bottom clearfix">
-                <time class="time">{{ item.time }}</time>
-                <el-button type="text" class="button" @click="showDetail(item)">查看详情</el-button>
-              </div>
-            </div>
-          </el-card>
-        </div>
-      </el-col>
-    </div>
-
-    <el-dialog title="订单详情" :visible.sync="detailDialogVisible" width="30%" center>
-      <div class="showInfo">
-        <el-row>
-          <el-col>
-            <div id="orderID" class="information">
-              <div class="content">订单号：</div>
-              <div class="content">{{showItem.orderID}}</div>
-            </div>
-          </el-col>
-        </el-row>
-        <br>
-        <el-row>
-          <el-col>
-            <div id="bookName" class="information">
-              <div class="content">书名：</div>
-              <div class="content">{{showItem.bookName}}</div>
-            </div>
-          </el-col>
-        </el-row>
-        <br>
-        <el-row>
-          <el-col>
-            <div id="author" class="information">
-              <div class="content">作者：</div>
-              <div class="content">{{showItem.author}}</div>
-            </div>
-          </el-col>
-        </el-row>
-        <br>
-        <el-row>
-          <el-col>
-            <div id="time" class="information">
-              <div class="content">创建时间：</div>
-              <div class="content">{{showItem.time}}</div>
-            </div>
-          </el-col>
-        </el-row>
-        <br>
-        <el-row>
-          <el-col>
-            <div id="price" class="information">
-              <div class="content">订单总价：</div>
-              <div class="content">{{showItem.price}}</div>
-            </div>
-          </el-col>
-        </el-row>
-        <br>
-        <el-row>
-          <el-col>
-            <div id="state" class="information">
-              <div class="content">订单状态：</div>
-              <div class="content">{{showItem.state}}</div>
-            </div>
-          </el-col>
-        </el-row>
-        <br>
-        <el-row>
-          <el-col>
-            <div id="salerPhone" class="information">
-              <div class="content">卖家联系方式：</div>
-              <div class="content">{{showItem.sellerPhone}}</div>
-            </div>
-          </el-col>
-        </el-row>
-        <br>
-        <el-row>
-          <el-col>
-            <el-button type="primary" class="sure" @click="ensure" style="width:32%">完成订单</el-button>
-            <el-button type="primary" class="cancel" @click="cancel" style="width:32%">取消订单</el-button>
-          </el-col>
-        </el-row>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
@@ -121,19 +49,9 @@ export default {
   data() {
     return {
       detailDialogVisible: false,
-      showItem: {
-        orderID: null,
-        picture: "",
-        bookName: "",
-        author: "123",
-        price: null,
-        state: "",
-        time: "",
-        sellerPhone: ""
-      },
       orderList: [
         {
-          orderID: 1,
+          orderID: "123",
           picture: "",
           bookName: "数学分析",
           author: "123",
@@ -143,7 +61,7 @@ export default {
           sellerPhone: "15521134440"
         },
         {
-          orderID: 2,
+          orderID: "124",
           picture: "",
           bookName: "线性代数",
           author: "123",
@@ -153,7 +71,17 @@ export default {
           sellerPhone: "15521134443"
         },
         {
-          orderID: 3,
+          orderID: "125",
+          picture: "",
+          bookName: "大学英语",
+          author: "123",
+          price: 40,
+          state: "未完成",
+          time: "2018/10/22",
+          sellerPhone: "15521134444"
+        },
+        {
+          orderID: "126",
           picture: "",
           bookName: "大学英语",
           author: "123",
@@ -163,17 +91,7 @@ export default {
           sellerPhone: "15521134444"
         },
         {
-          orderID: 3,
-          picture: "",
-          bookName: "大学英语",
-          author: "123",
-          price: 40,
-          state: "完成",
-          time: "2018/10/22",
-          sellerPhone: "15521134444"
-        },
-        {
-          orderID: 3,
+          orderID: "127",
           picture: "",
           bookName: "大学英语",
           author: "123",
@@ -187,47 +105,49 @@ export default {
   },
   methods: {
     showDetail(item) {
-      this.showItem.orderID = item.orderID;
-      this.showItem.bookName = item.bookName;
-      this.showItem.author = item.author;
-      this.showItem.price = item.price;
-      this.showItem.state = item.state;
-      this.showItem.time = item.time;
-      this.showItem.sellerPhone = item.sellerPhone;
-      this.detailDialogVisible = true;
+      this.$router.push({
+        name: "orderdetail",
+        params: {
+          id: item.ISBN
+        }
+      });
     },
-    ensure() {
-      //完成订单
-      this.detailDialogVisible = false;
-    },
-    cancel() {
-      //取消订单
-      this.detailDialogVisible = false;
+    isFinish(item) {
+      if (item.state === "完成") return true;
+      else return false;
     }
   }
 };
 </script>
 
 <style  scoped>
-.main-container {
-}
-
 .each-box {
   min-width: 750px;
   width: 90%;
-  margin: 20px auto;
+  margin: 20px auto 40px auto;
   border: 1px solid #909199;
+}
+
+.order-btn-box-unfinish {
+  height: 150px;
+  padding-top: 100px;
+  padding-right: 50px;
+  float: right;
 }
 
 .order-title-box {
   text-align: left;
   font-size: 18px;
+  border-bottom: 1px solid #909199;
+  background-color: #909199;
 }
 
 .order-pic-box {
-  height: 250px;
+  margin-left: 20px;
+  height: 240px;
 }
-.order-pic {
+.book-pic {
+  margin-top: 20px;
   width: 200px;
   height: 200px;
   float: left;
@@ -236,11 +156,39 @@ export default {
   align-items: center;
 }
 
+.book-name {
+  margin: 20px 0 0 0;
+  text-align: left;
+  font-size: 30px;
+  height: 80px;
+  width: 400px;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+.book-author {
+  text-align: left;
+  font-size: 25px;
+  height: 70px;
+  width: 400px;
+
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.order-price {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 25px;
+  height: 40px;
+}
+
 .order-pic-desc {
-  background-color: red;
   float: left;
 }
 .order-btn-box {
+  height: 150px;
+  padding-top: 60px;
+  padding-right: 50px;
   float: right;
 }
 .time {

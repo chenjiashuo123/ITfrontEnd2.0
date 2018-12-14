@@ -12,8 +12,9 @@ import OldBook from "@/components/person/OldBook.vue";
 import NewBook from "@/components/person/NewBook.vue";
 import HomeMain from "./components/home/HomeMain.vue";
 import BookDetail from "./components/home/BookDetail.vue";
-
-
+import OrderDetail from "./components/person/OrderDetail.vue";
+import BookStoreDetail from "./components/person/BookStoreDetail.vue";
+import ModifyBook from "./components/person/ModifyBook.vue";
 import Admin from "@/views/Admin.vue";
 import CheckedBook from "@/components/admin/CheckedBook.vue";
 import CheckOrder from "@/components/admin/CheckOrder.vue";
@@ -67,7 +68,7 @@ const router = new Router({
       children: [{
           path: "/bookstore",
           name: "bookstore",
-          component: BookStore
+          component: BookStore,
         },
         {
           path: "/buybook",
@@ -93,6 +94,21 @@ const router = new Router({
           path: "/salebook",
           name: "salebook",
           component: SaleBook
+        },
+        {
+          path: "/orderdetail",
+          name: "orderdetail",
+          component: OrderDetail
+        },
+        {
+          path: "/bookstoredetail",
+          name: "bookstoredetail",
+          component: BookStoreDetail
+        },
+        {
+          path: "/modifybook",
+          name: "modifybook",
+          component: ModifyBook
         }
       ]
     },
