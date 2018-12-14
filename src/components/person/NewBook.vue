@@ -28,7 +28,7 @@
           <el-input class="inputBox" placeholder="请输入书籍作者" v-model="form.author" clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="书籍分类" prop="bookclass">
+        <el-form-item label="书籍分类">
           <el-select v-model="form.class" placeholder="请选择书籍分类">
             <el-option label="计算机" value="1"></el-option>
             <el-option label="工程科学" value="2"></el-option>
@@ -100,9 +100,6 @@ export default {
         picture: ""
       },
       rules: {
-        bookclass: [
-          { required: true, message: "请输入书籍分类", trigger: "blur" }
-        ],
         name: [{ required: true, message: "请输入活动名称", trigger: "blur" }],
         price: [{ required: true, message: "请输入你的姓名", trigger: "blur" }],
         number: [
@@ -115,6 +112,7 @@ export default {
   },
   methods: {
     submitForm(form) {
+      console.log("submit!!!");
       this.$refs[form].validate(valid => {
         if (valid && this.curFileNum > 0) {
           this.$refs.uploadscan.submit();
@@ -190,5 +188,4 @@ export default {
 .textarea {
   width: 360px;
 }
-
 </style>
