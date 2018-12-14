@@ -20,6 +20,7 @@ import CheckedBook from "@/components/admin/CheckedBook.vue";
 import CheckOrder from "@/components/admin/CheckOrder.vue";
 import CheckUser from "@/components/admin/CheckUser.vue";
 import WaitCheckBook from "@/components/admin/WaitCheckBook.vue";
+import SearchList from "@/components/home/SearchList.vue";
 
 Vue.use(Router);
 
@@ -54,6 +55,11 @@ const router = new Router({
           path: "/bookdetail",
           name: "bookdetail",
           component: BookDetail
+        },
+        {
+          path: "/searchlist",
+          name: "searchlist",
+          component: SearchList
         }
       ]
     },

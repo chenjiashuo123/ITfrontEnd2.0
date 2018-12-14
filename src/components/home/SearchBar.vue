@@ -40,6 +40,7 @@ export default {
   methods: {
     clickSearch() {
       console.log("click");
+      this.$router.push("/searchlist");
     }
   }
 };
