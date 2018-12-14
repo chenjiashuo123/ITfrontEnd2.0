@@ -1,3 +1,5 @@
+import axios from "axios";
+import VueAxios from "vue-axios";
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router.js";
@@ -6,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import global_ from './components/Global.js';
 
 
+Vue.use(VueAxios, axios);
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
 

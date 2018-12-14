@@ -12,22 +12,19 @@
       </div>
     </el-col>
     <el-col :span="12">
-      <div class="search-container">
-        <el-input placeholder="请输入搜索内容" v-model="search" class="input-select">
-          <el-button
-            slot="append"
-            icon="el-icon-search"
-            @click="clickSearch()"
-            style="background-color:#E6A23C;color:white;"
-          ></el-button>
-        </el-input>
-      </div>
+      <el-container class="search-container">
+        <el-input
+          placeholder="请输入搜索内容"
+          v-model="search"
+          class="input-select"
+          prefix-icon="el-icon-search"
+        ></el-input>
+        <el-button @click="clickSearch()" type="warning" round class="search-btn">搜索</el-button>
+      </el-container>
     </el-col>
-    <el-col :span="4">
-      <div class="statement">&copy;MuteX IT project
-        <br>2018
-      </div>
-    </el-col>
+    <div class="statement">&copy;MuteX IT project
+      <br>2018
+    </div>
   </div>
 </template>
 
@@ -39,8 +36,25 @@ export default {
   }),
   methods: {
     clickSearch() {
-      console.log("click");
-      this.$router.push("/searchlist");
+      this.axios
+        .post("/api/search", { keyword: this.search })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            var orderList = res.data["booklist"];
+            console.log("click");
+            this.$router.push({
+              name: "searchlist",
+              params: {
+                booklist: orderList
+              }
+            });
+          } else {
+            this.$message.error("搜索失败，错误码：" + res.data["state"]);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
@@ -64,7 +78,10 @@ export default {
 }
 
 .search-container {
-  width: 360px;
+  width: 450px;
+}
+.search-btn {
+  margin: 20px 0 0 10px;
 }
 .input-select {
   margin: 20px 0 0 20%;
@@ -74,6 +91,8 @@ export default {
   color: #909199;
   float: right;
   margin-top: 30px;
+  margin-right: 30px;
+  text-align: center;
 }
 </style>
 

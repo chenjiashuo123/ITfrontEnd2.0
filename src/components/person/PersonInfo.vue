@@ -128,7 +128,27 @@ export default {
   methods: {
     //完成修改
     clickModify() {
-      if (this.modifyVisible) {
+      if (
+        this.modifyVisible &&
+        this.personMessage.name.length > 0 &&
+        this.personMessage.address.length > 0 &&
+        this.personMessage.phone.length > 0 &&
+        this.personMessage.idCard.length > 0
+      ) {
+        this.axios
+          .post("/api/reviseinfo", {
+            phone: this.personMessage.phone,
+            idnumber: this.personMessage.idCard,
+            name: this.personMessage.name,
+            address: this.personMessage.address
+          })
+          .then(res => {
+            if (res.data["state"] == 0) {
+              this.$message.success("修改成功");
+            } else {
+              this.$message.success("修改失败, 错误码：" + res.data["state"]);
+            }
+          });
         console.log("上传数据");
       }
       this.modifyVisible = !this.modifyVisible;
@@ -137,7 +157,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.axios
-            .post("/api/revise", {
+            .post("/api/reviseinfo", {
               pwd: this.ruleForm2.pass
             })
             .then(result => {
@@ -145,7 +165,6 @@ export default {
                 this.$message.error(
                   "修改失败! 错误码: " + result.data["state"]
                 );
-                return;
               } else {
                 this.$message.success("修改成功!");
                 this.isRevisePwd = false;

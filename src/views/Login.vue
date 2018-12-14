@@ -89,6 +89,7 @@ export default {
   border: 1px solid #909199;
   padding: 40px 20px 40px 0;
   border-radius: 20px;
+  text-align: center;
 }
 .title {
   margin-left: 10px;

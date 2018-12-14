@@ -2,41 +2,35 @@
   <div class="main-container">
     <div class="each-box" v-for="(item, index) in orderList" :key="index">
       <div class="order-title-box">
+        &emsp;&emsp;
         <span>{{item.time}}</span>
         &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;
-        <span>{{item.orderID}}</span>
+        <span style="font-size: 14px;color:#777;">订单号：
+        </span>
+          <span style="font-size:18px;">{{item.orderID}}</span>
       </div>
       <div class="order-pic-box">
         <div class="book-pic">
-          <img src="../../assets/book.png" alt width="200px" @click="showDetail(item)">
+          <img src="../../assets/book.png" alt width="160px" @click="showDetail(item)">
         </div>
         <div class="order-pic-desc">
           <div class="book-name">{{item.bookName}}</div>
-          <div class="book-author">{{item.author}}</div>
-          <div class="order-price">
-            <strong>￥{{item.price}}</strong>
+          <div class="book-author">
+            作者：
+            <span style="font-size: 16px;">{{item.author}}</span>
+          </div>
+          <div class="order-price">￥
+            <strong style="font-size:30px;">{{item.price}}</strong>
           </div>
         </div>
         <div class="order-btn-box" v-if="!isFinish(item)">
-          <div>
-            <el-button>
-              <strong>完成订单</strong>
-            </el-button>
-          </div>
-          <br>
-          <br>
-          <div>
-            <el-button>
-              <strong>取消订单</strong>
-            </el-button>
+          <el-button type="success" plain>完成订单</el-button>
+          <div style="margin-top: 30px;">
+            <el-button type="danger" plain>取消订单</el-button>
           </div>
         </div>
         <div class="order-btn-box-unfinish" v-if="isFinish(item)">
-          <div>
-            <el-button disabled>
-              <strong>已完成</strong>
-            </el-button>
-          </div>
+          <el-button disabled>已完成</el-button>
         </div>
       </div>
     </div>
@@ -53,7 +47,8 @@ export default {
         {
           orderID: "123",
           picture: "",
-          bookName: "数学分析",
+          bookName:
+            "数学分析少时诵诗书所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所",
           author: "123",
           price: 30,
           state: "完成",
@@ -124,116 +119,73 @@ export default {
 .each-box {
   min-width: 750px;
   width: 90%;
+  height: 220px;
+  border-radius: 20px;
   margin: 20px auto 40px auto;
-  border: 1px solid #909199;
+  border: 1px solid rgb(210, 210, 210);
+  box-shadow: 1px 1px 1px 0.5px #eee;
 }
 
 .order-btn-box-unfinish {
-  height: 150px;
-  padding-top: 100px;
-  padding-right: 50px;
+  margin-top: 70px;
+  padding-right: 58px;
   float: right;
 }
 
 .order-title-box {
   text-align: left;
-  font-size: 18px;
-  border-bottom: 1px solid #909199;
-  background-color: #909199;
+  padding-top: 8px;
+  padding-bottom: 6px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  background-color: #dedede;
 }
 
 .order-pic-box {
   margin-left: 20px;
-  height: 240px;
 }
 .book-pic {
-  margin-top: 20px;
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   float: left;
-  border: 1px solid #999;
+  margin-top: 10px;
+  padding: 1px;
+  border: 0.5px solid rgba(200, 200, 200, 0.5);
   display: flex;
   align-items: center;
 }
-
+.order-pic-desc {
+  float: left;
+  margin-left: 16px;
+  margin-top: 10px;
+  padding-right: 20px;
+  border-right: 1px solid #909199;
+}
 .book-name {
-  margin: 20px 0 0 0;
-  text-align: left;
-  font-size: 30px;
-  height: 80px;
+  height: 72px;
   width: 400px;
+  font-size: 22px;
   word-wrap: break-word;
   overflow: hidden;
 }
 .book-author {
-  text-align: left;
-  font-size: 25px;
-  height: 70px;
-  width: 400px;
-
-  word-wrap: break-word;
+  width: 360px;
+  font-size: 14px;
+  margin-top: 10px;
   overflow: hidden;
+  color: #888;
 }
 
 .order-price {
-  margin-top: 20px;
-  text-align: left;
-  font-size: 25px;
-  height: 40px;
+  margin-top: 25px;
+  color: red;
+  font-size: 20px;
 }
 
-.order-pic-desc {
-  float: left;
-}
 .order-btn-box {
-  height: 150px;
-  padding-top: 60px;
-  padding-right: 50px;
+  margin-top: 34px;
+  margin-right: 50px;
   float: right;
-}
-.time {
-  display: block;
-  font-size: 13px;
-  color: #999;
-}
-
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
-}
-
-.button {
-  padding: 0;
-  float: right;
-}
-
-.image {
-  width: 100%;
-  margin: 0 auto;
-}
-
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-
-.clearfix:after {
-  clear: both;
-}
-
-.content {
-  float: left;
-  width: 50%;
-  font-size: 16px;
-}
-
-.sure {
-  margin-left: 15%;
-}
-
-.showBlock {
-  margin: 10px;
 }
 </style>
 

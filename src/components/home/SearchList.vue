@@ -1,6 +1,6 @@
 <template>
   <el-container class="book-container">
-    <div>
+    <div v-if="!isNone">
       <el-col :span="6" v-for="(item, index) in orderList" :key="index">
         <div class="each-book">
           <div class="img-container" @click="showDetail(item)">
@@ -14,118 +14,42 @@
         </div>
       </el-col>
     </div>
+    <div v-else class="nores-box">
+      <span style="font-size: 30px;color: #909199;">找不到该书籍</span>
+      <br>
+      <span style="margin-top:20px;color: #bbb;">可以换个关键词试试哟～</span>
+    </div>
   </el-container>
 </template>
 
 <script>
 export default {
   name: "SearchList",
+
   data: () => ({
-    orderList: [
-      {
-        bookName: "数学分析",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/21",
-        price: 30,
-        state: "待售",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "线性代数",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/20",
-        price: 30,
-        state: "未完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "线性代数",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/20",
-        price: 30,
-        state: "未完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "线性代数",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/20",
-        price: 30,
-        state: "未完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "线性代数",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/20",
-        price: 30,
-        state: "未完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      }
-    ]
-  })
+    isNone: true,
+    orderList: []
+  }),
+  beforeMount() {
+    this.orderList = this.$route.params.booklist;
+    this.isNone = this.orderList.length > 0 ? false : true;
+  }
 };
 </script>
 
 <style scoped>
 .book-container {
   width: 98%;
-  margin: 40px auto;
+  min-height: 500px;
+  margin: 60px auto;
+  padding-top: 40px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
 }
 
 .each-book {
   width: 180px;
-  margin-left: 35px;
+  margin-left: 40px;
   margin-bottom: 40px;
 }
 
@@ -156,5 +80,11 @@ export default {
 .book-price {
   font-size: 24px;
   color: red;
+}
+
+.nores-box {
+  width: 100%;
+  text-align: center;
+  margin: 170px 0;
 }
 </style>

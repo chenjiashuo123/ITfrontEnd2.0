@@ -49,6 +49,7 @@
     url: '/api/getuserinfo'
     method: 'GET',
     return: {
+        state
         name
         phone
         idnumber
@@ -92,16 +93,6 @@
         userid: string
         buyerornot: string
     }
-    return: {
-        state: int
-        orderlist: [{
-            orderid: string
-            time: string
-            bookstate: string
-            name: string
-        }]
-    }
-    //修改
     return: {
         state: int
         orderlist:[{
@@ -184,7 +175,6 @@
     param: {
         bookid: string
     }
-
     return: {
         state: int
         bookinfo:{

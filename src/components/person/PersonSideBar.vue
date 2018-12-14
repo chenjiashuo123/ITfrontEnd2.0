@@ -76,6 +76,8 @@ export default {
 
 <style lang="stylus" scoped>
 .personSideBar {
+  width: 200px;
+  background-color:red;
   height: 750px;
 }
 

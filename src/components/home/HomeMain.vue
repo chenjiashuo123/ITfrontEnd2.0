@@ -10,16 +10,16 @@
         text-color="#fff"
         active-text-color="#ffd04b"
       >
-        <el-menu-item index="0">推荐</el-menu-item>
-        <el-menu-item index="1">计算机</el-menu-item>
-        <el-menu-item index="2">工程科学</el-menu-item>
-        <el-menu-item index="3">经济管理</el-menu-item>
-        <el-menu-item index="4">自然科学</el-menu-item>
-        <el-menu-item index="5">英语</el-menu-item>
-        <el-menu-item index="6">数学</el-menu-item>
-        <el-menu-item index="7">文学艺术</el-menu-item>
-        <el-menu-item index="8">政治法律</el-menu-item>
-        <el-menu-item index="9">其他</el-menu-item>
+        <el-menu-item index="推荐">推荐</el-menu-item>
+        <el-menu-item index="计算机">计算机</el-menu-item>
+        <el-menu-item index="工程科学">工程科学</el-menu-item>
+        <el-menu-item index="经济管理">经济管理</el-menu-item>
+        <el-menu-item index="自然科学">自然科学</el-menu-item>
+        <el-menu-item index="英语">英语</el-menu-item>
+        <el-menu-item index="数学">数学</el-menu-item>
+        <el-menu-item index="文学艺术">文学艺术</el-menu-item>
+        <el-menu-item index="政治法律">政治法律</el-menu-item>
+        <el-menu-item index="其他">其他</el-menu-item>
       </el-menu>
     </div>
     <div class="all-book">
@@ -79,48 +79,15 @@ export default {
     ]
   }),
   methods: {
+    ask_data(bookclass) {},
     handleSelect(key, keyPath) {
-      switch (key) {
-        case 0: //推荐
-          this.$router.push("/homebody");
-          break;
-        case 1: //计算机
-          this.$router.push("/homebody");
-          break;
-        case 2: //工程科学
-          this.$router.push("/homebody");
-          break;
-        case 3: //经济管理
-          this.$router.push("/homebody");
-          break;
-        case 4: //自然科学
-          this.$router.push("/homebody");
-          break;
-        case 5: //英语
-          this.$router.push("/homebody");
-          break;
-        case 6: //数学
-          this.$router.push("/homebody");
-          break;
-        case 7: //文学艺术
-          this.$router.push("/homebody");
-          break;
-        case 8: //政治法律
-          this.$router.push("/homebody");
-          break;
-        case 9:
-          this.$router.push("/homebody");
-          break;
-        default:
-          break;
-      }
       console.log(key, keyPath);
     },
     showDetail(item) {
       this.$router.push({
         name: "bookdetail",
         params: {
-          id: item.ISBN
+          id: item.bookid
         }
       });
     }

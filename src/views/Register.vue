@@ -118,6 +118,7 @@ export default {
   padding: 40px 50px 30px 30px;
   border: 1px solid #909199;
   border-radius: 12px;
+  text-align: center;
 }
 
 .title {
