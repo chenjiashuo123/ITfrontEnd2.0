@@ -62,7 +62,8 @@ export default {
             .then(res => {
               if (res.data["state"] == 0) {
                 this.$message.success("登录成功");
-                this.$router.push("/home");
+                this.GLOBAL.isLogin = true;
+                this.$router.push("/homemain");
               } else if (res.data["state"] == 101) {
                 this.$message.success("密码错误");
               } else if (res.data["state"] == 102) {

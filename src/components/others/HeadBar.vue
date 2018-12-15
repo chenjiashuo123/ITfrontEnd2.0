@@ -15,8 +15,8 @@
       </el-col>
       <el-col :span="7">
         <div
-          :class="curPos==3 ? 'each-item-active':'each-item'"
-          @click="handleSelect(3)"
+          :class="curPos==2 ? 'each-item-active':'each-item'"
+          @click="handleSelect(2)"
         >{{isLogin? '注销' : '注册'}}</div>
       </el-col>
     </div>
@@ -29,42 +29,53 @@ export default {
   data() {
     return {
       curPos: 0,
-      isLogin: this.GLOBAL.isLogin
+      isLogin: false
     };
   },
   methods: {
-    toHome() {
-      this.$router.push("/home");
-    },
-    toPerson() {
-      this.$router.push("/person");
-    },
     handleSelect(idx) {
+      if (this.curPos == idx) return;
       this.curPos = idx;
       this.handleRouter(idx);
     },
     handleRouter(idx) {
-      idx = this.isLogin ? idx + 1 : idx;
-      if (idx == this.GLOBAL.headBarState) return;
-      console.log(idx);
-      this.GLOBAL.headBarState = idx;
       switch (idx) {
         case 0: //首页
-          this.$router.push("/home");
+          if (this.GLOBAL.headBarState == 0) return;
+          this.GLOBAL.headBarState = 0;
+          this.$router.push("/homemain");
           break;
-        case 1: //登录
-          this.$router.push("/login");
+        case 1: //登录//个人中心
+          if (this.GLOBAL.isLogin) {
+            if (this.GLOBAL.headBarState == 2) return;
+            this.GLOBAL.headBarState = 2;
+            this.$router.push("/personinfo");
+          } else {
+            if (this.GLOBAL.headBarState == 1) return;
+            this.GLOBAL.headBarState = 1;
+            this.$router.push("/login");
+          }
           break;
-        case 2: //个人中心
-          this.$router.push("/person");
-          break;
-        case 3: //注册
-          this.$router.push("/register");
-          break;
-        case 4: //登出
+        case 2: //注册//登出
+          if (this.GLOBAL.isLogin) {
+            console.log("注销");
+          } else {
+            if (this.GLOBAL.headBarState == 3) return;
+            this.GLOBAL.headBarState = 3;
+            this.$router.push("/register");
+          }
           break;
         default:
           break;
+      }
+    }
+  },
+  watch: {
+    $route: function(to, from) {
+      if (this.GLOBAL.isLogin && !this.isLogin) {
+        console.log("catch");
+        this.curPos = 0;
+        this.isLogin = true;
       }
     }
   }

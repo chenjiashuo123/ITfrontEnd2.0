@@ -32,5 +32,4 @@ export default {
   min-height: 750px;
   margin: 30px auto;
 }
-
 </style>
