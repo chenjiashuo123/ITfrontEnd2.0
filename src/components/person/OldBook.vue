@@ -96,7 +96,7 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .each-box {
   min-width: 750px;
   width: 90%;
@@ -115,8 +115,8 @@ export default {
 
 .order-title-box {
   text-align: left;
-  padding-top: 8px;
-  padding-bottom: 6px;
+  padding-top: 10px;
+  padding-bottom: 7px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   background-color: #dedede;

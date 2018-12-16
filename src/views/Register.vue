@@ -8,7 +8,6 @@
       label-position="right"
       label-width="80px"
       class="register-container"
-      v-if="!loginVisible"
     >
       <el-form-item prop="account" label="手机号">
         <el-input
