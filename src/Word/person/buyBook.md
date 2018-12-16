@@ -7,7 +7,7 @@
     bookName: 书籍名
     author: 书籍作者
     price: 价格,
-    state: 订单状态,
+    state: 订单状态(完成，未完成)
     time: 订单发起时间,
 '''
 

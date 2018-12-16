@@ -6,11 +6,11 @@
       </div>
       <div class="book-pic-box">
         <div class="book-pic" >
-          <img src="../../assets/book.png" alt width="200px"  @click="showDetail(item)">
+          <img src="../../assets/book.png" alt width="200px">
         </div>
         <div class="book-pic-desc">
           <div class="book-name">
-            {{item.bookName}}
+            {{item.name}}
           </div>
           <div class="book-author">
             {{item.author}}
@@ -21,7 +21,7 @@
         </div>
         <div class="book-btn-box">
           <div>
-            <el-button>
+            <el-button @click="downBook(item.bookid)">
               <strong>下架</strong>
             </el-button>
           </div>
@@ -36,42 +36,18 @@
 export default {
   name: "CheckedBook",
    data: () => ({
-    bookList: [
-      {
-        bookName: "数学分析",
-        author: "德里克罗斯",
-        ISBN: "12345678",
-        time: "2018/10/21",
-        price: 30,
-        state: "未审核",
-        picture: "../../assets/book.png",
-        publish:"陈佳烁",
-        detail: "..."
-      },
-      {
-        bookName: "线性代数",
-        author: "德里克罗斯",
-        ISBN: "12345678",
-        time: "2018/10/20",
-        price: 30,
-        state: "已审核",
-        picture: "../../assets/book.png",
-        publish:"张耀",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "德里克罗斯",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "已审核",
-        picture: "../../assets/book.png",
-        publish:"张昶",
-        detail: "..."
-      }
-    ]
+    bookList: []
   }),
+  beforeCreate(){
+    this.axios.get('/api/serchunreviewedbook').then(res=>{
+      if (res.data["state"] == 0) {
+        this.bookList=res.data["bookList"];
+      } else {
+        console.log("get collected book error: " + res.data["state"]);
+      }
+
+    });
+  },
   methods:{
      showDetail(item) {
       this.$router.push({
@@ -82,6 +58,7 @@ export default {
       });
     }
   }
+
 };
 </script>
 

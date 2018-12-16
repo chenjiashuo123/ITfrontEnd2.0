@@ -21,6 +21,7 @@ import CheckOrder from "@/components/admin/CheckOrder.vue";
 import CheckUser from "@/components/admin/CheckUser.vue";
 import WaitCheckBook from "@/components/admin/WaitCheckBook.vue";
 import SearchList from "@/components/home/SearchList.vue";
+import AdminLogin from "@/views/AdminLogin.vue";
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ const router = new Router({
   routes: [{
       path: "/",
       redirect: "/home"
+    },
+    {
+      path: "/adminlogin",
+      name: "adminlogin",
+      component: AdminLogin
     },
     {
       path: "/login",
