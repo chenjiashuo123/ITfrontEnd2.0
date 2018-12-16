@@ -42,60 +42,8 @@ export default {
   name: "BuyBook",
   data() {
     return {
-      detailDialogVisible: false,
-      orderList: [
-        {
-          orderID: "123",
-          picture: "",
-          bookName:
-            "数学分析少时诵诗书所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所",
-          author: "123",
-          price: 30,
-          state: "完成",
-          time: "2018/10/20",
-          sellerPhone: "15521134440"
-        },
-        {
-          orderID: "124",
-          picture: "",
-          bookName: "线性代数",
-          author: "123",
-          price: 30,
-          state: "未完成",
-          time: "2018/10/21",
-          sellerPhone: "15521134443"
-        },
-        {
-          orderID: "125",
-          picture: "",
-          bookName: "大学英语",
-          author: "123",
-          price: 40,
-          state: "未完成",
-          time: "2018/10/22",
-          sellerPhone: "15521134444"
-        },
-        {
-          orderID: "126",
-          picture: "",
-          bookName: "大学英语",
-          author: "123",
-          price: 40,
-          state: "完成",
-          time: "2018/10/22",
-          sellerPhone: "15521134444"
-        },
-        {
-          orderID: "127",
-          picture: "",
-          bookName: "大学英语",
-          author: "123",
-          price: 40,
-          state: "完成",
-          time: "2018/10/22",
-          sellerPhone: "15521134444"
-        }
-      ]
+      buyerornot:"True",
+      orderList: []
     };
   },
   methods: {
@@ -111,7 +59,26 @@ export default {
       if (item.state === "完成") return true;
       else return false;
     }
-  }
+  },
+   beforeCreate() {
+    //获得订单
+    this.axios
+            .post("/api/orders", {
+              buyerornot: this.buyerornot,
+            })
+            .then(res => {
+              if (res.data["state"] == 0) {
+                //获得成功
+                this.orderList=res.data["orderlist"];
+                this.$message.success("获得成功成功");
+              } else {
+                this.$message.error("获得失败，错误码：" + res.data["state"]);
+              }
+            })
+            .catch(err => {
+              this.$message.error("请先连接网路");
+            });
+  },
 };
 </script>
 
