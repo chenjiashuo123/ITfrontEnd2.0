@@ -5,9 +5,8 @@
         &emsp;&emsp;
         <span>{{item.time}}</span>
         &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;
-        <span style="font-size: 14px;color:#777;">订单号：
-        </span>
-          <span style="font-size:18px;">{{item.orderID}}</span>
+        <span style="font-size: 14px;color:#777;">订单号：</span>
+        <span style="font-size:18px;">{{item.orderID}}</span>
       </div>
       <div class="order-pic-box">
         <div class="book-pic">
@@ -19,7 +18,8 @@
             作者：
             <span style="font-size: 16px;">{{item.author}}</span>
           </div>
-          <div class="order-price">￥
+          <div class="order-price">
+            ￥
             <strong style="font-size:30px;">{{item.price}}</strong>
           </div>
         </div>

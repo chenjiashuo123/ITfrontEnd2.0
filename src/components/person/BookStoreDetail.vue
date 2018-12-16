@@ -2,7 +2,7 @@
   <el-container class="book-container">
     <div class="box-left">
       <div class="img-box">
-        <img :src="picture" alt width="350px" style="margin-left:5px;">
+        <img :src="getpic(picture)" alt width="350px" style="margin-left:5px;">
       </div>
     </div>
     <div class="box-middle">
@@ -51,6 +51,20 @@
         <div class="s-value-h4">{{detail}}</div>
       </div>
     </div>
+
+    <el-dialog title="购买成功" :visible.sync="dialogVisible" width="30%">
+      <div style="height: 45px;">
+        <span class="dlg_title">订 单 号：</span>
+        <span class="dlg_val">{{dlg_orderid}}</span>
+      </div>
+      <div style="height: 36px;">
+        <span class="dlg_title">订单总价：</span>
+        <span class="dlg_val">{{dlg_total}}1</span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </el-container>
 </template>
 
@@ -71,16 +85,57 @@ export default {
     detail: "无"
   }),
   methods: {
-    cancel(){
-      alert("取消收藏书接口");
+    cancel() {
+      this.axios
+        .post("/api/cancelcoll", { bookid: this.bookid })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            this.$message.success("取消收藏成功");
+          } else {
+            this.$message.error("取消收藏失败，错误码：" + res.data["state"]);
+          }
+        })
+        .catch(() => {
+          this.$message.error("请连接网络");
+        });
     },
-    buy(){
-      alert("买书接口");
+    buy() {
+      this.axios
+        .post("/api/addorder", { bookid: this.bookid })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            this.dialogVisible = true;
+            this.dlg_orderid = res.data["orderid"];
+            this.dlg_total = res.data["price"];
+          } else {
+            this.$message.error("购买失败，错误码：" + res.data["state"]);
+          }
+        })
+        .catch(err => {
+          this.$message.error("请连接网络");
+        });
+    },
+    getpic(pic) {
+      if (pic.length > 0) {
+        return "/show/" + pic;
+      }
+      return defaul_book;
     }
   },
   beforeCreate() {
-    this.bookid = this.$route.params.id;
-    console.log(this.bookid);
+    this.book = this.$route.params.book;
+    if (book) {
+      this.bookid = book.bookid;
+      this.name = book.name;
+      this.price = book.price;
+      this.isbn = book.isbn;
+      this.picture = book.picture;
+      this.bookclass = book.bookclass;
+      this.author = book.author;
+      this.detail = book.detail;
+    } else {
+      this.$message.error("未知错误");
+    }
   }
 };
 </script>
@@ -89,13 +144,12 @@ export default {
 .book-container {
   margin: 60px 40px;
 }
-.box-btn{
+.box-btn {
   padding-left: 50px;
 }
 .box-middle {
   margin-top: 30px;
   margin-left: 40px;
- 
 }
 .book-author,
 .book-other,

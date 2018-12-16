@@ -2,7 +2,7 @@
   <el-container class="home-main">
     <div class="side-bar">
       <el-menu
-        default-active="0"
+        default-active="推荐"
         class="el-menu-demo"
         mode="vertical"
         @select="handleSelect"
@@ -30,8 +30,8 @@
               <img src="../../../public/timg.jpeg" width="180px">
             </div>
             <div class="book-info">
-              <div class="book-name" @click="showDetail(item)">{{item.bookName}}</div>
-              <time class="time">{{ item.time }}</time>
+              <div class="book-name" @click="showDetail(item)">{{item.name}}</div>
+              <time class="time">{{ item.author }}</time>
               <div class="book-price">￥{{item.price}}</div>
             </div>
           </div>
@@ -46,16 +46,6 @@ export default {
   name: "HomeMain",
   data: () => ({
     orderList: [
-      {
-        bookName: "数学分析",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/21",
-        price: 30,
-        state: "待售",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
       {
         bookName: "线性代数",
         author: "123",
@@ -78,16 +68,33 @@ export default {
       }
     ]
   }),
+  beforeMount() {
+    this.ask_data("推荐");
+  },
   methods: {
-    ask_data(bookclass) {},
+    ask_data(bookclass) {
+      this.axios
+        .post("/api/bookclass", {
+          bookclass: bookclass
+        })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            console.log(res.data["booklist"]);
+            this.orderList = res.data["booklist"];
+          } else {
+            this.$message.error("获取信息失败，错误码：" + res.data["state"]);
+          }
+        });
+    },
     handleSelect(key, keyPath) {
+      this.ask_data(key);
       console.log(key, keyPath);
     },
     showDetail(item) {
       this.$router.push({
         name: "bookdetail",
         params: {
-          id: item.bookid
+          book: item
         }
       });
     }
@@ -134,19 +141,20 @@ export default {
 }
 
 .book-name {
-  height: 45px;
+  height: 48px;
+  font-size: 20px;
   word-wrap: break-word;
   overflow: hidden;
 }
 
 .time {
   display: block;
-  font-size: 13px;
+  font-size: 15px;
   color: #999;
 }
 
 .book-price {
-  font-size: 24px;
+  font-size: 28px;
   color: red;
 }
 </style>

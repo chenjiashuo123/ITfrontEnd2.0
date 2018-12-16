@@ -160,7 +160,7 @@ export default {
       console.log(res);
       this.submitText();
       if (res["state"] == 0) {
-        this.form.fileurl = res["fileurl"];
+        this.form.picture = res["picture"];
       } else {
         this.$message.error("提交失败");
       }

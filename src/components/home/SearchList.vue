@@ -1,14 +1,14 @@
 <template>
-  <el-container class="book-container">
-    <div v-if="!isNone">
-      <el-col :span="6" v-for="(item, index) in orderList" :key="index">
+  <div class="book-container">
+    <div v-if="notNone">
+      <el-col :span="6" v-for="(item, index) in orderList" :key="index" class="each-book-container">
         <div class="each-book">
           <div class="img-container" @click="showDetail(item)">
             <img src="../../../public/timg.jpeg" width="180px">
           </div>
           <div class="book-info">
-            <div class="book-name" @click="showDetail(item)">{{item.bookName}}</div>
-            <time class="time">{{ item.time }}</time>
+            <div class="book-name" @click="showDetail(item)">{{item.name}}是是是s少时诵诗书所sssssss阿萨德</div>
+            <div class="time">{{ item.author }}搜索</div>
             <div class="book-price">￥{{item.price}}</div>
           </div>
         </div>
@@ -19,37 +19,43 @@
       <br>
       <span style="margin-top:20px;color: #bbb;">可以换个关键词试试哟～</span>
     </div>
-  </el-container>
+  </div>
 </template>
 
 <script>
 export default {
   name: "SearchList",
-
   data: () => ({
-    isNone: true,
+    notNone: false,
     orderList: []
   }),
   beforeMount() {
+    console.log("search...");
     this.orderList = this.$route.params.booklist;
-    this.isNone = this.orderList.length > 0 ? false : true;
+    this.notNone = this.orderList.length > 0 ?  true: false;
+    console.log(this.orderList, this.notNone);
   }
 };
 </script>
 
 <style scoped>
 .book-container {
-  width: 98%;
+  width: 90%;
   min-height: 500px;
   margin: 60px auto;
-  padding-top: 40px;
+  padding: 48px;
   border: 1px solid #ccc;
   border-radius: 20px;
 }
 
+.each-book-container {
+  width: 220px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 .each-book {
   width: 180px;
-  margin-left: 40px;
   margin-bottom: 40px;
 }
 
@@ -66,14 +72,15 @@ export default {
 }
 
 .book-name {
-  height: 45px;
+  height: 55px;
+  font-size: 18px;
   word-wrap: break-word;
   overflow: hidden;
 }
 
 .time {
   display: block;
-  font-size: 13px;
+  font-size: 15px;
   color: #999;
 }
 

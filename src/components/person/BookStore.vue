@@ -1,88 +1,61 @@
 <template>
-  <div class="all-book">
-    <div class="book-container">
-      <el-col :span="6" v-for="(item, index) in orderList" :key="index">
-        <div class="each-book">
-          <div class="img-container" @click="showDetail(item)">
-            <img src="../../../public/timg.jpeg" width="180px">
+  <div>
+    <div v-if="isNone">
+      <div style="min-height:500px;width:100%;">
+        <div style="margin:100px auto;text-align:center;font-size: 32px;">无收藏记录</div>
+      </div>
+    </div>
+    <div v-else class="all-book">
+      <div class="book-container">
+        <el-col :span="6" v-for="(item, index) in orderList" :key="index">
+          <div class="each-book">
+            <div class="img-container" @click="showDetail(item)">
+              <img :src="getpic(item.picture)" width="180px">
+            </div>
+            <div class="book-info">
+              <div class="book-name" @click="showDetail(item)">{{item.bookName}}</div>
+              <time class="time">{{ item.time }}</time>
+              <div class="book-price">￥{{item.price}}</div>
+            </div>
           </div>
-          <div class="book-info">
-            <div class="book-name" @click="showDetail(item)">{{item.bookName}}</div>
-            <time class="time">{{ item.time }}</time>
-            <div class="book-price">￥{{item.price}}</div>
-          </div>
-        </div>
-      </el-col>
+        </el-col>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import DefImg from "../../../public/timg.jpeg";
 export default {
   name: "BookStore",
   data: () => ({
-    orderList: [
-      {
-        bookName: "数学分析",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/21",
-        price: 30,
-        state: "待售",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "线性代数",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/20",
-        price: 30,
-        state: "未完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      }
-    ]
+    orderList: [],
+    isNone: true
   }),
-  methods:{
-     showDetail(item) {
+  methods: {
+    showDetail(item) {
       this.$router.push({
         name: "bookstoredetail",
         params: {
-          id: item.ISBN
+          book: item
         }
       });
+    },
+    getpic(pic) {
+      if (pic.length > 0) {
+        return "/show/" + pic;
+      }
+      return DefImg;
     }
+  },
+  beforeMount() {
+    this.axios.get("/api/getcollect").then(res => {
+      if (res.data["state"] == 0) {
+        this.orderList = res.data["booklist"];
+      } else {
+        this.$message.error("获取数据错误，错误码：" + res.data["state"]);
+      }
+    });
   }
 };
 </script>

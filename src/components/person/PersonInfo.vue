@@ -40,24 +40,33 @@
         style="width:86%;"
         :disabled="!modifyVisible"
       >
+        <el-form-item label="手机号">
+          <div class="inputBox">
+            <el-input
+              v-model="personMessage.phone"
+              type="text"
+              placeholder="手机号"
+              @focus="phoneFocus"
+              @change="phoneChange"
+            ></el-input>
+          </div>
+        </el-form-item>
+
+        <el-form-item label="学生证号">
+          <div class="inputBox">
+            <el-input v-model="personMessage.idCard" type="text" placeholder="学生证号"></el-input>
+          </div>
+        </el-form-item>
+
         <el-form-item label="姓名">
           <div class="inputBox">
             <el-input v-model="personMessage.name" type="text" placeholder="姓名"></el-input>
           </div>
         </el-form-item>
+
         <el-form-item label="地址">
           <div class="inputBox">
             <el-input v-model="personMessage.address" type="text" placeholder="地址"></el-input>
-          </div>
-        </el-form-item>
-        <el-form-item label="手机号">
-          <div class="inputBox">
-            <el-input v-model="personMessage.phone" type="text" placeholder="手机号"></el-input>
-          </div>
-        </el-form-item>
-        <el-form-item label="学生证号">
-          <div class="inputBox">
-            <el-input v-model="personMessage.idCard" type="text" placeholder="学生证号"></el-input>
           </div>
         </el-form-item>
       </el-form>
@@ -109,7 +118,9 @@ export default {
       rules2: {
         pass: [{ validator: validatePass, trigger: "blur" }],
         checkPass: [{ validator: validatePass2, trigger: "blur" }]
-      }
+      },
+      isRevisePhone: false,
+      savePhone: ""
     };
   },
   beforeCreate() {
@@ -135,23 +146,25 @@ export default {
         this.personMessage.phone.length > 0 &&
         this.personMessage.idCard.length > 0
       ) {
-        this.axios
-          .post("/api/reviseinfo", {
-            phone: this.personMessage.phone,
-            idnumber: this.personMessage.idCard,
-            name: this.personMessage.name,
-            address: this.personMessage.address
-          })
-          .then(res => {
-            if (res.data["state"] == 0) {
-              this.$message.success("修改成功");
-            } else {
-              this.$message.success("修改失败, 错误码：" + res.data["state"]);
-            }
-          });
+        let postObj = {
+          idnumber: this.personMessage.idCard,
+          name: this.personMessage.name,
+          address: this.personMessage.address
+        };
+        if (this.isRevisePhone) {
+          postObj["phone"] = this.personMessage.phone;
+        }
+        this.axios.post("/api/reviseinfo", postObj).then(res => {
+          if (res.data["state"] == 0) {
+            this.$message.success("修改成功");
+          } else {
+            this.$message.success("修改失败, 错误码：" + res.data["state"]);
+          }
+        });
         console.log("上传数据");
       }
       this.modifyVisible = !this.modifyVisible;
+      this.isRevisePhone = false;
     },
     submitRevisePwd(formName) {
       this.$refs[formName].validate(valid => {
@@ -181,6 +194,15 @@ export default {
     },
     resetRevisePwd(formName) {
       this.$refs[formName].resetFields();
+    },
+    phoneFocus() {
+      this.savePhone = this.personMessage.phone;
+    },
+    phoneChange(value) {
+      if (this.savePhone != value) {
+        this.isRevisePhone = true;
+        console.log(value);
+      }
     }
   }
 };

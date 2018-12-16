@@ -51,6 +51,20 @@
         <div class="s-value-h4">{{detail}}</div>
       </div>
     </div>
+
+    <el-dialog title="购买成功" :visible.sync="dialogVisible" width="30%">
+      <div style="height: 45px;">
+        <span class="dlg_title">订 单 号：</span>
+        <span class="dlg_val">{{dlg_orderid}}</span>
+      </div>
+      <div style="height: 36px;">
+        <span class="dlg_title">订单总价：</span>
+        <span class="dlg_val">{{dlg_total}}1</span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </el-container>
 </template>
 
@@ -68,19 +82,56 @@ export default {
     picture: defaul_book,
     bookclass: "计算机",
     author: "无",
-    detail: "无"
+    detail: "无",
+    dlg_total: "",
+    dlg_orderid: "",
+    dialogVisible: false
   }),
   methods: {
-    store(){
-      alert("收藏书接口");
+    store() {
+      this.axios
+        .post("/api/collect", { bookid: this.bookid })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            this.$message.success("收藏成功");
+          } else {
+            this.$message.error("收藏失败，错误码：" + res.data["state"]);
+          }
+        })
+        .catch(() => {
+          this.$message.error("请连接网络");
+        });
     },
-    buy(){
-      alert("买书接口");
+    buy() {
+      this.axios
+        .post("/api/addorder", { bookid: this.bookid })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            this.dialogVisible = true;
+            this.dlg_orderid = res.data["orderid"];
+            this.dlg_total = res.data["price"];
+          } else {
+            this.$message.error("购买失败，错误码：" + res.data["state"]);
+          }
+        })
+        .catch(err => {
+          this.$message.error("请连接网络");
+        });
     }
   },
-  beforeCreate() {
-    this.bookid = this.$route.params.id;
-    console.log(this.bookid);
+  beforeMount() {
+    var book = this.$route.params.book;
+    this.bookid = book.bookid;
+    this.name = book.name;
+    this.price = book.price;
+    this.isbn = book.isbn;
+    this.number = book.number;
+    this.bookclass = book.bookclass;
+    this.author = book.author;
+    this.detail = book.detail;
+    if (book.picture.length > 0) {
+      this.picture = "/show/" + book.picture;
+    }
   }
 };
 </script>
@@ -89,13 +140,12 @@ export default {
 .book-container {
   margin: 60px 40px;
 }
-.box-btn{
+.box-btn {
   padding-left: 50px;
 }
 .box-middle {
   margin-top: 30px;
   margin-left: 40px;
- 
 }
 .book-author,
 .book-other,
@@ -130,5 +180,15 @@ export default {
 }
 .price {
   color: red;
+}
+
+.dlg_title {
+  font-size: 16px;
+  color: #999;
+}
+
+.dlg_val {
+  font-size: 25px;
+  color: #909199;
 }
 </style>
