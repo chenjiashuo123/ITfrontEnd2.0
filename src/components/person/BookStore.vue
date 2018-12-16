@@ -1,7 +1,7 @@
 <template>
   <div class="all-book">
     <div class="book-container">
-      <el-col :span="6" v-for="(item, index) in orderList" :key="index">
+      <el-col :span="6" v-for="(item, index) in bookList" :key="index">
         <div class="each-book">
           <div class="img-container" @click="showDetail(item)">
             <img src="../../../public/timg.jpeg" width="180px">
@@ -21,59 +21,18 @@
 export default {
   name: "BookStore",
   data: () => ({
-    orderList: [
-      {
-        bookName: "数学分析",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/21",
-        price: 30,
-        state: "待售",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "线性代数",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/20",
-        price: 30,
-        state: "未完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      }
-    ]
+    bookList: []
   }),
+  beforeCreate(){
+    this.axios.get('/api/getcollect').then(res=>{
+      if (res.data["state"] == 0) {
+        this.bookList=res.data["bookList"];
+      } else {
+        console.log("get collected book error: " + res.data["state"]);
+      }
+
+    });
+  },
   methods:{
      showDetail(item) {
       this.$router.push({
