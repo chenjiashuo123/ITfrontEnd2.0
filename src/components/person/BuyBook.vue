@@ -5,22 +5,22 @@
         &emsp;&emsp;
         <span>{{item.time}}</span>
         &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;
-        <span style="font-size: 14px;color:#777;">订单号：
-        </span>
-          <span style="font-size:18px;">{{item.orderID}}</span>
+        <span style="font-size: 14px;color:#777;">订单号：</span>
+        <span style="font-size:18px;">{{item.orderid}}</span>
       </div>
       <div class="order-pic-box">
         <div class="book-pic">
           <img src="../../assets/book.png" alt width="160px" @click="showDetail(item)">
         </div>
         <div class="order-pic-desc">
-          <div class="book-name">{{item.bookName}}</div>
+          <div class="book-name">{{item.name}}</div>
           <div class="book-author">
             作者：
             <span style="font-size: 16px;">{{item.author}}</span>
           </div>
-          <div class="order-price">￥
-            <strong style="font-size:30px;">{{item.price}}</strong>
+          <div class="order-price">
+            ￥
+            <strong style="font-size:30px;">{{item.total}}</strong>
           </div>
         </div>
         <div class="order-btn-box" v-if="!isFinish(item)">
@@ -42,7 +42,7 @@ export default {
   name: "BuyBook",
   data() {
     return {
-      buyerornot:"True",
+      buyerornot: "True",
       orderList: []
     };
   },
@@ -51,7 +51,8 @@ export default {
       this.$router.push({
         name: "orderdetail",
         params: {
-          id: item.ISBN
+          book: item,
+          buyerornot: buyerornot
         }
       });
     },
@@ -60,25 +61,25 @@ export default {
       else return false;
     }
   },
-   beforeCreate() {
+  beforeCreate() {
     //获得订单
     this.axios
-            .post("/api/orders", {
-              buyerornot: this.buyerornot,
-            })
-            .then(res => {
-              if (res.data["state"] == 0) {
-                //获得成功
-                this.orderList=res.data["orderlist"];
-                this.$message.success("获得成功成功");
-              } else {
-                this.$message.error("获得失败，错误码：" + res.data["state"]);
-              }
-            })
-            .catch(err => {
-              this.$message.error("请先连接网路");
-            });
-  },
+      .post("/api/orders", {
+        buyerornot: this.buyerornot
+      })
+      .then(res => {
+        if (res.data["state"] == 0) {
+          //获得成功
+          this.orderList = res.data["orderlist"];
+          this.$message.success("获得成功成功");
+        } else {
+          this.$message.error("获得失败，错误码：" + res.data["state"]);
+        }
+      })
+      .catch(err => {
+        this.$message.error("请先连接网路");
+      });
+  }
 };
 </script>
 
