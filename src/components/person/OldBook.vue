@@ -20,9 +20,9 @@
           </div>
         </div>
         <div class="order-btn-box">
-          <el-button type="primary" plain @click="modifyBook(item)">修改信息</el-button>
+          <el-button type="primary" plain @click="modifyBook(item)" :disabled="isBuy(item)">修改信息</el-button>
           <div style="margin-top: 30px;">
-            <el-button type="danger" plain @click="downBook(item)">下架书籍</el-button>
+            <el-button type="danger" plain @click="downBook(item)" :disabled="isBuy(item)">下架书籍</el-button>
           </div>
         </div>
       </div>
@@ -51,6 +51,12 @@ export default {
     });
   },
   methods: {
+    isBuy(item){
+      if(this.bookList.state === "已售")
+      return true;
+      else
+      return false;
+    },
     getpic(img) {
       return "/show/" + img;
     },
