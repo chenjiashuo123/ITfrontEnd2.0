@@ -4,10 +4,10 @@
       <el-col :span="6" v-for="(item, index) in orderList" :key="index" class="each-book-container">
         <div class="each-book">
           <div class="img-container" @click="showDetail(item)">
-            <img src="../../../public/timg.jpeg" width="180px">
+            <img :src="getpic(item.picture)" width="180px">
           </div>
           <div class="book-info">
-            <div class="book-name" @click="showDetail(item)">{{item.name}}是是是s少时诵诗书所sssssss阿萨德</div>
+            <div class="book-name" @click="showDetail(item)">{{item.name}}</div>
             <div class="time">{{ item.author }}搜索</div>
             <div class="book-price">￥{{item.price}}</div>
           </div>
@@ -23,16 +23,25 @@
 </template>
 
 <script>
+import Img from "../../../public/timg.jpeg";
 export default {
   name: "SearchList",
   data: () => ({
     notNone: false,
     orderList: []
   }),
+  methods: {
+    getpic(pic) {
+      if (pic.length > 0) {
+        return "/show/" + pic;
+      }
+      return Img;
+    }
+  },
   beforeMount() {
     console.log("search...");
     this.orderList = this.$route.params.booklist;
-    this.notNone = this.orderList.length > 0 ?  true: false;
+    this.notNone = this.orderList.length > 0 ? true : false;
     console.log(this.orderList, this.notNone);
   }
 };

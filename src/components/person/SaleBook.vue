@@ -10,7 +10,7 @@
       </div>
       <div class="order-pic-box">
         <div class="book-pic">
-          <img src="../../assets/book.png" alt width="160px" @click="showDetail(item)">
+          <img :src="getpic(item.picture)" alt width="160px" @click="showDetail(item)">
         </div>
         <div class="order-pic-desc">
           <div class="book-name">{{item.bookName}}</div>
@@ -35,63 +35,13 @@
 </template>
 
 <script>
+import Img from "../../../public/timg.jpeg";
 export default {
   name: "SaleBook",
   data() {
     return {
       detailDialogVisible: false,
-      orderList: [
-        {
-          orderID: 123,
-          picture: "",
-          bookName: "数学分析",
-          author: "123",
-          price: 30,
-          state: "完成",
-          time: "2018/10/20",
-          sellerPhone: "15521134440"
-        },
-        {
-          orderID: 124,
-          picture: "",
-          bookName: "线性代数",
-          author: "123",
-          price: 30,
-          state: "未完成",
-          time: "2018/10/21",
-          sellerPhone: "15521134443"
-        },
-        {
-          orderID: 125,
-          picture: "",
-          bookName: "大学英语",
-          author: "123",
-          price: 40,
-          state: "完成",
-          time: "2018/10/22",
-          sellerPhone: "15521134444"
-        },
-        {
-          orderID: 126,
-          picture: "",
-          bookName: "大学英语",
-          author: "123",
-          price: 40,
-          state: "完成",
-          time: "2018/10/22",
-          sellerPhone: "15521134444"
-        },
-        {
-          orderID: 127,
-          picture: "",
-          bookName: "大学英语",
-          author: "123",
-          price: 40,
-          state: "完成",
-          time: "2018/10/22",
-          sellerPhone: "15521134444"
-        }
-      ]
+      orderList: []
     };
   },
   methods: {
@@ -99,9 +49,15 @@ export default {
       this.$router.push({
         name: "orderdetail",
         params: {
-          id: item.ISBN
+          book: item
         }
       });
+    },
+    getpic(pic) {
+      if (pic.length > 0) {
+        return "/show/" + pic;
+      }
+      return Img;
     }
   }
 };

@@ -27,7 +27,7 @@
         <el-col :span="6" v-for="(item, index) in orderList" :key="index">
           <div class="each-book">
             <div class="img-container" @click="showDetail(item)">
-              <img src="../../../public/timg.jpeg" width="180px">
+              <img :src="getpic(item.picture)" width="180px">
             </div>
             <div class="book-info">
               <div class="book-name" @click="showDetail(item)">{{item.name}}</div>
@@ -42,31 +42,11 @@
 </template>
 
 <script>
+import Img from "../../../public/timg.jpeg";
 export default {
   name: "HomeMain",
   data: () => ({
-    orderList: [
-      {
-        bookName: "线性代数",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/20",
-        price: 30,
-        state: "未完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      }
-    ]
+    orderList: []
   }),
   beforeMount() {
     this.ask_data("推荐");
@@ -81,6 +61,8 @@ export default {
           if (res.data["state"] == 0) {
             console.log(res.data["booklist"]);
             this.orderList = res.data["booklist"];
+          } else if (res.data["state"] == 401) {
+            this.$message.error("列表为空");
           } else {
             this.$message.error("获取信息失败，错误码：" + res.data["state"]);
           }
@@ -97,6 +79,12 @@ export default {
           book: item
         }
       });
+    },
+    getpic(pic) {
+      if (pic.length > 0) {
+        return "/show/" + pic;
+      }
+      return Img;
     }
   }
 };
