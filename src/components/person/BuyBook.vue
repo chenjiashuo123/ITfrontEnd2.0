@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       detailDialogVisible: false,
-      buyerornot:"True",
+      buyerornot: "True",
       orderList: []
     };
   },
@@ -69,25 +69,25 @@ export default {
       return;
     }
   },
-   beforeCreate() {
+  beforeCreate() {
     //获得订单
     this.axios
-            .post("/api/orders", {
-              buyerornot: this.buyerornot,
-            })
-            .then(res => {
-              if (res.data["state"] == 0) {
-                //获得成功
-                this.orderList=res.data["orderlist"];
-                this.$message.success("获得成功成功");
-              } else {
-                this.$message.error("获得失败，错误码：" + res.data["state"]);
-              }
-            })
-            .catch(err => {
-              this.$message.error("请先连接网路");
-            });
-  },
+      .post("/api/orders", {
+        test: "True"
+      })
+      .then(res => {
+        if (res.data["state"] == 0) {
+          //获得成功
+          this.orderList = res.data["orderlist"];
+          this.$message.success("获得成功成功");
+        } else {
+          this.$message.error("获得失败，错误码：" + res.data["state"]);
+        }
+      })
+      .catch(err => {
+        this.$message.error("请先连接网路");
+      });
+  }
 };
 </script>
 

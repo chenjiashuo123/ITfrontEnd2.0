@@ -122,8 +122,8 @@ export default {
       return defaul_book;
     }
   },
-  beforeCreate() {
-    this.book = this.$route.params.book;
+  beforeMount() {
+    var book = this.$route.params.book;
     if (book) {
       this.bookid = book.bookid;
       this.name = book.name;

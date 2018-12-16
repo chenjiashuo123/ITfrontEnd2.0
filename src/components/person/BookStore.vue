@@ -13,8 +13,8 @@
               <img :src="getpic(item.picture)" width="180px">
             </div>
             <div class="book-info">
-              <div class="book-name" @click="showDetail(item)">{{item.bookName}}</div>
-              <time class="time">{{ item.time }}</time>
+              <div class="book-name" @click="showDetail(item)">{{item.name}}</div>
+              <time class="time">{{ item.author }}</time>
               <div class="book-price">￥{{item.price}}</div>
             </div>
           </div>
@@ -52,6 +52,9 @@ export default {
     this.axios.get("/api/getcollect").then(res => {
       if (res.data["state"] == 0) {
         this.orderList = res.data["booklist"];
+        if (this.orderList.length > 0) {
+          this.isNone = false;
+        }
       } else {
         this.$message.error("获取数据错误，错误码：" + res.data["state"]);
       }
