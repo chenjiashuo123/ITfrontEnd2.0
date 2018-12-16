@@ -61,7 +61,7 @@ export default {
   methods: {
     handleSelect(idx) {
       switch (idx) {
-        case "1-1": //计算机
+        case "1-1": 
           this.$router.push("/waitcheckbook");
           break;
         case "1-2":

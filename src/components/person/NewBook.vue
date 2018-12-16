@@ -127,7 +127,7 @@ export default {
     },
     submitText() {
       this.axios
-        .post("/api/apply", this.form)
+        .post("/api/publish", this.form)
         .then(res => {
           console.log("form post");
           console.log(res.data["state"]);

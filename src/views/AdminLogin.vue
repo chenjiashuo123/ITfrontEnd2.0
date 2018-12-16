@@ -8,12 +8,12 @@
       label-width="54px"
       class="login-container"
     >
-      <el-form-item label="手机号">
+      <el-form-item label="账号">
         <el-input
           type="text"
           v-model="loginForm.account"
           @keyup.enter.native="handleSubmit"
-          placeholder="手机号"
+          placeholder="账号"
         ></el-input>
       </el-form-item>
       <el-form-item label="密码">
@@ -56,7 +56,7 @@ export default {
         if (valid) {
           this.axios
             .post("/admin/api/login", {
-              phone: this.loginForm.account,
+              adminid: this.loginForm.account,
               pwd: this.loginForm.checkPass
             })
             .then(res => {
@@ -83,12 +83,16 @@ export default {
 </script>
 
 <style scoped>
+.title{
+  text-align:center;
+}
 .loginImg {
   width: 400px;
   margin: 8% auto;
   border: 1px solid #909199;
   padding: 40px 20px 40px 0;
   border-radius: 20px;
+  background-color:lightyellow;
 }
 .title {
   margin-left: 10px;

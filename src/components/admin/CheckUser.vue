@@ -18,9 +18,9 @@ export default {
     };
   },
    beforeCreate(){
-    this.axios.get('/api/viewuser').then(res=>{
+    this.axios.post('/api/viewuser').then(res=>{
       if (res.data["state"] == 0) {
-        this.tableData=res.data["userList"];
+        this.tableData=res.data["userlist"];
       } else {
         console.log("get collected book error: " + res.data["state"]);
       }
