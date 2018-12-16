@@ -127,7 +127,7 @@ export default {
     },
     submitText() {
       this.axios
-        .post("/api/apply", this.form)
+        .post("/api/publish", this.form)
         .then(res => {
           console.log("form post");
           console.log(res.data["state"]);
@@ -160,7 +160,7 @@ export default {
       console.log(res);
       this.submitText();
       if (res["state"] == 0) {
-        this.form.fileurl = res["fileurl"];
+        this.form.picture = res["picture"];
       } else {
         this.$message.error("提交失败");
       }

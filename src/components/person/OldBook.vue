@@ -1,16 +1,16 @@
 <template>
   <div class="main-container">
-    <div class="each-box" v-for="(item, index) in orderList" :key="index">
+    <div class="each-box" v-for="(item, index) in bookList" :key="index">
       <div class="order-title-box">
         &emsp;&emsp;
         <span>{{item.time}}</span>
       </div>
       <div class="order-pic-box">
         <div class="book-pic">
-          <img src="../../assets/book.png" alt width="160px" @click="showDetail(item)">
+          <img :src="getpic(item.picture)" alt width="160px" @click="showDetail(item)">
         </div>
         <div class="order-pic-desc">
-          <div class="book-name">{{item.bookName}}</div>
+          <div class="book-name">{{item.name}}</div>
           <div class="book-state">
             <span style="font-size: 16px;">{{item.state}}</span>
           </div>
@@ -32,53 +32,22 @@
 
 <script>
 export default {
-  name: "BuyBook",
+  name: "OldBook",
   data() {
     return {
-      detailDialogVisible: false,
-      orderList: [
-        {
-          bookID: "1",
-          picture: "",
-          bookName: "数学分析",
-          price: 30,
-          state: "待审核",
-          time: "2018/10/20"
-        },
-        {
-          bookID: "2",
-          picture: "",
-          bookName: "线性代数",
-          price: 30,
-          state: "待审核",
-          time: "2018/10/21"
-        },
-        {
-          bookID: "3",
-          picture: "",
-          bookName: "大学英语",
-          price: 40,
-          state: "待审核",
-          time: "2018/10/22"
-        },
-        {
-          bookID: "4",
-          picture: "",
-          bookName: "大学英语",
-          price: 40,
-          state: "待审核",
-          time: "2018/10/22"
-        },
-        {
-          bookID: "5",
-          picture: "",
-          bookName: "大学英语",
-          price: 40,
-          state: "已审核",
-          time: "2018/10/22"
-        }
-      ]
+      bookList: []
     };
+  },
+   beforeCreate() {
+    //获得已发布书籍
+    this.axios.post("/api/usercheckpublish").then(res => {
+      if (res.data["state"] == 0) {
+        this.bookList = res.data["bookinfo"];
+        console.log("gggggg");
+      } else {
+        console.log("get publish-book error: " + res.data["state"]);
+      }
+    });
   },
   methods: {
     downBook(item) {
@@ -91,7 +60,10 @@ export default {
           id: item.ISBN
         }
       });
-    }
+    },
+    getpic(img) {
+      return "/show/" + img;
+    },
   }
 };
 </script>

@@ -1,174 +1,149 @@
 <template>
   <div class="main-container">
     <div class="each-box" v-for="(item, index) in bookList" :key="index">
-      <div class="book-title-box">
+      <div class="order-title-box">
+        &emsp;&emsp;
         <span>{{item.time}}</span>
       </div>
-      <div class="book-pic-box">
-        <div class="book-pic" >
-          <img src="../../assets/book.png" alt width="200px">
+      <div class="order-pic-box">
+        <div class="book-pic">
+          <img :src="getpic(item.picture)" alt width="160px">
         </div>
-        <div class="book-pic-desc">
-          <div class="book-name">
-            {{item.name}}
-          </div>
+        <div class="order-pic-desc">
+          <div class="book-name">{{item. name}}</div>
           <div class="book-author">
-            {{item.author}}
+            作者：
+            <span style="font-size: 16px;">{{item.author}}</span>
           </div>
-          <div class="book-price">
-            <strong>￥{{item.price}}</strong>
+          <div class="order-price">
+            ￥
+            <strong style="font-size:30px;">{{item.price}}</strong>
           </div>
         </div>
-        <div class="book-btn-box">
-          <div>
-            <el-button @click="downBook(item.bookid)">
-              <strong>下架</strong>
-            </el-button>
-          </div>
+        <div class="order-btn-box">
+          <el-button type="success" plain @click="downBook(item)">下 架</el-button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-
 <script>
 export default {
   name: "CheckedBook",
-   data: () => ({
-    bookList: []
-  }),
-  beforeCreate(){
-    this.axios.get('/api/serchunreviewedbook').then(res=>{
+  data() {
+    return {
+      bookList: []
+    };
+  },
+  beforeCreate() {
+    //获得待审核书籍
+    this.axios.post("/api/reviewed").then(res => {
       if (res.data["state"] == 0) {
-        this.bookList=res.data["bookList"];
+        this.bookList = res.data["booklist"];
+        console.log("gggggg");
       } else {
-        console.log("get collected book error: " + res.data["state"]);
+        console.log("get user info error: " + res.data["state"]);
       }
-
     });
   },
-  methods:{
-     showDetail(item) {
-      this.$router.push({
-        name: "checkbookdetail",
-        params: {
-          id: item.ISBN
-        }
-      });
+  methods: {
+    getpic(img) {
+      return "/show/" + img;
+    },
+    downBook(item) {
+      this.axios
+        .post("/api/soldoutbook", {
+          bookid: item.bookid,
+        })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            this.$message.success("下架成功");
+            this.GLOBAL.isLogin = true;
+          } else if (res.data["state"] == 101) {
+            this.$message.success("下架失败");
+            console.log("downBook", res.data["state"]);
+          } 
+        })
+        .catch(err => {
+          this.$message.error("请先连接网络");
+        });
     }
   }
-
 };
 </script>
-
 
 <style  scoped>
 .each-box {
   min-width: 750px;
   width: 90%;
+  height: 220px;
+  border-radius: 20px;
   margin: 20px auto 40px auto;
-  border: 1px solid #909199;
+  border: 1px solid rgb(210, 210, 210);
+  box-shadow: 1px 1px 1px 0.5px #eee;
 }
 
-.book-title-box {
+.order-btn-box-unfinish {
+  margin-top: 70px;
+  padding-right: 58px;
+  float: right;
+}
+
+.order-title-box {
   text-align: left;
-  font-size: 18px;
-  border-bottom: 1px solid #909199;
-  background-color: #909199;
+  padding-top: 8px;
+  padding-bottom: 6px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  background-color: #dedede;
 }
 
-.book-pic-box {
+.order-pic-box {
   margin-left: 20px;
-  height: 240px;
 }
 .book-pic {
-  margin-top: 20px;
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   float: left;
-  border: 1px solid #999;
+  margin-top: 10px;
+  padding: 1px;
+  border: 0.5px solid rgba(200, 200, 200, 0.5);
   display: flex;
   align-items: center;
 }
-
+.order-pic-desc {
+  float: left;
+  margin-left: 16px;
+  margin-top: 10px;
+  padding-right: 20px;
+  border-right: 1px solid #909199;
+}
 .book-name {
-  margin: 20px 0 0 0 ;
-  text-align: left;
-  font-size: 30px;
-  height:80px;
+  height: 72px;
   width: 400px;
+  font-size: 22px;
   word-wrap: break-word;
   overflow: hidden;
 }
-.book-author{
-  text-align: left;
-  font-size: 25px;
-  height:70px;
-  width: 400px;
- 
-  word-wrap: break-word;
+.book-author {
+  width: 360px;
+  font-size: 14px;
+  margin-top: 10px;
   overflow: hidden;
+  color: #888;
 }
 
-.book-price {
-  margin-top: 20px;
-  text-align: left;
-  font-size: 25px;
-  height: 40px;
+.order-price {
+  margin-top: 25px;
+  color: red;
+  font-size: 20px;
 }
 
-.book-pic-desc {
-  float: left;
-}
-.book-btn-box {
-  height: 150px;
-  padding-top: 100px;
-  padding-right: 50px;
+.order-btn-box {
+  margin-top: 70px;
+  margin-right: 50px;
   float: right;
-}
-.time {
-  display: block;
-  font-size: 13px;
-  color: #999;
-}
-
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
-}
-
-.button {
-  padding: 0;
-  float: right;
-}
-
-.image {
-  width: 100%;
-  margin: 0 auto;
-}
-
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-
-.clearfix:after {
-  clear: both;
-}
-
-.content {
-  float: left;
-  width: 50%;
-  font-size: 16px;
-}
-
-.sure {
-  margin-left: 15%;
-}
-
-.showBlock {
-  margin: 10px;
 }
 </style>
+
