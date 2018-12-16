@@ -124,9 +124,9 @@ export default {
     this.bookid = book.bookid;
     this.name = book.name;
     this.price = book.price;
-    this.isbn = book.isbn;
+    this.isbn = book.ISBN;
     this.number = book.number;
-    this.bookclass = book.bookclass;
+    this.bookclass = book.class;
     this.author = book.author;
     this.detail = book.detail;
     if (book.picture.length > 0) {

@@ -35,11 +35,10 @@ export default {
   name: "OldBook",
   data() {
     return {
-      bookList: [
-      ]
+      bookList: []
     };
   },
-   beforeCreate() {
+  beforeCreate() {
     //获得已发布书籍
     this.axios.post("/api/usercheckpublish").then(res => {
       if (res.data["state"] == 0) {
@@ -51,11 +50,9 @@ export default {
     });
   },
   methods: {
-    isBuy(item){
-      if(this.bookList.state === "已售")
-      return true;
-      else
-      return false;
+    isBuy(item) {
+      if (item.state === "已售") return true;
+      else return false;
     },
     getpic(img) {
       return "/show/" + img;
@@ -74,7 +71,7 @@ export default {
     },
     getpic(img) {
       return "/show/" + img;
-    },
+    }
   }
 };
 </script>

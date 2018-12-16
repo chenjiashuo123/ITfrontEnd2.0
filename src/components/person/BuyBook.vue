@@ -6,31 +6,31 @@
         <span>{{item.time}}</span>
         &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;
         <span style="font-size: 14px;color:#777;">订单号：</span>
-        <span style="font-size:18px;">{{item.orderID}}</span>
+        <span style="font-size:18px;">{{item.orderid}}</span>
       </div>
       <div class="order-pic-box">
         <div class="book-pic">
           <img :src="getpic(item.picture)" alt width="160px" @click="showDetail(item)">
         </div>
         <div class="order-pic-desc">
-          <div class="book-name">{{item.bookName}}</div>
+          <div class="book-name">{{item.name}}</div>
           <div class="book-author">
             作者：
             <span style="font-size: 16px;">{{item.author}}</span>
           </div>
           <div class="order-price">
             ￥
-            <strong style="font-size:30px;">{{item.price}}</strong>
+            <strong style="font-size:30px;">{{item.total}}</strong>
           </div>
         </div>
-        <div class="order-btn-box" v-if="!isFinish(item)">
-          <el-button type="success" plain>完成订单</el-button>
+        <div class="order-btn-box-unfinish" v-if="isFinish(item) || isfinish">
+          <el-button disabled>已完成</el-button>
+        </div>
+        <div class="order-btn-box" v-else>
+          <el-button type="success" plain @click="finishOrder(item.orderid)">完成订单</el-button>
           <div style="margin-top: 30px;">
             <el-button type="danger" plain>取消订单</el-button>
           </div>
-        </div>
-        <div class="order-btn-box-unfinish" v-if="isFinish(item)">
-          <el-button disabled>已完成</el-button>
         </div>
       </div>
     </div>
@@ -46,7 +46,8 @@ export default {
     return {
       detailDialogVisible: false,
       buyerornot: "True",
-      orderList: []
+      orderList: [],
+      isfinish: false
     };
   },
   methods: {
@@ -54,7 +55,8 @@ export default {
       this.$router.push({
         name: "orderdetail",
         params: {
-          book: item
+          book: item,
+          buyerornot: this.buyerornot
         }
       });
     },
@@ -67,6 +69,21 @@ export default {
         return "/show/" + pic;
       }
       return;
+    },
+    finishOrder(orderid) {
+      this.axios
+        .post("/api/changestate", {
+          orderid: orderid,
+          orderstate: "完成"
+        })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            this.$message.success("已完成");
+            this.isfinish = true;
+          } else {
+            this.$message.error("操作失败，错误码：" + res.data["state"]);
+          }
+        });
     }
   },
   beforeCreate() {

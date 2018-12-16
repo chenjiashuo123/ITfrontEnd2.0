@@ -30,15 +30,15 @@
 
         <el-form-item label="书籍分类">
           <el-select v-model="form.class" placeholder="请选择书籍分类">
-            <el-option label="计算机" value="1"></el-option>
-            <el-option label="工程科学" value="2"></el-option>
-            <el-option label="经济管理" value="3"></el-option>
-            <el-option label="自然科学" value="4"></el-option>
-            <el-option label="英语" value="5"></el-option>
-            <el-option label="数学" value="6"></el-option>
-            <el-option label="文学艺术" value="7"></el-option>
-            <el-option label="政治法律" value="8"></el-option>
-            <el-option label="其他" value="9"></el-option>
+            <el-option label="计算机" value="计算机"></el-option>
+            <el-option label="工程科学" value="工程科学"></el-option>
+            <el-option label="经济管理" value="经济管理"></el-option>
+            <el-option label="自然科学" value="自然科学"></el-option>
+            <el-option label="英语" value="英语"></el-option>
+            <el-option label="数学" value="数学"></el-option>
+            <el-option label="文学艺术" value="文学艺术"></el-option>
+            <el-option label="政治法律" value="政治法律"></el-option>
+            <el-option label="其他" value="其他"></el-option>
           </el-select>
         </el-form-item>
 
