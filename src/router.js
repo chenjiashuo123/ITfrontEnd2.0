@@ -26,6 +26,7 @@ import AdminLogin from "@/views/AdminLogin.vue";
 Vue.use(Router);
 
 const router = new Router({
+  mode: 'history',
   routes: [{
       path: "/",
       redirect: "/home"

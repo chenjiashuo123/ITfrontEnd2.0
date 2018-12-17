@@ -10,7 +10,7 @@
       </div>
       <div class="order-pic-box">
         <div class="book-pic">
-          <img src="../../assets/book.png" alt width="160px" @click="showDetail(item)">
+          <img :src="getpic(item.picture)" alt width="160px" @click="showDetail(item)">
         </div>
         <div class="order-pic-desc">
           <div class="book-name">{{item.name}}</div>
@@ -23,14 +23,14 @@
             <strong style="font-size:30px;">{{item.total}}</strong>
           </div>
         </div>
-        <div class="order-btn-box" v-if="!isFinish(item)">
-          <el-button type="success" plain @click="finishOrder(item)">完成订单</el-button>
-          <div style="margin-top: 30px;">
-            <el-button type="danger" plain @click="cancelOrder(item)">取消订单</el-button>
-          </div>
-        </div>
-        <div class="order-btn-box-unfinish" v-if="isFinish(item)">
+        <div class="order-btn-box-unfinish" v-if="isFinish(item) || isfinish">
           <el-button disabled>已完成</el-button>
+        </div>
+        <div class="order-btn-box" v-else>
+          <el-button type="success" plain @click="finishOrder(item.orderid)">完成订单</el-button>
+          <div style="margin-top: 30px;">
+            <el-button type="danger" plain @click="cancelOrder(item.orderid)">取消订单</el-button>
+          </div>
         </div>
       </div>
     </div>
@@ -38,12 +38,16 @@
 </template>
 
 <script>
+import Img from "../../../public/timg.jpeg";
+
 export default {
   name: "BuyBook",
   data() {
     return {
+      detailDialogVisible: false,
       buyerornot: "True",
-      orderList: []
+      orderList: [],
+      isfinish: false
     };
   },
   methods: {
@@ -52,7 +56,7 @@ export default {
         name: "orderdetail",
         params: {
           book: item,
-          buyerornot: buyerornot
+          buyerornot: this.buyerornot
         }
       });
     },
@@ -60,39 +64,56 @@ export default {
       if (item.state === "完成" || item.state === "已取消") return true;
       else return false;
     },
-    finishOrder(item) {
-      this.axios
-      .post("/api/changestate", {
-        oderid: item.orderid,
-        orderstate: "已完成"
-      })
-      .then(res => {
-        if (res.data["state"] == 0) {
-          //完成订单成功
-          this.$message.success("完成订单成功成功");
-        } else {
-          this.$message.error("完成订单成功失败，错误码：" + res.data["state"]);
-        }
-      })
-      .catch(err => {
-        this.$message.error("请先连接网路");
-      });
+    getpic(pic) {
+      if (pic.length > 0) {
+        return "/show/" + pic;
+      }
+      return;
     },
-    cancelOrder(item) {
-      this.$message.success("取消订单接口");
-  },
+    finishOrder(orderid) {
+      this.axios
+        .post("/api/changestate", {
+          orderid: orderid,
+          orderstate: "完成"
+        })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            this.$message.success("已完成");
+            this.isfinish = true;
+          } else {
+            this.$message.error("操作失败，错误码：" + res.data["state"]);
+          }
+        });
+    },
+    cancelOrder(orderid) {
+      this.axios
+        .post("/api/changestate", {
+          oderid: orderid,
+          orderstate: "已取消"
+        })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            //完成订单成功
+            this.$message.success("取消订单成功");
+          } else {
+            this.$message.error("取消订单失败，错误码：" + res.data["state"]);
+          }
+        })
+        .catch(err => {
+          this.$message.error("请先连接网路");
+        });
+    }
   },
   beforeCreate() {
     //获得订单
     this.axios
       .post("/api/orders", {
-        buyerornot: this.buyerornot
+        test: "True"
       })
       .then(res => {
         if (res.data["state"] == 0) {
           //获得成功
           this.orderList = res.data["orderlist"];
-          this.$message.success("获得成功成功");
         } else {
           this.$message.error("获得失败，错误码：" + res.data["state"]);
         }
@@ -151,7 +172,8 @@ export default {
   border-right: 1px solid #909199;
 }
 .book-name {
-  height: 72px;
+  margin-top: 5px;
+  height: 68px;
   width: 400px;
   font-size: 22px;
   word-wrap: break-word;
@@ -166,9 +188,9 @@ export default {
 }
 
 .order-price {
-  margin-top: 25px;
+  margin-top: 20px;
   color: red;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .order-btn-box {

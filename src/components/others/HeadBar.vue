@@ -1,6 +1,6 @@
 <template>
   <div class="head-bar">
-    <div class="icon-container">
+    <div class="icon-container" @click="toHome()">
       <em>MuteX</em>
     </div>
     <div class="head-menu">
@@ -32,7 +32,18 @@ export default {
       isLogin: false
     };
   },
+  beforeMount() {
+    this.curPos = this.GLOBAL.headBarState;
+    this.isLogin = this.GLOBAL.isLogin;
+  },
   methods: {
+    toHome() {
+      if (this.$router.path != "/homemain") {
+        if (this.curPos != 0) this.curPos = 0;
+        this.GLOBAL.headBarState = 0;
+        this.$router.replace("/homemain");
+      }
+    },
     handleSelect(idx) {
       if (this.curPos == idx) return;
       this.curPos = idx;
@@ -59,6 +70,13 @@ export default {
         case 2: //注册//登出
           if (this.GLOBAL.isLogin) {
             console.log("注销");
+            this.GLOBAL.isLogin = false;
+            sessionStorage.setItem("isLogin", "0");
+            this.axios.get("/api/logout");
+            this.curPos = 0;
+            this.isLogin = false;
+            this.$router.push("/homemain");
+            this.$message.success("注销账号成功");
           } else {
             if (this.GLOBAL.headBarState == 3) return;
             this.GLOBAL.headBarState = 3;

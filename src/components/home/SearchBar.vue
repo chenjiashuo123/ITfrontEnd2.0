@@ -3,7 +3,7 @@
     <el-col :span="7">
       <div class="icon-container">
         <div class="img-div">
-          <img src="../../../public/mutex.png" alt height="60px">
+          <img src="../../../public/mutex.png" alt height="60px" @click="toHome">
         </div>
         <div class="text-div">
           <div style="color:#909193;font-size: 24px;font-weight:bold;">二手书交易网</div>
@@ -35,6 +35,11 @@ export default {
     search: ""
   }),
   methods: {
+    toHome() {
+      if (this.$router.path != "/homemain") {
+        this.$router.push("homemain");
+      }
+    },
     clickSearch() {
       this.axios
         .post("/api/search", { keyword: this.search })
@@ -42,6 +47,8 @@ export default {
           if (res.data["state"] == 0) {
             var orderList = res.data["booklist"];
             console.log("click");
+            console.log(orderList);
+            this.GLOBAL.searchBookList = orderList;
             this.$router.push({
               name: "searchlist",
               params: {

@@ -6,27 +6,27 @@
         <span>{{item.time}}</span>
         &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;
         <span style="font-size: 14px;color:#777;">订单号：</span>
-        <span style="font-size:18px;">{{item.orderID}}</span>
+        <span style="font-size:18px;">{{item.orderid}}</span>
       </div>
       <div class="order-pic-box">
         <div class="book-pic">
-          <img src="../../assets/book.png" alt width="160px" @click="showDetail(item)">
+          <img :src="getpic(item.picture)" alt width="160px" @click="showDetail(item)">
         </div>
         <div class="order-pic-desc">
-          <div class="book-name">{{item.bookName}}</div>
+          <div class="book-name">{{item.name}}</div>
           <div class="book-author">
             作者：
             <span style="font-size: 16px;">{{item.author}}</span>
           </div>
           <div class="order-price">
             ￥
-            <strong style="font-size:30px;">{{item.price}}</strong>
+            <strong style="font-size:30px;">{{item.total}}</strong>
           </div>
         </div>
-         <div class="order-btn-box" v-if="!isFinish(item)">
-          <el-button type="success" plain @click="finishOrder(item)">完成订单</el-button>
+        <div class="order-btn-box" v-if="!isFinish(item)">
+          <el-button type="success" plain @click="finishOrder(item.orderid)">完成订单</el-button>
           <div style="margin-top: 30px;">
-            <el-button type="danger" plain @click="cancelOrder(item)">取消订单</el-button>
+            <el-button type="danger" plain @click="cancelOrder(item.orderid)">取消订单</el-button>
           </div>
         </div>
         <div class="order-btn-box-unfinish" v-if="isFinish(item)">
@@ -38,9 +38,10 @@
 </template>
 
 <script>
+import Img from "../../../public/timg.jpeg";
 export default {
   name: "SaleBook",
-   data() {
+  data() {
     return {
       buyerornot: "False",
       orderList: []
@@ -60,40 +61,61 @@ export default {
       if (item.state === "完成" || item.state === "已取消") return true;
       else return false;
     },
-    finishOrder(item) {
+    finishOrder(orderid) {
       this.axios
-      .post("/api/changestate", {
-        oderid: item.orderid,
-        orderstate: "已完成"
-      })
-      .then(res => {
-        if (res.data["state"] == 0) {
-          //完成订单成功
-          this.$message.success("完成订单成功成功");
-        } else {
-          this.$message.error("完成订单成功失败，错误码：" + res.data["state"]);
-        }
-      })
-      .catch(err => {
-        this.$message.error("请先连接网路");
-      });
+        .post("/api/changestate", {
+          oderid: orderid,
+          orderstate: "完成"
+        })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            //完成订单成功
+            this.$message.success("已成功");
+          } else {
+            this.$message.error(
+              "完成订单失败，错误码：" + res.data["state"]
+            );
+          }
+        })
+        .catch(err => {
+          this.$message.error("请先连接网路");
+        });
     },
-    cancelOrder(item) {
-      this.$message.success("取消订单接口");
-  },
-    
+    cancelOrder(orderid) {
+      this.axios
+        .post("/api/changestate", {
+          oderid: orderid,
+          orderstate: "已取消"
+        })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            //完成订单成功
+            this.$message.success("取消订单成功");
+          } else {
+            this.$message.error("取消订单失败，错误码：" + res.data["state"]);
+          }
+        })
+        .catch(err => {
+          this.$message.error("请先连接网路");
+        });
+    },
+    getpic(pic) {
+      if (pic.length > 0) {
+        return "/show/" + pic;
+      }
+      return Img;
+    }
   },
   beforeCreate() {
     //获得订单
     this.axios
       .post("/api/orders", {
-        buyerornot: this.buyerornot
+        test: "False"
       })
       .then(res => {
         if (res.data["state"] == 0) {
           //获得成功
           this.orderList = res.data["orderlist"];
-          this.$message.success("获得成功成功");
         } else {
           this.$message.error("获得失败，错误码：" + res.data["state"]);
         }

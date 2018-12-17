@@ -41,7 +41,7 @@ export default {
     this.axios.post("/api/reviewed").then(res => {
       if (res.data["state"] == 0) {
         this.bookList = res.data["booklist"];
-        console.log("gggggg");
+        console.log(this.bookList);
       } else {
         console.log("get user info error: " + res.data["state"]);
       }

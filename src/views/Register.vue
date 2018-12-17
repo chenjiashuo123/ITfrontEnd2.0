@@ -11,15 +11,15 @@
     >
       <el-form-item prop="account" label="手机号">
         <el-input
-          type="text"
           v-model="registerForm.account"
           @keyup.enter.native="registerSubmit"
+          type="number"
           placeholder="请输入你的手机号"
         ></el-input>
       </el-form-item>
       <el-form-item prop="checkPass" label="密码">
         <el-input
-          type="text"
+          type="password"
           v-model="registerForm.checkPass"
           @keyup.enter.native="registerSubmit"
           placeholder="请输入初始密码"
@@ -93,6 +93,7 @@ export default {
               if (res.data["state"] == 0) {
                 //注册成功
                 this.$message.success("注册成功");
+                this.GLOBAL.headBarState = 1;
                 this.$router.push("/login");
               } else {
                 this.$message.error("注册失败，错误码：" + res.data["state"]);

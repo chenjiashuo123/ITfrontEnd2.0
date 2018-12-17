@@ -1,4 +1,6 @@
 export default {
     isLogin: false,
-    headBarState: 0
+    headBarState: 0,
+    searchBookList: [],
+    adminLogin: false
 }

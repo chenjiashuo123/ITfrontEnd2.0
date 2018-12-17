@@ -90,9 +90,18 @@
 {
     url: '/api/orders'
     param: {
-        userid: string
         buyerornot: string
     }
+    return: {
+        state: int
+        orderlist: [{
+            orderid: string
+            time: string
+            bookstate: string
+            name: string
+        }]
+    }
+    //修改
     return: {
         state: int
         orderlist:[{
@@ -125,7 +134,7 @@
         time: string
         number: int
         total: double
-        bookstate: string
+        orderstate: string
         username: string
         userphone: string
         useraddress: string
@@ -138,7 +147,7 @@
     url: '/api/changestate'
     param: {
         orderid: string
-        bookstate: string
+        orderstate: string
     }
     return: {
         state: int
@@ -219,18 +228,17 @@
     }
 }
 
-//改变书籍状态 -- 云
+//改变书籍状态 -- 云/Skitwin
 {
     url: '/api/changestate'
     param: {
-        userid: string
         bookid: string
         newstate: string
     }
 
     return: {
         state: int
-        sucess: bool
+        success: bool
     }
 }
 
@@ -302,3 +310,54 @@
     }
 }
 
+
+//管理员-查看未审核书籍 -- Skitwin
+{
+    url: '/api/searchunreviewedbook'
+    return:{
+        state: int
+        booklist:[{
+            bookid: string
+            name:   string
+            price:  int
+            detail: string
+            ISBN:   string
+            number: string
+            picture:string
+            state:  string
+            author: string
+            class:  string
+        }]
+    }
+}
+
+
+//管理员-查看用户 -- Skitwin
+{
+    url: '/api/viewuser'
+    return:{
+        state: int
+        userlist:[{
+            userid:   string
+            adress:   string
+            phone:    string
+            idnumber: string
+            name:     string
+        }]
+    }
+}
+
+
+//根据书籍分类获取书籍列表
+{
+    url: '/api/bookclass'
+    param: {
+        bookclass: string
+    }
+    return: {
+        state: int
+        booklist: [{
+
+        }]
+    }
+}

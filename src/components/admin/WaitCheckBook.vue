@@ -55,7 +55,7 @@ export default {
       this.axios
         .post("/api/bookstate", {
           bookid: item.bookid,
-          state: "待售"
+          newstate: "待售"
         })
         .then(res => {
           if (res.data["state"] == 0) {

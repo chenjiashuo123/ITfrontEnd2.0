@@ -1,14 +1,14 @@
 <template>
   <el-container class="book-container">
-    <div v-if="!isNone">
-      <el-col :span="6" v-for="(item, index) in orderList" :key="index">
+    <div v-if="notNone">
+      <el-col :span="6" v-for="(item, index) in orderList" :key="index" class="each-book-container">
         <div class="each-book">
           <div class="img-container" @click="showDetail(item)">
-            <img src="../../../public/timg.jpeg" width="180px">
+            <img :src="getpic(item.picture)" width="180px">
           </div>
           <div class="book-info">
-            <div class="book-name" @click="showDetail(item)">{{item.bookName}}</div>
-            <time class="time">{{ item.time }}</time>
+            <div class="book-name" @click="showDetail(item)">{{item.name}}</div>
+            <div class="time">作者:{{ item.author }}</div>
             <div class="book-price">￥{{item.price}}</div>
           </div>
         </div>
@@ -23,34 +23,47 @@
 </template>
 
 <script>
+import Img from "../../../public/timg.jpeg";
 export default {
   name: "SearchList",
-
   data: () => ({
-    isNone: true,
+    notNone: false,
     orderList: []
   }),
+  methods: {
+    getpic(pic) {
+      if (pic.length > 0) {
+        return "/show/" + pic;
+      }
+      return Img;
+    }
+  },
   beforeMount() {
+    console.log("search...");
     this.orderList = this.$route.params.booklist;
-    this.isNone = this.orderList.length > 0 ? false : true;
+    this.notNone = this.orderList.length > 0 ? true : false;
   }
 };
 </script>
 
 <style scoped>
 .book-container {
-  width: 98%;
+  width: 94%;
   min-height: 500px;
   margin: 60px auto;
-  padding-top: 40px;
+  padding: 48px;
   border: 1px solid #ccc;
   border-radius: 20px;
 }
 
+.each-book-container {
+  width: 230px;
+  padding-left: 28px;
+}
+
 .each-book {
   width: 180px;
-  margin-left: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 56px;
 }
 
 .img-container {
@@ -66,19 +79,22 @@ export default {
 }
 
 .book-name {
-  height: 45px;
+  height: 54px;
+  line-height: 25px;
+  font-size: 20px;
   word-wrap: break-word;
   overflow: hidden;
 }
 
 .time {
-  display: block;
-  font-size: 13px;
+  line-height: 18px;
+  font-size: 16px;
   color: #999;
 }
 
 .book-price {
-  font-size: 24px;
+  line-height: 26px;
+  font-size: 25px;
   color: red;
 }
 

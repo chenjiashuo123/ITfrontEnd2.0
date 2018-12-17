@@ -16,6 +16,16 @@ export default {
   name: "Admin",
   components: {
     AdminSideBar
+  },
+  beforeMount() {
+    let getbool = sessionStorage.getItem("AdminLogin");
+    if (getbool == "1") {
+      this.GLOBAL.adminLogin = true;
+      this.$router.push("/admin");
+    }
+    if (!this.GLOBAL.adminLogin) {
+      this.$router.push("/adminlogin");
+    }
   }
 };
 </script>

@@ -2,7 +2,7 @@
   <el-container class="home-main">
     <div class="side-bar">
       <el-menu
-        default-active="0"
+        default-active="推荐"
         class="el-menu-demo"
         mode="vertical"
         @select="handleSelect"
@@ -27,11 +27,11 @@
         <el-col :span="6" v-for="(item, index) in orderList" :key="index">
           <div class="each-book">
             <div class="img-container" @click="showDetail(item)">
-              <img src="../../../public/timg.jpeg" width="180px">
+              <img :src="getpic(item.picture)" width="180px">
             </div>
             <div class="book-info">
-              <div class="book-name" @click="showDetail(item)">{{item.bookName}}</div>
-              <time class="time">{{ item.time }}</time>
+              <div class="book-name" @click="showDetail(item)">{{item.name}}</div>
+              <div class="time">{{ item.author }}</div>
               <div class="book-price">￥{{item.price}}</div>
             </div>
           </div>
@@ -42,54 +42,47 @@
 </template>
 
 <script>
+import Img from "../../../public/timg.jpeg";
 export default {
   name: "HomeMain",
   data: () => ({
-    orderList: [
-      {
-        bookName: "数学分析",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/21",
-        price: 30,
-        state: "待售",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "线性代数",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/20",
-        price: 30,
-        state: "未完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      },
-      {
-        bookName: "大学英语",
-        author: "123",
-        ISBN: "12345678",
-        time: "2018/10/22",
-        price: 40,
-        state: "完成",
-        picture: "../../assets/book.png",
-        detail: "..."
-      }
-    ]
+    orderList: []
   }),
+  beforeMount() {
+    this.ask_data("推荐");
+  },
   methods: {
-    ask_data(bookclass) {},
+    ask_data(bookclass) {
+      this.axios
+        .post("/api/bookclass", {
+          bookclass: bookclass
+        })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            this.orderList = res.data["booklist"];
+          } else if (res.data["state"] == 104) {
+            this.$message.error("列表为空");
+          } else {
+            this.$message.error("获取信息失败，错误码：" + res.data["state"]);
+          }
+        });
+    },
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      this.ask_data(key);
     },
     showDetail(item) {
       this.$router.push({
         name: "bookdetail",
         params: {
-          id: item.bookid
+          book: item
         }
       });
+    },
+    getpic(pic) {
+      if (pic.length > 0) {
+        return "/show/" + pic;
+      }
+      return Img;
     }
   }
 };
@@ -112,13 +105,13 @@ export default {
 }
 
 .book-container {
-  width: 90%;
-  margin: 10px auto;
+  width: 95%;
+  margin: 10px 40px;
 }
 
 .each-book {
-  width: 180px;
-  margin-bottom: 48px;
+  width: 200px;
+  margin-bottom: 60px;
 }
 
 .img-container {
@@ -134,19 +127,22 @@ export default {
 }
 
 .book-name {
-  height: 45px;
+  height: 46px;
+  font-size: 22px;
+  line-height: 24px;
   word-wrap: break-word;
   overflow: hidden;
 }
 
 .time {
-  display: block;
-  font-size: 13px;
+  font-size: 15px;
+  line-height: 15px;
   color: #999;
 }
 
 .book-price {
-  font-size: 24px;
+  font-size: 30px;
+  line-height: 30px;
   color: red;
 }
 </style>
