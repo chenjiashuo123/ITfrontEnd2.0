@@ -68,7 +68,7 @@ export default {
       if (pic.length > 0) {
         return "/show/" + pic;
       }
-      return;
+      return Img;
     },
     finishOrder(orderid) {
       this.axios

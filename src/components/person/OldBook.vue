@@ -68,9 +68,12 @@ export default {
         }
       });
     },
-    getpic(img) {
-      return "/show/" + img;
-    }
+    getpic(pic) {
+      if (pic.length > 0) {
+        return "/show/" + pic;
+      }
+      return Img;
+    },
   }
 };
 </script>
