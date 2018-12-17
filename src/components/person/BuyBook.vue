@@ -57,7 +57,7 @@ export default {
       });
     },
     isFinish(item) {
-      if (item.state === "完成") return true;
+      if (item.state === "完成" || (item.state === "已取消") return true;
       else return false;
     }
   },
