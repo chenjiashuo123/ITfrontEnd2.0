@@ -2,7 +2,12 @@
   <el-container class="book-container">
     <div class="box-left">
       <div class="img-box">
-        <img :src="getpic(orders.picture)" alt width="350px" style="margin-left:5px;max-height:350px;">
+        <img
+          :src="getpic(orders.picture)"
+          alt
+          width="350px"
+          style="margin-left:5px;max-height:350px;"
+        >
       </div>
     </div>
     <div class="box-middle">
@@ -143,7 +148,20 @@ export default {
     this.orders.picture = book.picture;
     this.orders.total = book.total;
     this.orders.state = book.state;
-    this.orders.phone = book.phone;
+    //this.orders.phone = book.phone;
+
+    this.axios
+      .post("/api/orderdetail", {
+        orderid: book.orderid,
+        buyerornot: buyerornot
+      })
+      .then(res => {
+        if (res.data["state"] == 0) {
+          this.orders.phone = res.data["userphone"];
+        } else {
+          this.orders.phone = "NULL";
+        }
+      });
   }
 };
 </script>

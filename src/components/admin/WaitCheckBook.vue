@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import defaul_book from "../../../public/default_book.jpeg";
 export default {
   name: "WaitCheckBook",
   data() {
@@ -69,19 +70,24 @@ export default {
       this.axios
         .post("/api/bookstate", {
           bookid: item.bookid,
-          state: "审核失败"
+          newstate: "审核失败"
         })
         .then(res => {
           if (res.data["state"] == 0) {
             //审核成功
             this.$message.success("审核成功");
+          } else if (res.data["state"] == 500) {
+            this.$message.warning("该书已审核，请重新刷新页面");
           } else {
             this.$message.error("审核失败，错误码：" + res.data["state"]);
           }
         });
     },
     getpic(img) {
-      return "/show/" + img;
+      if (img.length > 0) {
+        return "/show/" + img;
+      }
+      return defaul_book;
     }
   }
 };

@@ -140,6 +140,17 @@ export default {
     //完成修改
     clickModify() {
       if (
+        this.personMessage.phone.length != 11 ||
+        this.personMessage.phone[0] != "1"
+      ) {
+        this.$message.error("请输入正确的手机号");
+        return;
+      }
+      if (this.personMessage.idCard.length != 12) {
+        this.$message.error("请输入正确的学生证号");
+        return;
+      }
+      if (
         this.modifyVisible &&
         this.personMessage.name.length > 0 &&
         this.personMessage.address.length > 0 &&

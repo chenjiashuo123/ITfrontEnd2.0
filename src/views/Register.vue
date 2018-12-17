@@ -69,7 +69,7 @@ export default {
         address: ""
       },
       rules: {
-        account: [{ required: true, message: "请输入手机号", trigger: "blur" }],
+        account: [{ required: true, message: "请输入11位手机号", trigger: "blur" }],
         checkPass: [{ required: true, message: "请输入密码", trigger: "blur" }],
         name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
         idCard: [{ required: true, message: "请输入证件号", trigger: "blur" }],
@@ -81,6 +81,21 @@ export default {
     registerSubmit() {
       this.$refs.registerForm.validate(valid => {
         if (valid) {
+          if (this.registerForm.account.length != 11 || this.registerForm.account[0] != '1') {
+            this.$message.error("请输入正确的手机号");
+            this.registerForm.account = "";
+            return;
+          }
+          if (this.registerForm.idCard.length != 12){
+            this.$message.error("请输入正确的学生证号");
+            this.registerForm.idCard = "";
+            return;
+          }
+          if (this.registerForm.checkPass.length != 6){
+            this.$message.error("密码过短，请重新输入");
+            this.registerForm.checkPass = "";
+            return;
+          }
           this.axios
             .post("/api/register", {
               phone: this.registerForm.account,

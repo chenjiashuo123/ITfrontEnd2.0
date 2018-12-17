@@ -55,7 +55,7 @@ export default {
         name: "orderdetail",
         params: {
           book: item,
-          buyerornot: this.buyerornot
+          buyerornot: "True"
         }
       });
     },
