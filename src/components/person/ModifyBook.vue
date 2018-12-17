@@ -102,7 +102,6 @@ export default {
     this.form.author = book.author;
     this.form.bookclass = book.class;
     this.form.detail = book.detail;
-    console.log("234");
   },
   methods:{
     modifyBook(){

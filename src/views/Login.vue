@@ -28,7 +28,7 @@
       <el-form-item style="width:100%;">
         <el-button
           type="primary"
-          style="width:100%;"
+          style="width:100%;margin-top:10px;"
           @click.native.prevent="handleSubmit"
           :loading="logining"
         >登 录</el-button>
@@ -49,6 +49,10 @@ export default {
         checkPass: ""
       }
     };
+  },
+  beforeDestroy() {
+    console.log("login exit..");
+    sessionStorage.setItem("isLogin", this.GLOBAL.isLogin ? "1" : "0");
   },
   methods: {
     handleSubmit() {
@@ -94,7 +98,7 @@ export default {
 }
 .title {
   margin-left: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 .login-container {
   width: 80%;

@@ -1,6 +1,6 @@
 <template>
   <div class="head-bar">
-    <div class="icon-container">
+    <div class="icon-container" @click="toHome()">
       <em>MuteX</em>
     </div>
     <div class="head-menu">
@@ -32,7 +32,16 @@ export default {
       isLogin: false
     };
   },
+  beforeMount() {
+    this.curPos = this.GLOBAL.headBarState;
+    this.isLogin = this.GLOBAL.isLogin;
+  },
   methods: {
+    toHome() {
+      if (this.$router.path != "/homemain") {
+        this.$router.push("homemain");
+      }
+    },
     handleSelect(idx) {
       if (this.curPos == idx) return;
       this.curPos = idx;

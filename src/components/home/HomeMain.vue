@@ -59,7 +59,6 @@ export default {
         })
         .then(res => {
           if (res.data["state"] == 0) {
-            console.log(res.data["booklist"]);
             this.orderList = res.data["booklist"];
           } else if (res.data["state"] == 401) {
             this.$message.error("列表为空");

@@ -43,7 +43,6 @@ export default {
     this.axios.post("/api/usercheckpublish").then(res => {
       if (res.data["state"] == 0) {
         this.bookList = res.data["bookinfo"];
-        console.log("gggggg");
       } else {
         console.log("get publish-book error: " + res.data["state"]);
       }

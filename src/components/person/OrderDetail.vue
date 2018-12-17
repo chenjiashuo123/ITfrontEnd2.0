@@ -11,12 +11,12 @@
         <span class="s-value-h3">{{orders.orderid}}</span>
       </div>
       <div class="book-price">
-        <span class="s-label">书名：</span>
+        <span class="s-label">书&emsp;名：</span>
         <span class="s-value-h3">{{orders.name}}</span>
       </div>
 
       <div class="book-author">
-        <span class="s-label">作者：</span>
+        <span class="s-label">作&emsp;者：</span>
         <span class="s-value-h3">{{orders.author}}</span>
       </div>
 

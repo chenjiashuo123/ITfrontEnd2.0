@@ -13,6 +13,15 @@ export default {
   name: "App",
   components: {
     HeadBar
+  },
+  beforeCreate() {
+    if (this.$router.path != "/homemain") {
+      this.$router.push("/homemain");
+    }
+  },
+  beforeMount() {
+    this.GLOBAL.isLogin =
+      sessionStorage.getItem("isLogin") == "1" ? true : false;
   }
 };
 </script>

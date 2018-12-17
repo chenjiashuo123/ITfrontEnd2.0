@@ -1,5 +1,5 @@
 <template>
-  <div class="book-container">
+  <el-container class="book-container">
     <div v-if="notNone">
       <el-col :span="6" v-for="(item, index) in orderList" :key="index" class="each-book-container">
         <div class="each-book">
@@ -8,7 +8,7 @@
           </div>
           <div class="book-info">
             <div class="book-name" @click="showDetail(item)">{{item.name}}</div>
-            <div class="time">{{ item.author }}搜索</div>
+            <div class="time">作者:{{ item.author }}</div>
             <div class="book-price">￥{{item.price}}</div>
           </div>
         </div>
@@ -19,7 +19,7 @@
       <br>
       <span style="margin-top:20px;color: #bbb;">可以换个关键词试试哟～</span>
     </div>
-  </div>
+  </el-container>
 </template>
 
 <script>
@@ -49,7 +49,7 @@ export default {
 
 <style scoped>
 .book-container {
-  width: 90%;
+  width: 94%;
   min-height: 500px;
   margin: 60px auto;
   padding: 48px;
@@ -58,14 +58,13 @@ export default {
 }
 
 .each-book-container {
-  width: 220px;
-  padding-left: 20px;
-  padding-right: 20px;
+  width: 230px;
+  padding-left: 28px;
 }
 
 .each-book {
   width: 180px;
-  margin-bottom: 40px;
+  margin-bottom: 56px;
 }
 
 .img-container {
@@ -81,20 +80,22 @@ export default {
 }
 
 .book-name {
-  height: 55px;
-  font-size: 18px;
+  height: 54px;
+  line-height: 25px;
+  font-size: 20px;
   word-wrap: break-word;
   overflow: hidden;
 }
 
 .time {
-  display: block;
-  font-size: 15px;
+  line-height: 18px;
+  font-size: 16px;
   color: #999;
 }
 
 .book-price {
-  font-size: 24px;
+  line-height: 26px;
+  font-size: 25px;
   color: red;
 }
 

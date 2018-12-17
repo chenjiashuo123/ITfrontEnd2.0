@@ -55,7 +55,7 @@ export default {
         if (this.orderList.length > 0) {
           this.isNone = false;
         }
-      } else {
+      } else if (res.data["state"] != 400) {
         this.$message.error("获取数据错误，错误码：" + res.data["state"]);
       }
     });

@@ -13,7 +13,7 @@
           <img :src="getpic(item.picture)" alt width="160px" @click="showDetail(item)">
         </div>
         <div class="order-pic-desc">
-          <div class="book-name">{{item.name}}</div>
+          <div class="book-name">{{item.name}}炸</div>
           <div class="book-author">
             作者：
             <span style="font-size: 16px;">{{item.author}}</span>
@@ -96,7 +96,7 @@ export default {
         if (res.data["state"] == 0) {
           //获得成功
           this.orderList = res.data["orderlist"];
-          this.$message.success("获得成功成功");
+          this.$message.success("获得数据成功");
         } else {
           this.$message.error("获得失败，错误码：" + res.data["state"]);
         }
@@ -155,7 +155,8 @@ export default {
   border-right: 1px solid #909199;
 }
 .book-name {
-  height: 72px;
+  margin-top: 5px;
+  height: 68px;
   width: 400px;
   font-size: 22px;
   word-wrap: break-word;
@@ -170,9 +171,9 @@ export default {
 }
 
 .order-price {
-  margin-top: 25px;
+  margin-top: 20px;
   color: red;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .order-btn-box {
