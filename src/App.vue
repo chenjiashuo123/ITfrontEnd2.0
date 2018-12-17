@@ -15,8 +15,15 @@ export default {
     HeadBar
   },
   beforeCreate() {
-    if (this.$router.path != "/homemain") {
-      this.$router.push("/homemain");
+    console.log("app", this.$router.path);
+    if (!this.$router.path) return;
+    if (
+      this.$router.path != "/homemain" &&
+      this.$router.path != "/admin" &&
+      this.$router.path != "/adminlogin"
+    ) {
+      console.log("app_______1");
+      this.$router.replace("/homemain");
     }
   },
   beforeMount() {

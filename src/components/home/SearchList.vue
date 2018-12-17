@@ -42,7 +42,6 @@ export default {
     console.log("search...");
     this.orderList = this.$route.params.booklist;
     this.notNone = this.orderList.length > 0 ? true : false;
-    console.log(this.orderList, this.notNone);
   }
 };
 </script>

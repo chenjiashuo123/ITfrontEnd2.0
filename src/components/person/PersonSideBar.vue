@@ -13,6 +13,7 @@
         <i class="el-icon-edit this-icon"></i>
         <span>个人信息</span>
       </el-menu-item>
+
       <el-submenu index="2">
         <template slot="title">
           <i class="el-icon-message this-icon"></i>
@@ -24,15 +25,18 @@
         <el-menu-item index="2-2">
           <span>已出售书籍</span>
         </el-menu-item>
+        <el-menu-item index="2-3">
+          <span>已发布书籍</span>
+        </el-menu-item>
       </el-submenu>
-      <el-submenu index="3">
+
+      <el-menu-item index="3">
         <template slot="title">
           <i class="el-icon-document this-icon"></i>
           <span>我要卖书</span>
         </template>
-        <el-menu-item index="3-1">已发布书籍</el-menu-item>
-        <el-menu-item index="3-2">发布新书</el-menu-item>
-      </el-submenu>
+      </el-menu-item>
+
       <el-menu-item index="4">
         <i class="el-icon-star-off this-icon"></i>
         <span>收藏夹</span>
@@ -56,10 +60,10 @@ export default {
         case "2-2":
           this.$router.push("/salebook");
           break;
-        case "3-1":
+        case "2-3":
           this.$router.push("/oldbook");
           break;
-        case "3-2":
+        case "3":
           this.$router.push("/newbook");
           break;
         case "4":
@@ -76,7 +80,7 @@ export default {
 <style lang="stylus" scoped>
 .personSideBar {
   width: 200px;
-  background-color:red;
+  background-color: red;
   height: 750px;
 }
 

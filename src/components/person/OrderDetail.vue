@@ -41,10 +41,10 @@
       <div class="box-btn">
         <div class="finishOrder" v-if="isFnish">
           <el-button>
-            <strong @click="finishOrder(item)">完成订单</strong>
+            <strong @click="finishOrder()">完成订单</strong>
           </el-button>
           <el-button>
-            <strong @click="cancelOrder(item)">取消订单</strong>
+            <strong @click="cancelOrder()">取消订单</strong>
           </el-button>
           <el-button @click="backHome">
             <strong>返回</strong>
@@ -80,23 +80,23 @@ export default {
   }),
   methods: {
     isFnish(item) {
-      if (item.state === "完成" || item.state === "已取消") return true;
+      if (item.state === "已完成" || item.state === "已取消") return true;
       else return false;
     },
     backHome() {
       if (buyerornot === "True") this.$router.push("/buybook");
       else this.$router.push("/salebook");
     },
-    finishOrder(item) {
+    finishOrder() {
       this.axios
         .post("/api/changestate", {
-          oderid: item.orderid,
+          oderid: this.orderid,
           orderstate: "已完成"
         })
         .then(res => {
           if (res.data["state"] == 0) {
             //完成订单成功
-            this.$message.success("完成订单成功成功");
+            this.$message.success("完成订单成功");
           } else {
             this.$message.error(
               "完成订单成功失败，错误码：" + res.data["state"]
@@ -108,7 +108,22 @@ export default {
         });
     },
     cancelOrder() {
-      this.$message.success("取消订单接口");
+      this.axios
+        .post("/api/changestate", {
+          oderid: this.orderid,
+          orderstate: "已取消"
+        })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            //完成订单成功
+            this.$message.success("取消订单成功");
+          } else {
+            this.$message.error("取消订单失败，错误码：" + res.data["state"]);
+          }
+        })
+        .catch(err => {
+          this.$message.error("请先连接网路");
+        });
     },
     getpic(pic) {
       if (pic.length > 0) {

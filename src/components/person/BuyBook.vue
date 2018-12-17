@@ -13,7 +13,7 @@
           <img :src="getpic(item.picture)" alt width="160px" @click="showDetail(item)">
         </div>
         <div class="order-pic-desc">
-          <div class="book-name">{{item.name}}炸</div>
+          <div class="book-name">{{item.name}}</div>
           <div class="book-author">
             作者：
             <span style="font-size: 16px;">{{item.author}}</span>
@@ -29,7 +29,7 @@
         <div class="order-btn-box" v-else>
           <el-button type="success" plain @click="finishOrder(item.orderid)">完成订单</el-button>
           <div style="margin-top: 30px;">
-            <el-button type="danger" plain>取消订单</el-button>
+            <el-button type="danger" plain @click="cancelOrder(item.orderid)">取消订单</el-button>
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@ export default {
       });
     },
     isFinish(item) {
-      if (item.state === "完成" || (item.state === "已取消") return true;
+      if (item.state === "完成" || item.state === "已取消") return true;
       else return false;
     },
     getpic(pic) {
@@ -84,6 +84,24 @@ export default {
             this.$message.error("操作失败，错误码：" + res.data["state"]);
           }
         });
+    },
+    cancelOrder(orderid) {
+      this.axios
+        .post("/api/changestate", {
+          oderid: orderid,
+          orderstate: "已取消"
+        })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            //完成订单成功
+            this.$message.success("取消订单成功");
+          } else {
+            this.$message.error("取消订单失败，错误码：" + res.data["state"]);
+          }
+        })
+        .catch(err => {
+          this.$message.error("请先连接网路");
+        });
     }
   },
   beforeCreate() {
@@ -96,7 +114,6 @@ export default {
         if (res.data["state"] == 0) {
           //获得成功
           this.orderList = res.data["orderlist"];
-          this.$message.success("获得数据成功");
         } else {
           this.$message.error("获得失败，错误码：" + res.data["state"]);
         }

@@ -13,7 +13,7 @@
         </el-form-item>
 
         <el-form-item label="价格" prop="price">
-          <el-input class="inputBox" placeholder="请输入出售价格" v-model="form.price" clearable></el-input>
+          <el-input class="inputBox" placeholder="请输入出售价格" v-model="form.price" clearable type="number"></el-input>
         </el-form-item>
 
         <el-form-item label="ISBN" prop="isbn">
@@ -21,7 +21,7 @@
         </el-form-item>
 
         <el-form-item label="数量" prop="number">
-          <el-input class="inputBox" placeholder="请输入书籍数量" v-model="form.number" clearable></el-input>
+          <el-input class="inputBox" placeholder="请输入书籍数量" v-model="form.number" clearable type="number"></el-input>
         </el-form-item>
 
         <el-form-item label="书籍作者" prop="author">

@@ -34,7 +34,11 @@
       </div>
       <div class="box-btn">
         <el-button @click="store">收藏</el-button>
-        <el-button @click="buy" style="margin-left: 30px;">购买</el-button>
+        <el-button
+          @click="buy"
+          style="margin-left: 30px;"
+          :disabled="isSaled"
+        >{{isSaled?'已售罄':'购买'}}</el-button>
       </div>
       <div class="book-detail">
         <div class="s-label">详情：</div>
@@ -75,7 +79,8 @@ export default {
     detail: "无",
     dlg_total: "",
     dlg_orderid: "",
-    dialogVisible: false
+    dialogVisible: false,
+    isSaled: false
   }),
   methods: {
     store() {
@@ -84,6 +89,8 @@ export default {
         .then(res => {
           if (res.data["state"] == 0) {
             this.$message.success("收藏成功");
+          } else if (res.data["state"] == 100) {
+            this.$message.warning("该书已存在于收藏夹");
           } else {
             this.$message.error("收藏失败，错误码：" + res.data["state"]);
           }
@@ -121,6 +128,9 @@ export default {
     this.detail = book.detail;
     if (book.picture.length > 0) {
       this.picture = "/show/" + book.picture;
+    }
+    if (book.state != "待售") {
+      this.isSaled = true;
     }
   }
 };

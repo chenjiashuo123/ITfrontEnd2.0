@@ -62,6 +62,8 @@ export default {
             .then(res => {
               if (res.data["state"] == 0) {
                 this.$message.success("登录成功");
+                this.GLOBAL.adminLogin = true;
+                sessionStorage.setItem("AdminLogin", "1");
                 this.$router.push("/admin");
               } else if (res.data["state"] == 101) {
                 this.$message.success("密码错误");
@@ -83,8 +85,8 @@ export default {
 </script>
 
 <style scoped>
-.title{
-  text-align:center;
+.title {
+  text-align: center;
 }
 .loginImg {
   width: 400px;
@@ -92,7 +94,7 @@ export default {
   border: 1px solid #909199;
   padding: 40px 20px 40px 0;
   border-radius: 20px;
-  background-color:lightyellow;
+  background-color: lightyellow;
 }
 .title {
   margin-left: 10px;
