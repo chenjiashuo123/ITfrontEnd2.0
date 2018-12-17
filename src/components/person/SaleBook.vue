@@ -8,9 +8,9 @@
         <span style="font-size: 14px;color:#777;">订单号：</span>
         <span style="font-size:18px;">{{item.orderid}}</span>
       </div>
-      <div class="order-pic-box">
+      <div class="order-pic-box" @click="showDetail(item)">
         <div class="book-pic">
-          <img :src="getpic(item.picture)" alt width="160px" @click="showDetail(item)">
+          <img :src="getpic(item.picture)" alt width="160px" style="max-height:160px;">
         </div>
         <div class="order-pic-desc">
           <div class="book-name">{{item.name}}</div>
@@ -53,7 +53,7 @@ export default {
         name: "orderdetail",
         params: {
           book: item,
-          buyerornot: buyerornot
+          buyerornot: "False"
         }
       });
     },

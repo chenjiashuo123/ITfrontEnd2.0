@@ -2,7 +2,7 @@
   <el-container class="book-container">
     <div class="box-left">
       <div class="img-box">
-        <img :src="getpic(orders.picture)" alt width="350px" style="margin-left:5px;">
+        <img :src="getpic(orders.picture)" alt width="350px" style="margin-left:5px;max-height:350px;">
       </div>
     </div>
     <div class="box-middle">
@@ -40,21 +40,17 @@
       <br>
       <div class="box-btn">
         <div class="finishOrder" v-if="isFnish">
-          <el-button>
-            <strong @click="finishOrder()">完成订单</strong>
-          </el-button>
-          <el-button>
-            <strong @click="cancelOrder()">取消订单</strong>
-          </el-button>
+          <el-button @click="finishOrder()">完成订单</el-button>
+          <el-button @click="cancelOrder()" style="margin-left: 30px;">取消订单</el-button>
+          <!-- <el-button @click="backHome">
+            <strong>返回</strong>
+          </el-button>-->
+        </div>
+        <!-- <div class="unfinishOrder" v-if="!isFnish">
           <el-button @click="backHome">
             <strong>返回</strong>
           </el-button>
-        </div>
-        <div class="unfinishOrder" v-if="!isFnish">
-          <el-button @click="backHome">
-            <strong>返回</strong>
-          </el-button>
-        </div>
+        </div>-->
       </div>
     </div>
   </el-container>

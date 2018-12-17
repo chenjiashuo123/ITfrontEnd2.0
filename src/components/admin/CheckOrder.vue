@@ -14,18 +14,16 @@ export default {
   name: "CheckUser",
   data() {
     return {
-      tableData: [
-      ]
+      tableData: []
     };
   },
-  beforeCreate(){
-    this.axios.post('/api/admincheckorder').then(res=>{
+  beforeCreate() {
+    this.axios.post("/api/admincheckorder").then(res => {
       if (res.data["state"] == 0) {
-        this.tableData=res.data["orderlist"];
+        this.tableData = res.data["orderlist"];
       } else {
         console.log("get collected order error: " + res.data["state"]);
       }
-
     });
   },
   methods: {

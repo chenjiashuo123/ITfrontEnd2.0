@@ -7,7 +7,7 @@
       </div>
       <div class="order-pic-box">
         <div class="book-pic">
-          <img :src="getpic(item.picture)" alt width="160px">
+          <img :src="getpic(item.picture)" alt width="160px" style="max-height:160px;">
         </div>
         <div class="order-pic-desc">
           <div class="book-name">{{item. name}}</div>
@@ -44,7 +44,6 @@ export default {
     this.axios.post("/api/unreviewed").then(res => {
       if (res.data["state"] == 0) {
         this.bookList = res.data["booklist"];
-        console.log("gggggg");
       } else {
         console.log("get user info error: " + res.data["state"]);
       }

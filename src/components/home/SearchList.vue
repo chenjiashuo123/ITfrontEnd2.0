@@ -4,7 +4,7 @@
       <el-col :span="6" v-for="(item, index) in orderList" :key="index" class="each-book-container">
         <div class="each-book">
           <div class="img-container" @click="showDetail(item)">
-            <img :src="getpic(item.picture)" width="180px">
+            <img :src="getpic(item.picture)" width="180px" style="max-height:180px;">
           </div>
           <div class="book-info">
             <div class="book-name" @click="showDetail(item)">{{item.name}}</div>
@@ -36,6 +36,14 @@ export default {
         return "/show/" + pic;
       }
       return Img;
+    },
+    showDetail(item) {
+      this.$router.push({
+        name: "bookdetail",
+        params: {
+          book: item
+        }
+      });
     }
   },
   beforeMount() {

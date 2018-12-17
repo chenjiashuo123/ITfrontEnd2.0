@@ -2,7 +2,7 @@
   <el-container class="book-container">
     <div class="box-left">
       <div class="img-box">
-        <img :src="picture" alt width="350px" style="margin-left:5px;">
+        <img :src="getpic(picture)" alt width="350px" style="margin-left:5px;max-height:350px;">
       </div>
     </div>
     <div class="box-middle">
@@ -114,10 +114,17 @@ export default {
         .catch(err => {
           this.$message.error("请连接网络");
         });
+    },
+    getpic(pic) {
+      if (pic.length > 0) {
+        return "/show/" + pic;
+      }
+      return defaul_book;
     }
   },
   beforeMount() {
     var book = this.$route.params.book;
+    console.log();
     this.bookid = book.bookid;
     this.name = book.name;
     this.price = book.price;
@@ -126,9 +133,9 @@ export default {
     this.bookclass = book.class;
     this.author = book.author;
     this.detail = book.detail;
-    if (book.picture.length > 0) {
-      this.picture = "/show/" + book.picture;
-    }
+
+    this.picture = book.picture;
+
     if (book.state != "待售") {
       this.isSaled = true;
     }

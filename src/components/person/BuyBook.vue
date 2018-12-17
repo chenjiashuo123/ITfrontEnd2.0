@@ -10,7 +10,7 @@
       </div>
       <div class="order-pic-box">
         <div class="book-pic">
-          <img :src="getpic(item.picture)" alt width="160px" @click="showDetail(item)">
+          <img :src="getpic(item.picture)" alt width="160px" style="max-height:180px;" @click="showDetail(item)">
         </div>
         <div class="order-pic-desc">
           <div class="book-name">{{item.name}}</div>
@@ -23,7 +23,7 @@
             <strong style="font-size:30px;">{{item.total}}</strong>
           </div>
         </div>
-        <div class="order-btn-box-unfinish" v-if="isFinish(item) || isfinish">
+        <div class="order-btn-box-unfinish" v-if="isFinish(item)">
           <el-button disabled>已完成</el-button>
         </div>
         <div class="order-btn-box" v-else>
@@ -46,8 +46,7 @@ export default {
     return {
       detailDialogVisible: false,
       buyerornot: "True",
-      orderList: [],
-      isfinish: false
+      orderList: []
     };
   },
   methods: {
@@ -79,7 +78,6 @@ export default {
         .then(res => {
           if (res.data["state"] == 0) {
             this.$message.success("已完成");
-            this.isfinish = true;
           } else {
             this.$message.error("操作失败，错误码：" + res.data["state"]);
           }
@@ -88,7 +86,7 @@ export default {
     cancelOrder(orderid) {
       this.axios
         .post("/api/changestate", {
-          oderid: orderid,
+          orderid: orderid,
           orderstate: "已取消"
         })
         .then(res => {

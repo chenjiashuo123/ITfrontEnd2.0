@@ -47,7 +47,6 @@ export default {
           if (res.data["state"] == 0) {
             var orderList = res.data["booklist"];
             console.log("click");
-            console.log(orderList);
             this.GLOBAL.searchBookList = orderList;
             this.$router.push({
               name: "searchlist",

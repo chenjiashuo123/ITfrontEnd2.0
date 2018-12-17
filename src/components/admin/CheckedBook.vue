@@ -7,7 +7,7 @@
       </div>
       <div class="order-pic-box">
         <div class="book-pic">
-          <img :src="getpic(item.picture)" alt width="160px">
+          <img :src="getpic(item.picture)" alt width="160px" style="max-height:160px;">
         </div>
         <div class="order-pic-desc">
           <div class="book-name">{{item. name}}</div>
@@ -21,7 +21,12 @@
           </div>
         </div>
         <div class="order-btn-box">
-          <el-button type="success" plain @click="downBook(item)">下 架</el-button>
+          <el-button
+            type="success"
+            plain
+            @click="downBook(item)"
+            :disabled="item.state=== '下架'?true:false"
+          >{{item.state === '下架'?'已下架':'下 架'}}</el-button>
         </div>
       </div>
     </div>
@@ -29,6 +34,7 @@
 </template>
 
 <script>
+import defaul_book from "../../../public/default_book.jpeg";
 export default {
   name: "CheckedBook",
   data() {
@@ -41,7 +47,6 @@ export default {
     this.axios.post("/api/reviewed").then(res => {
       if (res.data["state"] == 0) {
         this.bookList = res.data["booklist"];
-        console.log(this.bookList);
       } else {
         console.log("get user info error: " + res.data["state"]);
       }
@@ -49,21 +54,25 @@ export default {
   },
   methods: {
     getpic(img) {
-      return "/show/" + img;
+      if (img.length > 0) {
+        return "/show/" + img;
+      }
+      return defaul_book;
     },
     downBook(item) {
       this.axios
         .post("/api/soldoutbook", {
-          bookid: item.bookid,
+          bookid: item.bookid
         })
         .then(res => {
           if (res.data["state"] == 0) {
             this.$message.success("下架成功");
             this.GLOBAL.isLogin = true;
-          } else if (res.data["state"] == 101) {
-            this.$message.success("下架失败");
-            console.log("downBook", res.data["state"]);
-          } 
+          } else if (res.data["state"] == 500) {
+            this.$message.warning("该书已下架");
+          } else {
+            this.$message.error("下架失败");
+          }
         })
         .catch(err => {
           this.$message.error("请先连接网络");

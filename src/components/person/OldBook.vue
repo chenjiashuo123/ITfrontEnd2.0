@@ -7,7 +7,7 @@
       </div>
       <div class="order-pic-box">
         <div class="book-pic">
-          <img :src="getpic(item.picture)" alt width="160px">
+          <img :src="getpic(item.picture)" alt width="160px" style="max-height:160px;">
         </div>
         <div class="order-pic-desc">
           <div class="book-name">{{item.name}}</div>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import Img from "../../../public/timg.jpeg";
 export default {
   name: "OldBook",
   data() {
@@ -57,10 +58,9 @@ export default {
       return "/show/" + img;
     },
     downBook(item) {
-      alert("这是下架书籍接口");
+      alert("暂不提供该功能");
     },
     modifyBook(item) {
-      console.log(item);
       this.$router.push({
         name: "modifybook",
         params: {
@@ -73,7 +73,7 @@ export default {
         return "/show/" + pic;
       }
       return Img;
-    },
+    }
   }
 };
 </script>

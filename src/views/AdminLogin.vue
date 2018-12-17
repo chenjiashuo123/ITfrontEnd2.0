@@ -71,7 +71,7 @@ export default {
                 this.$message.success("账户不存在");
               } else {
                 console.log("login", res.data["state"]);
-                this.$message.error("未知错误");
+                this.$message.error("登录失败");
               }
             })
             .catch(err => {

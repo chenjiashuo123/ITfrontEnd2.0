@@ -101,7 +101,7 @@ export default {
       },
       rules: {
         name: [{ required: true, message: "请输入活动名称", trigger: "blur" }],
-        price: [{ required: true, message: "请输入你的姓名", trigger: "blur" }],
+        price: [{ required: true, message: "请输入书籍价格", trigger: "blur" }],
         number: [
           { required: true, message: "请输入书籍数量", trigger: "blur" }
         ],
@@ -139,6 +139,8 @@ export default {
               type: "success"
             });
             this.$refs.form.resetFields(); //清除表单内容
+            this.form.detail = "";
+            this.form.class = "";
           } else {
             console.log("form 提交失败");
             this.$message.error("提交失败");

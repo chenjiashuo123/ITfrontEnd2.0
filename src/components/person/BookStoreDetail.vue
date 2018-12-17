@@ -2,7 +2,7 @@
   <el-container class="book-container">
     <div class="box-left">
       <div class="img-box">
-        <img :src="getpic(picture)" alt width="350px" style="margin-left:5px;">
+        <img :src="getpic(picture)" alt width="350px" style="margin-left:5px;max-height:350px;">
       </div>
     </div>
     <div class="box-middle">
@@ -36,12 +36,11 @@
       <br>
       <div class="box-btn">
         <div>
-          <el-button @click="cancel">
-            <strong>取消收藏</strong>
-          </el-button>
-          <el-button>
-            <strong @click="buy">购买</strong>
-          </el-button>
+          <el-button @click="cancel">取消收藏</el-button>
+          <el-button
+            @click="buy"
+            :disabled="state == '待售'?false:true"
+          >{{state == '待售'?'购买':'售罄'}}</el-button>
         </div>
       </div>
       <br>
@@ -82,7 +81,11 @@ export default {
     picture: defaul_book,
     bookclass: "计算机",
     author: "无",
-    detail: "无"
+    detail: "无",
+    state: "待售",
+    dlg_total: "",
+    dlg_orderid: "",
+    dialogVisible: false
   }),
   methods: {
     cancel() {
@@ -130,9 +133,11 @@ export default {
       this.price = book.price;
       this.isbn = book.isbn;
       this.picture = book.picture;
-      this.bookclass = book.bookclass;
+      this.bookclass = book.class;
       this.author = book.author;
       this.detail = book.detail;
+      this.state = book.state;
+      this.isbn = book.isbn;
     } else {
       this.$message.error("未知错误");
     }
