@@ -23,11 +23,14 @@
             <strong style="font-size:30px;">{{item.price}}</strong>
           </div>
         </div>
-        <div class="order-btn-box">
-          <el-button type="success" plain>完成订单</el-button>
+        <div class="order-btn-box" v-if="!isFinish(item)">
+          <el-button type="success" plain @click="finishOrder(item)">完成订单</el-button>
           <div style="margin-top: 30px;">
-            <el-button type="danger" plain>取消订单</el-button>
+            <el-button type="danger" plain @click="cancelOrder(item)">取消订单</el-button>
           </div>
+        </div>
+        <div class="order-btn-box-unfinish" v-if="isFinish(item)">
+          <el-button disabled>已完成</el-button>
         </div>
       </div>
     </div>
@@ -40,7 +43,7 @@ export default {
   name: "SaleBook",
   data() {
     return {
-      detailDialogVisible: false,
+      buyerornot: "False",
       orderList: []
     };
   },
@@ -49,16 +52,63 @@ export default {
       this.$router.push({
         name: "orderdetail",
         params: {
-          book: item
+          book: item,
+          buyerornot: buyerornot
         }
       });
     },
-    getpic(pic) {
-      if (pic.length > 0) {
-        return "/show/" + pic;
-      }
-      return Img;
+    isFinish(item) {
+      if (item.state === "完成" || item.state === "已取消") return true;
+      else return false;
+    },
+    finishOrder(item) {
+      this.axios
+        .post("/api/changestate", {
+          oderid: item.orderid,
+          orderstate: "已完成"
+        })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            //完成订单成功
+            this.$message.success("完成订单成功成功");
+          } else {
+            this.$message.error(
+              "完成订单成功失败，错误码：" + res.data["state"]
+            );
+          }
+        })
+        .catch(err => {
+          this.$message.error("请先连接网路");
+        });
+    },
+    cancelOrder(item) {
+      this.$message.success("取消订单接口");
     }
+  },
+  beforeCreate() {
+    //获得订单
+    this.axios
+      .post("/api/orders", {
+        buyerornot: this.buyerornot
+      })
+      .then(res => {
+        if (res.data["state"] == 0) {
+          //获得成功
+          this.orderList = res.data["orderlist"];
+          this.$message.success("获得成功成功");
+        } else {
+          this.$message.error("获得失败，错误码：" + res.data["state"]);
+        }
+      })
+      .catch(err => {
+        this.$message.error("请先连接网路");
+      });
+  },
+  getpic(pic) {
+    if (pic.length > 0) {
+      return "/show/" + pic;
+    }
+    return Img;
   }
 };
 </script>

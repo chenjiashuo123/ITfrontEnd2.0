@@ -41,10 +41,10 @@
       <div class="box-btn">
         <div class="finishOrder" v-if="isFnish">
           <el-button>
-            <strong @click="finishOrder">完成订单</strong>
+            <strong @click="finishOrder(item)">完成订单</strong>
           </el-button>
           <el-button>
-            <strong @click="cancelOrder">取消订单</strong>
+            <strong @click="cancelOrder(item)">取消订单</strong>
           </el-button>
           <el-button @click="backHome">
             <strong>返回</strong>
@@ -79,22 +79,39 @@ export default {
     }
   }),
   methods: {
-    isFnish() {
-      if (this.state === "完成") return true;
+    isFnish(item) {
+      if (item.state === "完成" || item.state === "已取消") return true;
       else return false;
     },
     backHome() {
       if (buyerornot === "True") this.$router.push("/buybook");
-      else this.$router.push("/Salebook");
+      else this.$router.push("/salebook");
     },
-    finishOrder() {
-      alert("完成订单接口");
+    finishOrder(item) {
+      this.axios
+        .post("/api/changestate", {
+          oderid: item.orderid,
+          orderstate: "已完成"
+        })
+        .then(res => {
+          if (res.data["state"] == 0) {
+            //完成订单成功
+            this.$message.success("完成订单成功成功");
+          } else {
+            this.$message.error(
+              "完成订单成功失败，错误码：" + res.data["state"]
+            );
+          }
+        })
+        .catch(err => {
+          this.$message.error("请先连接网路");
+        });
     },
     cancelOrder() {
-      alert("取消订单接口");
+      this.$message.success("取消订单接口");
     },
-    getpic(pic){
-      if (pic.length > 0){
+    getpic(pic) {
+      if (pic.length > 0) {
         return "/show/" + pic;
       }
       return defaul_book;
