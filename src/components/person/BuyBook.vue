@@ -24,9 +24,9 @@
           </div>
         </div>
         <div class="order-btn-box" v-if="!isFinish(item)">
-          <el-button type="success" plain>完成订单</el-button>
+          <el-button type="success" plain @click="finishOrder(item)">完成订单</el-button>
           <div style="margin-top: 30px;">
-            <el-button type="danger" plain>取消订单</el-button>
+            <el-button type="danger" plain @click="cancelOrder(item)">取消订单</el-button>
           </div>
         </div>
         <div class="order-btn-box-unfinish" v-if="isFinish(item)">
@@ -57,9 +57,30 @@ export default {
       });
     },
     isFinish(item) {
-      if (item.state === "完成" || (item.state === "已取消") return true;
+      if (item.state === "完成" || item.state === "已取消") return true;
       else return false;
-    }
+    },
+    finishOrder(item) {
+      this.axios
+      .post("/api/changestate", {
+        oderid: item.orderid,
+        orderstate: "已完成"
+      })
+      .then(res => {
+        if (res.data["state"] == 0) {
+          //完成订单成功
+          this.$message.success("完成订单成功成功");
+        } else {
+          this.$message.error("完成订单成功失败，错误码：" + res.data["state"]);
+        }
+      })
+      .catch(err => {
+        this.$message.error("请先连接网路");
+      });
+    },
+    cancelOrder(item) {
+      this.$message.success("取消订单接口");
+  },
   },
   beforeCreate() {
     //获得订单

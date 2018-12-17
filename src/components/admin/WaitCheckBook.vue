@@ -59,7 +59,7 @@ export default {
         })
         .then(res => {
           if (res.data["state"] == 0) {
-            //注册成功
+            //审核成功
             this.$message.success("审核成功");
           } else {
             this.$message.error("审核失败，错误码：" + res.data["state"]);
@@ -74,7 +74,7 @@ export default {
         })
         .then(res => {
           if (res.data["state"] == 0) {
-            //注册成功
+            //审核成功
             this.$message.success("审核成功");
           } else {
             this.$message.error("审核失败，错误码：" + res.data["state"]);
